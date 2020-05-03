@@ -1,3 +1,7 @@
+## 0.1.1
+
+- add option to silently update theme without notifying. Useful when chaining multiple changes.
+
 ## 0.1.0
 
 - Supports theme modes: light, dart, system default.
