@@ -1,7 +1,6 @@
 name: adaptive_theme
 description: Allows to change between light and dark theme dynamically
 version: 0.1.0
-author: Birju Vachhani
 homepage: https://github.com/birjuvachhani/adaptive_theme
 
 environment:
@@ -10,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  shared_preferences: any
+  shared_preferences: ^0.5.7
 
 dev_dependencies:
   flutter_test:
