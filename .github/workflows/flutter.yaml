@@ -1,0 +1,23 @@
+name: Build & Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '1.9.1+hotfix.6'
+      - name: Install dependencies
+        run: flutter packages get
+      - name: Check Publish Warnings
+        run: pub publish --dry-run
