@@ -52,7 +52,8 @@ class AdaptiveThemeState extends State<AdaptiveTheme> {
   ThemeData _defaultDarkTheme;
   ThemePreferences preferences;
 
-  AdaptiveThemeState._(this._defaultTheme, this._defaultDarkTheme, AdaptiveThemeMode mode) {
+  AdaptiveThemeState._(this._defaultTheme, this._defaultDarkTheme,
+      AdaptiveThemeMode mode) {
     _theme = _defaultTheme.copyWith();
     _darkTheme = _defaultDarkTheme.copyWith();
     preferences = ThemePreferences.initial(mode: mode);
@@ -105,15 +106,21 @@ class AdaptiveThemeState extends State<AdaptiveTheme> {
     preferences.save();
   }
 
-  void setTheme({@required ThemeData light, ThemeData dark, bool isDefault = false}) {
+  void setTheme({
+    @required ThemeData light,
+    ThemeData dark,
+    bool isDefault = false,
+    bool notify = true,
+  }) {
     assert(light != null);
-    setState(() {
-      _theme = light;
-      _darkTheme = dark ?? light;
-    });
+    _theme = light;
+    _darkTheme = dark ?? light;
     if (isDefault) {
       _defaultTheme = light.copyWith();
       _defaultDarkTheme = dark.copyWith();
+    }
+    if (notify) {
+      setState(() {});
     }
   }
 
