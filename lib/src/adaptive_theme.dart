@@ -1,3 +1,19 @@
+/*
+ * Copyright © 2020 Birju Vachhani
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import 'package:flutter/material.dart';
 
 import 'adaptive_theme_mode.dart';
@@ -36,8 +52,7 @@ class AdaptiveThemeState extends State<AdaptiveTheme> {
   ThemeData _defaultDarkTheme;
   ThemePreferences preferences;
 
-  AdaptiveThemeState._(
-      this._defaultTheme, this._defaultDarkTheme, AdaptiveThemeMode mode) {
+  AdaptiveThemeState._(this._defaultTheme, this._defaultDarkTheme, AdaptiveThemeMode mode) {
     _theme = _defaultTheme.copyWith();
     _darkTheme = _defaultDarkTheme.copyWith();
     preferences = ThemePreferences.initial(mode: mode);
@@ -72,8 +87,8 @@ class AdaptiveThemeState extends State<AdaptiveTheme> {
 
   bool get isDefault =>
       _theme == _defaultTheme &&
-      _darkTheme == _defaultDarkTheme &&
-      preferences.mode == preferences.defaultMode;
+          _darkTheme == _defaultDarkTheme &&
+          preferences.mode == preferences.defaultMode;
 
   Brightness get brightness => Theme.of(context).brightness;
 
@@ -90,8 +105,7 @@ class AdaptiveThemeState extends State<AdaptiveTheme> {
     preferences.save();
   }
 
-  void setTheme(
-      {@required ThemeData light, ThemeData dark, bool isDefault = false}) {
+  void setTheme({@required ThemeData light, ThemeData dark, bool isDefault = false}) {
     assert(light != null);
     setState(() {
       _theme = light;
