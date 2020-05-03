@@ -12,7 +12,7 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v1
         with:
-          channel: 'master'
+          channel: stable
       - name: Install dependencies
         run: flutter packages get
       - name: Setup Pub Credentials
