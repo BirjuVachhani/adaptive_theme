@@ -11,7 +11,7 @@ add following dependency to your `pubspec.yaml`
 
 ```yaml
 dependencies:
-  adaptive_theme: ^0.1.0
+  adaptive_theme: ^1.0.0
 ```
 
 ## Initialization
@@ -143,6 +143,37 @@ AdaptiveTheme.of(context).setTheme(
   isDefault: true,
 );
 ```
+
+## Get ThemeMode at App Start
+
+When you change your theme, next app run won't be able to pick the most recent theme directly before
+rendering with default 1 time. This is because at time of initialization, we cannot run async code
+to get previous theme mode. However it can be avoided if you make your `main()` method async and
+load previous theme mode asynchonously. Below example shows how it can be done.
+
+```dart
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final savedThemeMode = await AdaptiveTheme.getThemeMode();
+  runApp(MyApp(savedThemeMode: savedThemeMode));
+}
+```
+
+```dart
+AdaptiveTheme(
+  light: lightTheme,
+  dark: darkTheme,
+  initial: savedThemeMode ?? AdaptiveThemeMode.light,
+  builder: (theme, darkTheme) => MaterialApp(
+    title: 'Adaptive Theme Demo',
+    theme: theme,
+    darkTheme: darkTheme,
+    home: MyHomePage(),
+  ),
+)
+```
+Notice that I passed the retrieved theme mode to my material app so that I can use it while
+initializing the default theme. This helps avoiding theme change flickering on app startup.
 
 ## Ceveats
 
