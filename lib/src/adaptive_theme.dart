@@ -19,16 +19,20 @@ import 'package:flutter/material.dart';
 import 'adaptive_theme_mode.dart';
 import 'adaptive_theme_preferences.dart';
 
+/// builder function to build themed widgets
 typedef AdaptiveThemeBuilder = Widget Function(ThemeData light, ThemeData dark);
 
+/// Widget that allows to switch themes dynamically
 class AdaptiveTheme extends StatefulWidget {
   final ThemeData light;
   final ThemeData dark;
   final AdaptiveThemeMode initial;
   final AdaptiveThemeBuilder builder;
 
+  // Key used to store theme information into shared-preferences
   static const String prefKey = 'adaptive_theme_preferences';
 
+  /// primary constructor
   const AdaptiveTheme({
     Key key,
     @required this.light,
@@ -41,8 +45,14 @@ class AdaptiveTheme extends StatefulWidget {
   AdaptiveThemeState createState() =>
       AdaptiveThemeState._(light, dark ?? light, initial);
 
+  /// returns state of the [AdaptiveTheme]
   static AdaptiveThemeState of(BuildContext context) =>
       context.findAncestorStateOfType<State<AdaptiveTheme>>();
+
+  /// returns most recent theme mode
+  static Future<AdaptiveThemeMode> getThemeMode() async {
+    return (await ThemePreferences.fromPrefs())?.mode;
+  }
 }
 
 class AdaptiveThemeState extends State<AdaptiveTheme> {
@@ -52,8 +62,8 @@ class AdaptiveThemeState extends State<AdaptiveTheme> {
   ThemeData _defaultDarkTheme;
   ThemePreferences preferences;
 
-  AdaptiveThemeState._(this._defaultTheme, this._defaultDarkTheme,
-      AdaptiveThemeMode mode) {
+  AdaptiveThemeState._(
+      this._defaultTheme, this._defaultDarkTheme, AdaptiveThemeMode mode) {
     _theme = _defaultTheme.copyWith();
     _darkTheme = _defaultDarkTheme.copyWith();
     preferences = ThemePreferences.initial(mode: mode);
@@ -80,25 +90,35 @@ class AdaptiveThemeState extends State<AdaptiveTheme> {
     super.didChangeDependencies();
   }
 
+  /// provides current the light theme
   ThemeData get theme => preferences.mode.isDark ? _darkTheme : _theme;
 
+  /// provides the dart theme
   ThemeData get darkTheme => preferences.mode.isLight ? _theme : _darkTheme;
 
+  /// returns current theme mode
   AdaptiveThemeMode get mode => preferences.mode;
 
+  /// checks whether current theme is default theme or not. Default theme refers
+  /// the themes provided while initialization
   bool get isDefault =>
       _theme == _defaultTheme &&
-          _darkTheme == _defaultDarkTheme &&
-          preferences.mode == preferences.defaultMode;
+      _darkTheme == _defaultDarkTheme &&
+      preferences.mode == preferences.defaultMode;
 
+  /// provides brightness of the current theme
   Brightness get brightness => Theme.of(context).brightness;
 
+  /// sets light theme as current
   void setLight() => setThemeMode(AdaptiveThemeMode.light);
 
+  /// sets dark theme as current
   void setDark() => setThemeMode(AdaptiveThemeMode.dark);
 
+  /// sets theme based on the theme of the device
   void setSystem() => setThemeMode(AdaptiveThemeMode.system);
 
+  /// allows to set/change theme mode
   void setThemeMode(AdaptiveThemeMode mode) {
     setState(() {
       preferences.mode = mode;
@@ -106,6 +126,7 @@ class AdaptiveThemeState extends State<AdaptiveTheme> {
     preferences.save();
   }
 
+  /// allows to set/change the entire theme.
   void setTheme({
     @required ThemeData light,
     ThemeData dark,
@@ -124,12 +145,15 @@ class AdaptiveThemeState extends State<AdaptiveTheme> {
     }
   }
 
+  /// Allows to toggle between theme modes
   void toggleThemeMode() {
     mode.isLight ? setDark() : setLight();
   }
 
+  /// saves the configuration to the shared-preferences
   Future<bool> persist() async => preferences.save();
 
+  /// resets configuration to default
   Future<bool> reset() async {
     preferences.reset();
     _theme = _defaultTheme.copyWith();
