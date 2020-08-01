@@ -24,6 +24,8 @@ jobs:
           PUB_DEV_PUBLISH_EXPIRATION: ${{ secrets.PUB_DEV_PUBLISH_EXPIRATION }}
         run: |
           sh ./pub_login.sh
+      - name: Format code
+        run: dartfmt -w .
       - name: Check Publish Warnings
         run: pub publish --dry-run
       - name: Publish Package
