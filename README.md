@@ -1,3 +1,5 @@
+![adaptive_theme](adaptive_theme.png)
+
 # Adaptive Theme
 
 Easiest way to add support for light and dark theme in your flutter app.
