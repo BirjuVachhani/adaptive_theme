@@ -1,3 +1,7 @@
+## 1.0.0
+
+- add option to get previous theme mode on app startup
+
 ## 0.1.1
 
 - add option to silently update theme without notifying. Useful when chaining multiple changes.
