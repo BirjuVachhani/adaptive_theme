@@ -8,7 +8,7 @@ Here are the guidelines we'd like you to follow:
  - [Found an Issue?](#issue)
 
 ## <a name="coc"></a> Code of Conduct
-[Code of Conduct](https://github.com/BirjuVachhani/adaptive_theme/blob/master/CODE_OF_CONDUCT.md)
+[Code of Conduct](https://github.com/BirjuVachhani/adaptive_theme/blob/main/CODE_OF_CONDUCT.md)
 
 ## <a name="commit"></a> Git Commit Messages
 
@@ -50,16 +50,16 @@ Where did you expect to find this information?
 If you find a bug in the source code or a mistake in the documentation, you can help us by
 submitting an issue to our project.
 
-To submit an issue, please check the [Issue Template](https://github.com/BirjuVachhani/adaptive_theme/blob/master/ISSUE_TEMPLATE.md).
+To submit an issue, please check the [Issue Template](https://github.com/BirjuVachhani/adaptive_theme/blob/main/ISSUE_TEMPLATE.md).
 
 Even better you can submit a Pull Request with a fix.
 
 ### Pull Request
-To generate a pull request, please consider following [Pull Request Template](https://github.com/BirjuVachhani/adaptive_theme/blob/master/PULL_REQUEST_TEMPLATE.md).
+To generate a pull request, please consider following [Pull Request Template](https://github.com/BirjuVachhani/adaptive_theme/blob/main/PULL_REQUEST_TEMPLATE.md).
 
 * Search [GitHub](https://github.com/BirjuVachhani/adaptive_theme/pulls) for an open or closed Pull Request
   that relates to your submission. You don't want to duplicate effort.
-* Please have a look at [License](https://github.com/BirjuVachhani/adaptive_theme/blob/master/LICENSE) before sending pull
+* Please have a look at [License](https://github.com/BirjuVachhani/adaptive_theme/blob/main/LICENSE) before sending pull
   requests. We cannot accept code without this.
 
 That's it! Thank you for your contribution!
