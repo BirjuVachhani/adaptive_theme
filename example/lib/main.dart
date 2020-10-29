@@ -45,45 +45,49 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Adaptive Theme Demo'),
-      ),
-      body: SizedBox.expand(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            RaisedButton(
-              onPressed: () {
-                AdaptiveTheme.of(context).toggleThemeMode();
-              },
-              child: Text('Toggle Theme Mode'),
-            ),
-            RaisedButton(
-              onPressed: () {
-                AdaptiveTheme.of(context).setDark();
-              },
-              child: Text('Set Dark'),
-            ),
-            RaisedButton(
-              onPressed: () {
-                AdaptiveTheme.of(context).setLight();
-              },
-              child: Text('set Light'),
-            ),
-            RaisedButton(
-              onPressed: () {
-                AdaptiveTheme.of(context).setSystem();
-              },
-              child: Text('Set System Default'),
-            ),
-          ],
+    return AnimatedTheme(
+      duration: Duration(milliseconds: 300),
+      data: Theme.of(context),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Adaptive Theme Demo'),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
+        body: SizedBox.expand(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RaisedButton(
+                onPressed: () {
+                  AdaptiveTheme.of(context).toggleThemeMode();
+                },
+                child: Text('Toggle Theme Mode'),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  AdaptiveTheme.of(context).setDark();
+                },
+                child: Text('Set Dark'),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  AdaptiveTheme.of(context).setLight();
+                },
+                child: Text('set Light'),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  AdaptiveTheme.of(context).setSystem();
+                },
+                child: Text('Set System Default'),
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }

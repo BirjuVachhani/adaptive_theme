@@ -14,32 +14,23 @@
  * limitations under the License.
  */
 
-import 'dart:convert';
-
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'adaptive_theme.dart';
-import 'adaptive_theme_mode.dart';
+part of adaptive_theme;
 
 class ThemePreferences {
   AdaptiveThemeMode mode;
   AdaptiveThemeMode defaultMode;
 
-  ThemePreferences({
-    this.mode = AdaptiveThemeMode.light,
-  });
-
-  ThemePreferences.initial({
+  ThemePreferences._initial({
     this.mode = AdaptiveThemeMode.light,
   }) {
     defaultMode = mode;
   }
 
-  void reset() {
+  void _reset() {
     mode = defaultMode;
   }
 
-  ThemePreferences.fromJson(Map<String, dynamic> json) {
+  ThemePreferences._fromJson(Map<String, dynamic> json) {
     if (json['theme_mode'] != null) {
       mode = AdaptiveThemeMode.values[json['theme_mode']];
     }
@@ -50,7 +41,7 @@ class ThemePreferences {
     }
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> _toJson() {
     final data = <String, dynamic>{};
     data['theme_mode'] = mode.index;
     data['default_theme_mode'] = defaultMode.index;
@@ -58,18 +49,18 @@ class ThemePreferences {
   }
 
   /// saves the current theme preferences to the shared-preferences
-  Future<bool> save() async {
+  Future<bool> _save() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.setString(AdaptiveTheme.prefKey, json.encode(toJson()));
+    return prefs.setString(AdaptiveTheme.prefKey, json.encode(_toJson()));
   }
 
   /// retrieves preferences from the shared-preferences
-  static Future<ThemePreferences> fromPrefs() async {
+  static Future<ThemePreferences> _fromPrefs() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final themeDataString = prefs.getString(AdaptiveTheme.prefKey);
       if (themeDataString?.isEmpty ?? true) return null;
-      return ThemePreferences.fromJson(json.decode(themeDataString));
+      return ThemePreferences._fromJson(json.decode(themeDataString));
     } on Exception catch (error, stacktrace) {
       print(error);
       print(stacktrace);

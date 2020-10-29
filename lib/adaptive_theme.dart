@@ -16,5 +16,15 @@
 
 library adaptive_theme;
 
-export 'package:adaptive_theme/src/adaptive_theme.dart';
-export 'package:adaptive_theme/src/adaptive_theme_mode.dart';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+part 'src/adaptive_theme.dart';
+
+part 'src/adaptive_theme_manager.dart';
+
+part 'src/adaptive_theme_mode.dart';
+
+part 'src/adaptive_theme_preferences.dart';

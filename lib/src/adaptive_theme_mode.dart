@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+part of adaptive_theme;
+
 enum AdaptiveThemeMode { light, dark, system }
 
 extension AdaptiveThemeModeExtensions on AdaptiveThemeMode {
