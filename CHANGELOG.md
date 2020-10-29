@@ -1,3 +1,9 @@
+## 1.1.0
+
+- Removed hard coded `shared_preferences` version.
+- Hide public constructors for `ThemePreferences`.
+- `AdaptiveTheme.of()` now returns instance of `AdaptiveThemeManager` instead of `AdaptiveThemeState` to set restrictions for accessing state directly.
+
 ## 1.0.0
 
 - add option to get previous theme mode on app startup
