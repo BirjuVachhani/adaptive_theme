@@ -1,3 +1,7 @@
+## 2.0.0-nullsafety.1
+
+- migrate to null safety
+
 ## 1.1.0
 
 - Removed hard coded `shared_preferences` version.

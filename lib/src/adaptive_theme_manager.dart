@@ -47,8 +47,8 @@ abstract class AdaptiveThemeManager {
 
   /// allows to set/change the entire theme.
   void setTheme({
-    @required ThemeData light,
-    ThemeData dark,
+    required ThemeData light,
+    ThemeData? dark,
     bool isDefault = false,
     bool notify = true,
   });

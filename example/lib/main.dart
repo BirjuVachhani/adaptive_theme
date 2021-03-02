@@ -9,9 +9,9 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final AdaptiveThemeMode savedThemeMode;
+  final AdaptiveThemeMode? savedThemeMode;
 
-  const MyApp({Key key, this.savedThemeMode}) : super(key: key);
+  const MyApp({Key? key, this.savedThemeMode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,25 +57,25 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   AdaptiveTheme.of(context).toggleThemeMode();
                 },
                 child: Text('Toggle Theme Mode'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   AdaptiveTheme.of(context).setDark();
                 },
                 child: Text('Set Dark'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   AdaptiveTheme.of(context).setLight();
                 },
                 child: Text('set Light'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   AdaptiveTheme.of(context).setSystem();
                 },
