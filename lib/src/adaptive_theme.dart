@@ -31,35 +31,41 @@ class AdaptiveTheme extends StatefulWidget {
 
   /// primary constructor
   const AdaptiveTheme({
-    Key key,
-    @required this.light,
-    this.dark,
-    @required this.initial,
-    @required this.builder,
-  }) : super(key: key);
+    Key? key,
+    required this.light,
+    ThemeData? dark,
+    required this.initial,
+    required this.builder,
+  })   : this.dark = dark ?? light,
+        super(key: key);
 
   @override
   _AdaptiveThemeState createState() =>
-      _AdaptiveThemeState._(light, dark ?? light, initial);
+      _AdaptiveThemeState._(light, dark, initial);
 
   /// returns state of the [AdaptiveTheme]
   static AdaptiveThemeManager of(BuildContext context) =>
-      context.findAncestorStateOfType<State<AdaptiveTheme>>()
+      context.findAncestorStateOfType<State<AdaptiveTheme>>()!
           as AdaptiveThemeManager;
 
+  /// returns state of the [AdaptiveTheme] or returns null if not found
+  static AdaptiveThemeManager? maybeOf(BuildContext context) =>
+      context.findAncestorStateOfType<State<AdaptiveTheme>>()
+          as AdaptiveThemeManager?;
+
   /// returns most recent theme mode
-  static Future<AdaptiveThemeMode> getThemeMode() async {
+  static Future<AdaptiveThemeMode?> getThemeMode() async {
     return (await ThemePreferences._fromPrefs())?.mode;
   }
 }
 
 class _AdaptiveThemeState extends State<AdaptiveTheme>
     implements AdaptiveThemeManager {
-  ThemeData _theme;
-  ThemeData _darkTheme;
-  ThemeData _defaultTheme;
-  ThemeData _defaultDarkTheme;
-  ThemePreferences preferences;
+  late ThemeData _theme;
+  late ThemeData _darkTheme;
+  late ThemeData _defaultTheme;
+  late ThemeData _defaultDarkTheme;
+  late ThemePreferences preferences;
 
   _AdaptiveThemeState._(
       this._defaultTheme, this._defaultDarkTheme, AdaptiveThemeMode mode) {
@@ -115,17 +121,18 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
 
   @override
   void setTheme({
-    @required ThemeData light,
-    ThemeData dark,
+    required ThemeData light,
+    ThemeData? dark,
     bool isDefault = false,
     bool notify = true,
   }) {
-    assert(light != null);
     _theme = light;
-    _darkTheme = dark ?? light;
+    if (dark != null) {
+      _darkTheme = dark;
+    }
     if (isDefault) {
       _defaultTheme = light.copyWith();
-      _defaultDarkTheme = dark.copyWith();
+      _defaultDarkTheme = _darkTheme.copyWith();
     }
     if (notify) {
       setState(() {});

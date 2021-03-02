@@ -17,12 +17,10 @@
 part of adaptive_theme;
 
 class ThemePreferences {
-  AdaptiveThemeMode mode;
-  AdaptiveThemeMode defaultMode;
+  late AdaptiveThemeMode mode;
+  late AdaptiveThemeMode defaultMode;
 
-  ThemePreferences._initial({
-    this.mode = AdaptiveThemeMode.light,
-  }) {
+  ThemePreferences._initial({this.mode = AdaptiveThemeMode.light}) {
     defaultMode = mode;
   }
 
@@ -55,11 +53,11 @@ class ThemePreferences {
   }
 
   /// retrieves preferences from the shared-preferences
-  static Future<ThemePreferences> _fromPrefs() async {
+  static Future<ThemePreferences?> _fromPrefs() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final themeDataString = prefs.getString(AdaptiveTheme.prefKey);
-      if (themeDataString?.isEmpty ?? true) return null;
+      if (themeDataString == null || themeDataString.isEmpty) return null;
       return ThemePreferences._fromJson(json.decode(themeDataString));
     } on Exception catch (error, stacktrace) {
       print(error);
