@@ -15,7 +15,7 @@ add following dependency to your `pubspec.yaml`
 
 ```yaml
 dependencies:
-  adaptive_theme: ^1.1.0
+  adaptive_theme: <latest_version>
 ```
 
 
@@ -80,7 +80,7 @@ AdaptiveTheme.of(context).setSystem();
 
 ## Toggle Theme Mode
 
-`AdaptiveTheme` allows you to toggle between light and dark theme the easiest way possible.
+`AdaptiveTheme` allows you to toggle between light, dark and system theme the easiest way possible.
 
 ```dart
 AdaptiveTheme.of(context).toggleThemeMode();
@@ -151,7 +151,7 @@ AdaptiveTheme.of(context).setTheme(
 
 ## Get ThemeMode at App Start
 
-When you change your theme, next app run won't be able to pick the most recent theme directly before rendering with default theme first time. This is because at time of initialization, we cannot run async code to get previous theme mode. However it can be avoided if you make your `main()` method async and load previous theme mode asynchonously. Below example shows how it can be done.
+When you change your theme, next app run won't be able to pick the most recent theme directly before rendering with default theme first time. This is because at time of initialization, we cannot run async code to get previous theme mode. However it can be avoided if you make your `main()` method async and load previous theme mode asynchronously. Below example shows how it can be done.
 
 ```dart
 void main() async {
@@ -188,9 +188,10 @@ Notice that I passed the retrieved theme mode to my material app so that I can u
 
 #### Using SharedPreferences
 
-> This package uses `sharedpreferences` plugin internally to persist theme mode changes. If your app uses `sharedpreferences` which might be the case all the time, clearing your `sharedpreferences` at the time of logging out or signing out might clear these preferences too. Be careful not to clear these preferences if you want it to be persisted.
+> This package uses [shared_preferences](https://pub.dev/packages/shared_preferences) plugin internally to persist theme mode changes. If your app uses [shared_preferences](https://pub.dev/packages/shared_preferences) which might be the case all the time, clearing your [shared_preferences](https://pub.dev/packages/shared_preferences) at the time of logging out or signing out might clear these preferences too. Be careful not to clear these preferences if you want it to be persisted.
 
 ```dart
+/// Do not remove this key from preferences
 AdaptiveTheme.prefKey
 ```
 
