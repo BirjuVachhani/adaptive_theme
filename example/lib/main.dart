@@ -57,6 +57,23 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Spacer(),
+              Text(
+                'Current Theme Mode',
+                style: TextStyle(
+                  fontSize: 20,
+                  letterSpacing: 0.8,
+                ),
+              ),
+              Text(
+                AdaptiveTheme.of(context).mode.name.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 24,
+                  height: 2.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Spacer(),
               ElevatedButton(
                 onPressed: () {
                   AdaptiveTheme.of(context).toggleThemeMode();
@@ -81,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: Text('Set System Default'),
               ),
+              Spacer(flex: 2),
             ],
           ),
         ),
