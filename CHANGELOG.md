@@ -1,3 +1,9 @@
+## 2.0.0
+
+- Improved documentation
+- Stable null safety support
+- Calling `AdaptiveTheme.of(context).toggleThemeMode()` now will sequentially loop through `AdaptiveThemeMode.light`, `AdaptiveThemeMode.dark` and `AdaptiveThemeMode.system` instead of just `AdaptiveThemeMode.light` and `AdaptiveThemeMode.dark`.
+
 ## 2.0.0-nullsafety.1
 
 - migrate to null safety
