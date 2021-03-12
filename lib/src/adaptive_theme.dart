@@ -16,20 +16,44 @@
 
 part of adaptive_theme;
 
-/// builder function to build themed widgets
+/// Builder function to build themed widgets
 typedef AdaptiveThemeBuilder = Widget Function(ThemeData light, ThemeData dark);
 
-/// Widget that allows to switch themes dynamically
+/// Widget that allows to switch themes dynamically. This is intended to be
+/// used above [MaterialApp].
+/// Example:
+///
+/// AdaptiveTheme(
+///   light: lightTheme,
+///   dark: darkTheme,
+///   initial: AdaptiveThemeMode.light,
+///   builder: (theme, darkTheme) => MaterialApp(
+///     theme: theme,
+///     darkTheme: darkTheme,
+///     home: MyHomePage(),
+///   ),
+/// );
 class AdaptiveTheme extends StatefulWidget {
+  /// Represents the light theme for the app.
   final ThemeData light;
+
+  /// Represents the dark theme for the app.
   final ThemeData dark;
+
+  /// Indicates which [AdaptiveThemeMode] to use initially.
   final AdaptiveThemeMode initial;
+
+  /// Provides a builder with access of light and dark theme. Intended to
+  /// be used to return [MaterialApp].
   final AdaptiveThemeBuilder builder;
 
-  // Key used to store theme information into shared-preferences
+  /// Key used to store theme information into shared-preferences. If you want
+  /// to persist theme mode changes even after shared-preferences
+  /// is cleared (e.g. after log out), do not remove this [prefKey] key from
+  /// shared-preferences.
   static const String prefKey = 'adaptive_theme_preferences';
 
-  /// primary constructor
+  /// Primary constructor which allows to configure themes initially.
   const AdaptiveTheme({
     Key? key,
     required this.light,
@@ -43,19 +67,25 @@ class AdaptiveTheme extends StatefulWidget {
   _AdaptiveThemeState createState() =>
       _AdaptiveThemeState._(light, dark, initial);
 
-  /// returns state of the [AdaptiveTheme]
+  /// Returns reference of the [AdaptiveThemeManager] which allows access of
+  /// the state object of [AdaptiveTheme] in a restrictive way.
   static AdaptiveThemeManager of(BuildContext context) =>
       context.findAncestorStateOfType<State<AdaptiveTheme>>()!
           as AdaptiveThemeManager;
 
-  /// returns state of the [AdaptiveTheme] or returns null if not found
-  static AdaptiveThemeManager? maybeOf(BuildContext context) =>
-      context.findAncestorStateOfType<State<AdaptiveTheme>>()
-          as AdaptiveThemeManager?;
+  /// Returns reference of the [AdaptiveThemeManager] which allows access of
+  /// the state object of [AdaptiveTheme] in a restrictive way.
+  /// This returns null if the state instance of [AdaptiveTheme] is not found.
+  static AdaptiveThemeManager? maybeOf(BuildContext context) {
+    final state = context.findAncestorStateOfType<State<AdaptiveTheme>>();
+    if (state == null) return null;
+    return state as AdaptiveThemeManager;
+  }
 
-  /// returns most recent theme mode
+  /// returns most recent theme mode. This can be used to eagerly get previous
+  /// theme mode inside main method before calling [runApp].
   static Future<AdaptiveThemeMode?> getThemeMode() async {
-    return (await ThemePreferences._fromPrefs())?.mode;
+    return (await _ThemePreferences._fromPrefs())?.mode;
   }
 }
 
@@ -65,18 +95,18 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   late ThemeData _darkTheme;
   late ThemeData _defaultTheme;
   late ThemeData _defaultDarkTheme;
-  late ThemePreferences preferences;
+  late _ThemePreferences _preferences;
 
   _AdaptiveThemeState._(
       this._defaultTheme, this._defaultDarkTheme, AdaptiveThemeMode mode) {
     _theme = _defaultTheme.copyWith();
     _darkTheme = _defaultDarkTheme.copyWith();
-    preferences = ThemePreferences._initial(mode: mode);
-    ThemePreferences._fromPrefs().then((pref) {
+    _preferences = _ThemePreferences._initial(mode: mode);
+    _ThemePreferences._fromPrefs().then((pref) {
       if (pref == null) {
-        preferences._save();
+        _preferences._save();
       } else {
-        preferences = pref;
+        _preferences = pref;
         if (mounted) {
           setState(() {});
         }
@@ -85,19 +115,19 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   }
 
   @override
-  ThemeData get theme => preferences.mode.isDark ? _darkTheme : _theme;
+  ThemeData get theme => _preferences.mode.isDark ? _darkTheme : _theme;
 
   @override
-  ThemeData get darkTheme => preferences.mode.isLight ? _theme : _darkTheme;
+  ThemeData get darkTheme => _preferences.mode.isLight ? _theme : _darkTheme;
 
   @override
-  AdaptiveThemeMode get mode => preferences.mode;
+  AdaptiveThemeMode get mode => _preferences.mode;
 
   @override
   bool get isDefault =>
       _theme == _defaultTheme &&
       _darkTheme == _defaultDarkTheme &&
-      preferences.mode == preferences.defaultMode;
+      _preferences.mode == _preferences.defaultMode;
 
   @override
   Brightness get brightness => Theme.of(context).brightness;
@@ -113,10 +143,11 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
 
   @override
   void setThemeMode(AdaptiveThemeMode mode) {
-    setState(() {
-      preferences.mode = mode;
-    });
-    preferences._save();
+    _preferences.mode = mode;
+    if (mounted) {
+      setState(() {});
+    }
+    _preferences._save();
   }
 
   @override
@@ -134,28 +165,30 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
       _defaultTheme = light.copyWith();
       _defaultDarkTheme = _darkTheme.copyWith();
     }
-    if (notify) {
+    if (notify && mounted) {
       setState(() {});
     }
   }
 
   @override
   void toggleThemeMode() {
-    mode.isLight ? setDark() : setLight();
+    final nextModeIndex = (mode.index + 1) % AdaptiveThemeMode.values.length;
+    final nextMode = AdaptiveThemeMode.values[nextModeIndex];
+    setThemeMode(nextMode);
   }
 
   @override
-  Future<bool> persist() async => preferences._save();
+  Future<bool> persist() async => _preferences._save();
 
   @override
   Future<bool> reset() async {
-    preferences._reset();
+    _preferences._reset();
     _theme = _defaultTheme.copyWith();
     _darkTheme = _defaultDarkTheme.copyWith();
     if (mounted) {
       setState(() {});
     }
-    return preferences._save();
+    return _preferences._save();
   }
 
   @override
