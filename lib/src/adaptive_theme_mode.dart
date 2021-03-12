@@ -16,8 +16,10 @@
 
 part of adaptive_theme;
 
+/// Represents the mode of the theme.
 enum AdaptiveThemeMode { light, dark, system }
 
+/// Provides accessibility methods for theme modes.
 extension AdaptiveThemeModeExtensions on AdaptiveThemeMode {
   bool get isLight => this == AdaptiveThemeMode.light;
 
@@ -25,6 +27,7 @@ extension AdaptiveThemeModeExtensions on AdaptiveThemeMode {
 
   bool get isSystem => this == AdaptiveThemeMode.system;
 
+  /// String representation of [AdaptiveThemeMode]
   String get name {
     switch (this) {
       case AdaptiveThemeMode.light:

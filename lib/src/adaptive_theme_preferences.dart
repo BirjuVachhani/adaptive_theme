@@ -16,11 +16,12 @@
 
 part of adaptive_theme;
 
-class ThemePreferences {
+/// Utility for storing theme info in SharedPreferences
+class _ThemePreferences {
   late AdaptiveThemeMode mode;
   late AdaptiveThemeMode defaultMode;
 
-  ThemePreferences._initial({this.mode = AdaptiveThemeMode.light}) {
+  _ThemePreferences._initial({this.mode = AdaptiveThemeMode.light}) {
     defaultMode = mode;
   }
 
@@ -28,7 +29,7 @@ class ThemePreferences {
     mode = defaultMode;
   }
 
-  ThemePreferences._fromJson(Map<String, dynamic> json) {
+  _ThemePreferences._fromJson(Map<String, dynamic> json) {
     if (json['theme_mode'] != null) {
       mode = AdaptiveThemeMode.values[json['theme_mode']];
     }
@@ -53,12 +54,12 @@ class ThemePreferences {
   }
 
   /// retrieves preferences from the shared-preferences
-  static Future<ThemePreferences?> _fromPrefs() async {
+  static Future<_ThemePreferences?> _fromPrefs() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final themeDataString = prefs.getString(AdaptiveTheme.prefKey);
       if (themeDataString == null || themeDataString.isEmpty) return null;
-      return ThemePreferences._fromJson(json.decode(themeDataString));
+      return _ThemePreferences._fromJson(json.decode(themeDataString));
     } on Exception catch (error, stacktrace) {
       print(error);
       print(stacktrace);
