@@ -20,10 +20,13 @@ part of adaptive_theme;
 /// from [AdaptiveTheme].
 /// An instance of this can be retrieved by calling [AdaptiveTheme.of].
 abstract class AdaptiveThemeManager {
-  /// provides current the light theme
+  /// provides current theme
   ThemeData get theme;
 
-  /// provides the dart theme
+  /// provides the light theme
+  ThemeData get lightTheme;
+
+  /// provides the dark theme
   ThemeData get darkTheme;
 
   /// Returns current theme mode

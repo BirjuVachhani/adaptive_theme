@@ -118,7 +118,10 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   ThemeData get theme => _preferences.mode.isDark ? _darkTheme : _theme;
 
   @override
-  ThemeData get darkTheme => _preferences.mode.isLight ? _theme : _darkTheme;
+  ThemeData get lightTheme => _theme;
+
+  @override
+  ThemeData get darkTheme => _darkTheme;
 
   @override
   AdaptiveThemeMode get mode => _preferences.mode;
