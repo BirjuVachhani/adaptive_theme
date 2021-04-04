@@ -7,25 +7,25 @@
 
 <!--
 
-We must be able to understand the design of your change from this description. If we can't get a good idea of what the code will be doing from the description here, the pull request may be closed at the maintainers' discretion. Keep in mind that the maintainer reviewing this PR may not be familiar with or have worked with the code here recently, so please walk us through the concepts.
+adding an additional getter lightTheme and changing the getter darkTheme to always returning the dark theme instead of returning the current theme.
 
 -->
 
 ### Alternate Designs
 
-<!-- Explain what other alternates were considered and why the proposed version was selected -->
+<!-- instead of the additional getter, the getter theme could alway return the lightTheme -->
 
 ### Why Should This Be In Core?
 
-<!-- Explain why this functionality should be in atom/atom as opposed to a package -->
+<!-- mode independend getter for the modes are necesseray, if you need it for example in a theme settings screen -->
 
 ### Benefits
 
-<!-- What benefits will be realized by the code change? -->
+<!-- usability improved in case of theme setting screens -->
 
 ### Possible Drawbacks
 
-<!-- What are the possible side-effects or negative impacts of the code change? -->
+<!-- not known -->
 
 ### Verification Process
 
@@ -33,14 +33,12 @@ We must be able to understand the design of your change from this description. I
 
 What process did you follow to verify that your change has the desired effects?
 
-- How did you verify that all new functionality works as expected?
-- How did you verify that all changed functionality works as expected?
-- How did you verify that the change has not introduced any regressions?
+- manual test with example
 
-Describe the actions you performed (e.g., buttons you clicked, text you typed, commands you ran, etc.), and describe the results you observed.
+manually compared the themes from getter lightTheme and darkTheme
 
 -->
 
 ### Applicable Issues
 
-<!-- Enter any applicable Issues here -->
+<!-- not known -->
