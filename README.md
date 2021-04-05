@@ -178,6 +178,29 @@ Notice that I passed the retrieved theme mode to my material app so that I can u
 
 
 
+## Listen to the theme mode changes
+
+You can listen to the changes in the theme mode via a `ValueNotifier`. This can be useful when designing theme settings screen or developing ui to show theme status.
+
+```dart
+AdaptiveTheme.of(context).modeChangeNotifier.addListener(() {
+  // do your thing.
+});
+```
+
+Or you can utilize it to react on UI with
+
+```dart
+ValueListenableBuilder(
+  valueListenable: AdaptiveTheme.of(context).modeChangeNotifier,
+  builder: (_, mode, child) {
+    // update your UI
+    return Container();
+  },
+);
+```
+
+
 ## Ceveats
 
 #### Non-Persist theme changes

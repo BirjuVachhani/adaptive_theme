@@ -1,3 +1,8 @@
+## 2.1.0
+
+- Fixed [#16](https://github.com/BirjuVachhani/adaptive_theme/issues/16) - get theme and get darkTheme returns the same theme depended on mode
+- Added [#15](https://github.com/BirjuVachhani/adaptive_theme/issues/15) - Notify listener when changing theme mode
+
 ## 2.0.0
 
 - Improved documentation
