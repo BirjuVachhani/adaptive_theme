@@ -96,10 +96,12 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   late ThemeData _defaultTheme;
   late ThemeData _defaultDarkTheme;
   late _ThemePreferences _preferences;
+  late ValueNotifier<AdaptiveThemeMode> _modeChangeNotifier;
 
   _AdaptiveThemeState._(
       this._defaultTheme, this._defaultDarkTheme, AdaptiveThemeMode mode) {
     _theme = _defaultTheme.copyWith();
+    _modeChangeNotifier = ValueNotifier(mode);
     _darkTheme = _defaultDarkTheme.copyWith();
     _preferences = _ThemePreferences._initial(mode: mode);
     _ThemePreferences._fromPrefs().then((pref) {
@@ -113,6 +115,9 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
       }
     });
   }
+
+  @override
+  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier => _modeChangeNotifier;
 
   @override
   ThemeData get theme => _preferences.mode.isDark ? _darkTheme : _theme;
@@ -147,6 +152,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
     if (mounted) {
       setState(() {});
     }
+    _modeChangeNotifier.value = mode;
     _preferences._save();
   }
 
@@ -188,9 +194,16 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
     if (mounted) {
       setState(() {});
     }
+    modeChangeNotifier.value = mode;
     return _preferences._save();
   }
 
   @override
   Widget build(BuildContext context) => widget.builder(theme, darkTheme);
+
+  @override
+  void dispose() {
+    _modeChangeNotifier.dispose();
+    super.dispose();
+  }
 }

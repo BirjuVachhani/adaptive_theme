@@ -29,6 +29,9 @@ abstract class AdaptiveThemeManager {
   /// Returns current theme mode
   AdaptiveThemeMode get mode;
 
+  /// Allows to listen to changes in them mode.
+  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier;
+
   /// checks whether current theme is default theme or not. Default theme
   /// refers to he themes provided at the time of initialization
   /// of [MaterialApp].
