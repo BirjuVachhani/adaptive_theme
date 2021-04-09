@@ -1,3 +1,7 @@
+# 2.1.1
+
+- Fixed [#18](https://github.com/BirjuVachhani/adaptive_theme/issues/18) - Dark theme not working properly on all platforms.
+
 ## 2.1.0
 
 - Fixed [#16](https://github.com/BirjuVachhani/adaptive_theme/issues/16) - get theme and get darkTheme returns the same theme depended on mode
