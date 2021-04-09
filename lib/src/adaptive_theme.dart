@@ -117,7 +117,8 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   }
 
   @override
-  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier => _modeChangeNotifier;
+  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier =>
+      _modeChangeNotifier;
 
   @override
   ThemeData get theme => _preferences.mode.isDark ? _darkTheme : _theme;
@@ -202,7 +203,8 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   }
 
   @override
-  Widget build(BuildContext context) => widget.builder(theme, darkTheme);
+  Widget build(BuildContext context) =>
+      widget.builder(theme, _preferences.mode.isLight ? _theme : _darkTheme);
 
   @override
   void dispose() {
