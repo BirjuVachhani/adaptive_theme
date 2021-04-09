@@ -75,27 +75,22 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Spacer(),
               ElevatedButton(
-                onPressed: () {
-                  AdaptiveTheme.of(context).toggleThemeMode();
-                },
+                onPressed: () => AdaptiveTheme.of(context).toggleThemeMode(),
                 child: Text('Toggle Theme Mode'),
               ),
+              SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {
-                  AdaptiveTheme.of(context).setDark();
-                },
+                onPressed: () => AdaptiveTheme.of(context).setDark(),
                 child: Text('Set Dark'),
               ),
+              SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {
-                  AdaptiveTheme.of(context).setLight();
-                },
+                onPressed: () => AdaptiveTheme.of(context).setLight(),
                 child: Text('set Light'),
               ),
+              SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {
-                  AdaptiveTheme.of(context).setSystem();
-                },
+                onPressed: () => AdaptiveTheme.of(context).setSystem(),
                 child: Text('Set System Default'),
               ),
               Spacer(flex: 2),
