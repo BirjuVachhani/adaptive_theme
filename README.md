@@ -21,10 +21,11 @@ themes based on the system. It also persists the theme modes changes across app 
 - [Handling App Start](#Get-ThemeMode-at-App-Start)
 - [Handling Theme Changes](#Listen-to-the-theme-mode-changes)
 - [Ceveats](#Ceveats)
-  - [Non-Persist theme changes](#Non-Persist-theme-changes)
-  - [Using SharedPreferences](#Using-SharedPreferences)
+  - *[Non-Persist theme changes](#Non-Persist-theme-changes)*
+  - *[Using SharedPreferences](#Using-SharedPreferences)*
 - [Using-CupertinoTheme](#Using-CupertinoTheme)
-  - [Changing Cupertino Theme](#Changing-Cupertino-Theme)
+  - *[Changing Cupertino Theme](#Changing-Cupertino-Theme)*
+- [Contribution](#Contribution)
 - [License](#License)
 
 
@@ -294,6 +295,20 @@ CupertinoAdaptiveTheme.of(context).setLight();
 // sets system default theme
 CupertinoAdaptiveTheme.of(context).setSystem();
 ```
+
+## Contribution
+
+You are most welcome to contribute to this project!
+
+Please have a look at [Contributing Guidelines](https://github.com/BirjuVachhani/adaptive_theme/blob/main/CONTRIBUTING.md), before contributing and proposing a change.
+
+#### Liked Adaptive Theme?
+
+Show some love and support by starring the repository.
+
+Or You can
+
+<a href="https://www.buymeacoffee.com/birjuvachhani" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 
 ## License
 
