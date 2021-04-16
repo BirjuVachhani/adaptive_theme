@@ -9,7 +9,26 @@ themes based on the system. It also persists the theme modes changes across app 
 
 
 
-## Installing
+## Index
+
+- **[Getting Started](#Getting-Started)**
+- **[Initialization](#Initialization)**
+- **[Changing Theme Mode](#Changing-Theme-Mode)**
+- **[Toggle Theme Mode](#Toggle-Theme-Mode)**
+- **[Changing Themes](#Changing-Themes)**
+- **[Reset Theme](#Reset-Theme)**
+- **[Set Default Theme](#Set-Default-Theme)**
+- **[Handling App Start](#Get-ThemeMode-at-App-Start)**
+- **[Handling Theme Changes](#Listen-to-the-theme-mode-changes)**
+- **[Ceveats](#Ceveats)**
+  - [Non-Persist theme changes](#Non-Persist-theme-changes)
+  - [Using SharedPreferences](#Using-SharedPreferences)
+- **[Using-CupertinoTheme](#Using-CupertinoTheme)**
+  - [Changing Cupertino Theme](#Changing-Cupertino-Theme)
+- **[License](#License)**
+
+
+## Getting Started
 
 add following dependency to your `pubspec.yaml`
 
@@ -228,7 +247,53 @@ await pref.clear();
 AdaptiveTheme.persist();
 ```
 
+## Using CupertinoTheme
 
+Wrap your `CupertinoApp` with `CupertinoAdaptiveTheme` in order to apply themes.
+
+```dart
+import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoAdaptiveTheme(
+      light: CupertinoThemeData(
+        brightness: Brightness.light,
+      ),
+      dark: CupertinoThemeData(
+        brightness: Brightness.dark,
+      ),
+      initial: AdaptiveThemeMode.light,
+      builder: (theme) => CupertinoApp(
+        title: 'Adaptive Theme Demo',
+        theme: theme,
+        darkTheme: darkTheme,
+        home: MyHomePage(),
+      ),
+    );
+  }
+}
+```
+
+#### Changing Cupertino Theme
+
+```dart
+// sets dark theme
+CupertinoAdaptiveTheme.of(context).setDark();
+
+// sets light theme
+CupertinoAdaptiveTheme.of(context).setLight();
+
+// sets system default theme
+CupertinoAdaptiveTheme.of(context).setSystem();
+```
 
 ## License
 
