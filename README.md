@@ -5,27 +5,27 @@
 Easiest way to add support for **light** and **dark** theme in your Flutter app. It allows to manually set light or dark theme and also lets you define
 themes based on the system. It also persists the theme modes changes across app restarts.
 
-[![pub dev CD](https://github.com/BirjuVachhani/adaptive_theme/workflows/Publish%20Package/badge.svg?branch=main)](https://github.com/BirjuVachhani/adaptive_theme/actions) [![adaptive_theme](https://img.shields.io/pub/v/adaptive_theme?label=adaptive_theme)](https://pub.dev/packages/adaptive_theme)
+[![Build](https://github.com/BirjuVachhani/adaptive_theme/workflows/Build/badge.svg?branch=main)](https://github.com/BirjuVachhani/adaptive_theme/actions) [![adaptive_theme](https://img.shields.io/pub/v/adaptive_theme?label=adaptive_theme)](https://pub.dev/packages/adaptive_theme)
 
 
 
 ## Index
 
-- **[Getting Started](#Getting-Started)**
-- **[Initialization](#Initialization)**
-- **[Changing Theme Mode](#Changing-Theme-Mode)**
-- **[Toggle Theme Mode](#Toggle-Theme-Mode)**
-- **[Changing Themes](#Changing-Themes)**
-- **[Reset Theme](#Reset-Theme)**
-- **[Set Default Theme](#Set-Default-Theme)**
-- **[Handling App Start](#Get-ThemeMode-at-App-Start)**
-- **[Handling Theme Changes](#Listen-to-the-theme-mode-changes)**
-- **[Ceveats](#Ceveats)**
+- [Getting Started](#Getting-Started)
+- [Initialization](#Initialization)
+- [Changing Theme Mode](#Changing-Theme-Mode)
+- [Toggle Theme Mode](#Toggle-Theme-Mode)
+- [Changing Themes](#Changing-Themes)
+- [Reset Theme](#Reset-Theme)
+- [Set Default Theme](#Set-Default-Theme)
+- [Handling App Start](#Get-ThemeMode-at-App-Start)
+- [Handling Theme Changes](#Listen-to-the-theme-mode-changes)
+- [Ceveats](#Ceveats)
   - [Non-Persist theme changes](#Non-Persist-theme-changes)
   - [Using SharedPreferences](#Using-SharedPreferences)
-- **[Using-CupertinoTheme](#Using-CupertinoTheme)**
+- [Using-CupertinoTheme](#Using-CupertinoTheme)
   - [Changing Cupertino Theme](#Changing-Cupertino-Theme)
-- **[License](#License)**
+- [License](#License)
 
 
 ## Getting Started
