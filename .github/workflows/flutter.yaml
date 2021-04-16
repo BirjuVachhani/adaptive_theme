@@ -1,12 +1,15 @@
-name: Build & Test
+name: Build
 
 on:
   push:
+    paths:
+      - '**.dart'
     branches:
       - main
+    tags-ignore:
+      - '**'
   pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:

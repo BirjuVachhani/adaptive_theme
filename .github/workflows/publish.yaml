@@ -15,18 +15,12 @@ jobs:
           channel: stable
       - name: Install dependencies
         run: flutter packages get
-      - name: Setup Pub Credentials
-        shell: bash
-        env:
-          PUB_DEV_PUBLISH_ACCESS_TOKEN: ${{ secrets.PUB_DEV_PUBLISH_ACCESS_TOKEN }}
-          PUB_DEV_PUBLISH_REFRESH_TOKEN: ${{ secrets.PUB_DEV_PUBLISH_REFRESH_TOKEN }}
-          PUB_DEV_PUBLISH_TOKEN_ENDPOINT: ${{ secrets.PUB_DEV_PUBLISH_TOKEN_ENDPOINT }}
-          PUB_DEV_PUBLISH_EXPIRATION: ${{ secrets.PUB_DEV_PUBLISH_EXPIRATION }}
-        run: |
-          sh ./pub_login.sh
       - name: Format code
-        run: dartfmt -w .
-      - name: Check Publish Warnings
-        run: pub publish --dry-run
-      - name: Publish Package
-        run: pub publish -f
+        run: dart format --fix .
+      - name: Publish
+        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
+        with:
+          credential: ${{ secrets.CREDENTIAL_JSON }}
+          flutter_package: true
+          skip_test: false
+          dry_run: true
