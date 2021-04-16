@@ -1,3 +1,7 @@
+# 2.2.0
+
+- Added support for Cupertino theme.
+
 # 2.1.1
 
 - Fixed [#18](https://github.com/BirjuVachhani/adaptive_theme/issues/18) - Dark theme not working properly on all platforms.

@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - '**.dart'
+      - '**.yaml'
+      - '**.yml'
     branches:
       - main
     tags-ignore:
