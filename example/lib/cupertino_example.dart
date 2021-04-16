@@ -18,10 +18,10 @@ class CupertinoExample extends StatelessWidget {
     return CupertinoAdaptiveTheme(
       light: CupertinoThemeData(brightness: Brightness.light),
       dark: CupertinoThemeData(brightness: Brightness.dark),
-      initial: AdaptiveThemeMode.light,
-      builder: (theme, darkTheme) => CupertinoApp(
+      initial: savedThemeMode ?? AdaptiveThemeMode.light,
+      builder: (theme) => CupertinoApp(
         title: 'Adaptive Theme Demo',
-        theme: darkTheme,
+        theme: theme,
         home: MyHomePage(onChanged: onChanged),
       ),
     );

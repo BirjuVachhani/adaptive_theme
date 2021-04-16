@@ -17,7 +17,8 @@
 part of adaptive_theme;
 
 /// Builder function to build themed widgets
-typedef CupertinoAdaptiveThemeBuilder = Widget Function(CupertinoThemeData light, CupertinoThemeData dark);
+typedef CupertinoAdaptiveThemeBuilder = Widget Function(
+    CupertinoThemeData theme);
 
 /// Widget that allows to switch themes dynamically. This is intended to be
 /// used above [CupertinoApp].
@@ -60,8 +61,7 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
     CupertinoThemeData? dark,
     required this.initial,
     required this.builder,
-  })
-      : this.dark = dark ?? light,
+  })   : this.dark = dark ?? light,
         super(key: key);
 
   @override
@@ -72,13 +72,14 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
   static CupertinoAdaptiveThemeManager of(BuildContext context) =>
       context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>()!
-      as CupertinoAdaptiveThemeManager;
+          as CupertinoAdaptiveThemeManager;
 
   /// Returns reference of the [CupertinoAdaptiveThemeManager] which allows access of
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
   /// This returns null if the state instance of [CupertinoAdaptiveTheme] is not found.
   static CupertinoAdaptiveThemeManager? maybeOf(BuildContext context) {
-    final state = context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>();
+    final state =
+        context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>();
     if (state == null) return null;
     return state as CupertinoAdaptiveThemeManager;
   }
@@ -99,8 +100,8 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   late _ThemePreferences _preferences;
   late ValueNotifier<AdaptiveThemeMode> _modeChangeNotifier;
 
-  _CupertinoAdaptiveThemeState._(this._defaultTheme, this._defaultDarkTheme,
-      AdaptiveThemeMode mode) {
+  _CupertinoAdaptiveThemeState._(
+      this._defaultTheme, this._defaultDarkTheme, AdaptiveThemeMode mode) {
     _theme = _defaultTheme.copyWith();
     _modeChangeNotifier = ValueNotifier(mode);
     _darkTheme = _defaultDarkTheme.copyWith();
@@ -122,7 +123,8 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
       _modeChangeNotifier;
 
   @override
-  CupertinoThemeData get theme => _preferences.mode.isDark ? _darkTheme : _theme;
+  CupertinoThemeData get theme =>
+      _preferences.mode.isDark ? _darkTheme : _theme;
 
   @override
   CupertinoThemeData get lightTheme => _theme;
@@ -136,14 +138,11 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   @override
   bool get isDefault =>
       _theme == _defaultTheme &&
-          _darkTheme == _defaultDarkTheme &&
-          _preferences.mode == _preferences.defaultMode;
+      _darkTheme == _defaultDarkTheme &&
+      _preferences.mode == _preferences.defaultMode;
 
   @override
-  Brightness get brightness =>
-      Theme
-          .of(context)
-          .brightness;
+  Brightness get brightness => Theme.of(context).brightness;
 
   @override
   void setLight() => setThemeMode(AdaptiveThemeMode.light);
@@ -208,7 +207,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
 
   @override
   Widget build(BuildContext context) =>
-      widget.builder(theme, _preferences.mode.isLight ? _theme : _darkTheme);
+      widget.builder(_preferences.mode.isLight ? _theme : _darkTheme);
 
   @override
   void dispose() {
