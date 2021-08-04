@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Spacer(flex: 2),
                 TextButton(
                   onPressed: widget.onChanged,
-                  child: Text('Switch to Material'),
+                  child: Text('Switch to Cupertino Example'),
                 ),
               ],
             ),
