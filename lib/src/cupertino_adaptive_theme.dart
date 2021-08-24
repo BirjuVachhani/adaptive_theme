@@ -119,6 +119,15 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance?.window.onPlatformBrightnessChanged = () {
+      this.setSystem();
+    };
+  }
+
+  @override
   ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier =>
       _modeChangeNotifier;
 
@@ -206,8 +215,14 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   }
 
   @override
-  Widget build(BuildContext context) =>
-      widget.builder(_preferences.mode.isLight ? _theme : _darkTheme);
+  Widget build(BuildContext context) {
+    final isLight = _preferences.mode.isLight ||
+        (_preferences.mode.isSystem &&
+            WidgetsBinding.instance?.window.platformBrightness ==
+                Brightness.light);
+
+    return widget.builder(isLight ? _theme : _darkTheme);
+  }
 
   @override
   void dispose() {
