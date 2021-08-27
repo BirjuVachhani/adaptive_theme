@@ -8,6 +8,8 @@ themes based on the system. It also persists the theme modes changes across app 
 [![Build](https://github.com/BirjuVachhani/adaptive_theme/workflows/Build/badge.svg?branch=main)](https://github.com/BirjuVachhani/adaptive_theme/actions) [![adaptive_theme](https://img.shields.io/pub/v/adaptive_theme?label=adaptive_theme)](https://pub.dev/packages/adaptive_theme)
 
 
+Demo: [Adaptive Theme](https://adaptivetheme.codemagic.app/)
+
 
 ## Index
 
