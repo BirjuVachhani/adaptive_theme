@@ -1,4 +1,4 @@
-# 2.3.0 - [Unreleased]
+# 2.3.0
 
 - Fixed Cupertino theme not changing when on system mode.
 - Internal code cleanup.
