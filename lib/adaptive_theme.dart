@@ -16,22 +16,8 @@
 
 library adaptive_theme;
 
-import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-part 'src/adaptive_theme.dart';
-
-part 'src/adaptive_theme_manager.dart';
-
-part 'src/adaptive_theme_mode.dart';
-
-part 'src/adaptive_theme_preferences.dart';
-
-part 'src/cupertino_adaptive_theme.dart';
-
-part 'src/cupertino_adaptive_theme_manager.dart';
+export 'src/adaptive_theme.dart';
+export 'src/adaptive_theme_manager.dart';
+export 'src/adaptive_theme_mode.dart';
+export 'src/cupertino_adaptive_theme.dart';
+export 'src/cupertino_adaptive_theme_manager.dart';

@@ -14,19 +14,25 @@
  * limitations under the License.
  */
 
-part of adaptive_theme;
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'adaptive_theme.dart';
+import 'adaptive_theme_mode.dart';
 
 /// Utility for storing theme info in SharedPreferences
-class _ThemePreferences {
+class ThemePreferences {
   late AdaptiveThemeMode mode;
   late AdaptiveThemeMode defaultMode;
 
-  _ThemePreferences._initial({this.mode = AdaptiveThemeMode.light})
+  ThemePreferences.initial({this.mode = AdaptiveThemeMode.light})
       : defaultMode = mode;
 
-  void _reset() => mode = defaultMode;
+  void reset() => mode = defaultMode;
 
-  _ThemePreferences._fromJson(Map<String, dynamic> json) {
+  ThemePreferences.fromJson(Map<String, dynamic> json) {
     if (json['theme_mode'] != null) {
       mode = AdaptiveThemeMode.values[json['theme_mode']];
     }
@@ -37,24 +43,24 @@ class _ThemePreferences {
     }
   }
 
-  Map<String, dynamic> _toJson() => {
+  Map<String, dynamic> toJson() => {
         'theme_mode': mode.index,
         'default_theme_mode': defaultMode.index,
       };
 
   /// saves the current theme preferences to the shared-preferences
-  Future<bool> _save() async {
+  Future<bool> save() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.setString(AdaptiveTheme.prefKey, json.encode(_toJson()));
+    return prefs.setString(AdaptiveTheme.prefKey, json.encode(toJson()));
   }
 
   /// retrieves preferences from the shared-preferences
-  static Future<_ThemePreferences?> _fromPrefs() async {
+  static Future<ThemePreferences?> fromPrefs() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final themeDataString = prefs.getString(AdaptiveTheme.prefKey);
       if (themeDataString == null || themeDataString.isEmpty) return null;
-      return _ThemePreferences._fromJson(json.decode(themeDataString));
+      return ThemePreferences.fromJson(json.decode(themeDataString));
     } on Exception catch (error, stacktrace) {
       if (!kReleaseMode) {
         // ignore: avoid_print

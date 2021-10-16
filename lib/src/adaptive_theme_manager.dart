@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-part of adaptive_theme;
+import 'package:flutter/material.dart';
+
+import 'adaptive_theme_mode.dart';
 
 /// Entry point to change/modify theme or access theme related information
 /// from [AdaptiveTheme].
