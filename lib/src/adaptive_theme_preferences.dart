@@ -21,13 +21,10 @@ class _ThemePreferences {
   late AdaptiveThemeMode mode;
   late AdaptiveThemeMode defaultMode;
 
-  _ThemePreferences._initial({this.mode = AdaptiveThemeMode.light}) {
-    defaultMode = mode;
-  }
+  _ThemePreferences._initial({this.mode = AdaptiveThemeMode.light})
+      : defaultMode = mode;
 
-  void _reset() {
-    mode = defaultMode;
-  }
+  void _reset() => mode = defaultMode;
 
   _ThemePreferences._fromJson(Map<String, dynamic> json) {
     if (json['theme_mode'] != null) {
@@ -40,12 +37,10 @@ class _ThemePreferences {
     }
   }
 
-  Map<String, dynamic> _toJson() {
-    final data = <String, dynamic>{};
-    data['theme_mode'] = mode.index;
-    data['default_theme_mode'] = defaultMode.index;
-    return data;
-  }
+  Map<String, dynamic> _toJson() => {
+        'theme_mode': mode.index,
+        'default_theme_mode': defaultMode.index,
+      };
 
   /// saves the current theme preferences to the shared-preferences
   Future<bool> _save() async {

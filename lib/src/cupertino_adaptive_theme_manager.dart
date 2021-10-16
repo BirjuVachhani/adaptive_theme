@@ -17,8 +17,8 @@
 part of adaptive_theme;
 
 /// Entry point to change/modify theme or access theme related information
-/// from [AdaptiveTheme].
-/// An instance of this can be retrieved by calling [AdaptiveTheme.of].
+/// from [CupertinoAdaptiveTheme].
+/// An instance of this can be retrieved by calling [CupertinoAdaptiveTheme.of].
 abstract class CupertinoAdaptiveThemeManager {
   /// provides current theme
   CupertinoThemeData get theme;
@@ -37,7 +37,7 @@ abstract class CupertinoAdaptiveThemeManager {
 
   /// checks whether current theme is default theme or not. Default theme
   /// refers to he themes provided at the time of initialization
-  /// of [MaterialApp].
+  /// of [CupertinoApp].
   bool get isDefault;
 
   /// provides brightness of the current theme
@@ -60,12 +60,9 @@ abstract class CupertinoAdaptiveThemeManager {
 
   /// Allows to set/change the entire theme.
   /// [notify] when set to true, will update the UI to use the new theme.
-  /// [isDefault] when set to true, will force to use this [light] and [dark]
-  /// theme when [AdaptiveThemeManager.reset] method is called.
   void setTheme({
     required CupertinoThemeData light,
     CupertinoThemeData? dark,
-    bool isDefault = false,
     bool notify = true,
   });
 
@@ -81,7 +78,7 @@ abstract class CupertinoAdaptiveThemeManager {
   Future<bool> persist();
 
   /// Resets configuration to default configuration which has been provided
-  /// while initializing [MaterialApp].
+  /// while initializing [CupertinoApp].
   /// If [setTheme] method has been called with [isDefault] to true, Calling
   /// this method afterwards will use theme provided by [setTheme] as default
   /// themes.

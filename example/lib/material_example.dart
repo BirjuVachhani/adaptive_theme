@@ -15,16 +15,8 @@ class MaterialExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
-      light: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.red,
-        accentColor: Colors.amber,
-      ),
-      dark: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.red,
-        accentColor: Colors.amber,
-      ),
+      light: ThemeData.light(),
+      dark: ThemeData.dark(),
       initial: savedThemeMode ?? AdaptiveThemeMode.light,
       builder: (theme, darkTheme) => MaterialApp(
         title: 'Adaptive Theme Demo',
@@ -105,6 +97,31 @@ class _MyHomePageState extends State<MyHomePage> {
                 ElevatedButton(
                   onPressed: () => AdaptiveTheme.of(context).setSystem(),
                   child: Text('Set System Default'),
+                  style: ElevatedButton.styleFrom(
+                    visualDensity: VisualDensity(horizontal: 4, vertical: 2),
+                  ),
+                ),
+                SizedBox(height: 8),
+                ElevatedButton(
+                  onPressed: () => AdaptiveTheme.of(context).setTheme(
+                    light: ThemeData(
+                      brightness: Brightness.light,
+                      primarySwatch: Colors.pink,
+                    ),
+                    dark: ThemeData(
+                      brightness: Brightness.dark,
+                      primarySwatch: Colors.pink,
+                    ),
+                  ),
+                  child: Text('Set Custom Theme'),
+                  style: ElevatedButton.styleFrom(
+                    visualDensity: VisualDensity(horizontal: 4, vertical: 2),
+                  ),
+                ),
+                SizedBox(height: 8),
+                ElevatedButton(
+                  onPressed: () => AdaptiveTheme.of(context).reset(),
+                  child: Text('Reset to Default Themes'),
                   style: ElevatedButton.styleFrom(
                     visualDensity: VisualDensity(horizontal: 4, vertical: 2),
                   ),

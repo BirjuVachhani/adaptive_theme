@@ -65,8 +65,7 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
         super(key: key);
 
   @override
-  _CupertinoAdaptiveThemeState createState() =>
-      _CupertinoAdaptiveThemeState._(light, dark, initial);
+  _CupertinoAdaptiveThemeState createState() => _CupertinoAdaptiveThemeState();
 
   /// Returns reference of the [CupertinoAdaptiveThemeManager] which allows access of
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
@@ -80,7 +79,7 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
   static CupertinoAdaptiveThemeManager? maybeOf(BuildContext context) {
     final state =
         context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>();
-    if (state == null) return null;
+    if (state == null || state is! CupertinoAdaptiveThemeManager) return null;
     return state as CupertinoAdaptiveThemeManager;
   }
 
@@ -92,20 +91,21 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
 }
 
 class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
+    with WidgetsBindingObserver
     implements CupertinoAdaptiveThemeManager {
   late CupertinoThemeData _theme;
   late CupertinoThemeData _darkTheme;
-  late CupertinoThemeData _defaultTheme;
-  late CupertinoThemeData _defaultDarkTheme;
   late _ThemePreferences _preferences;
   late ValueNotifier<AdaptiveThemeMode> _modeChangeNotifier;
 
-  _CupertinoAdaptiveThemeState._(
-      this._defaultTheme, this._defaultDarkTheme, AdaptiveThemeMode mode) {
-    _theme = _defaultTheme.copyWith();
-    _modeChangeNotifier = ValueNotifier(mode);
-    _darkTheme = _defaultDarkTheme.copyWith();
-    _preferences = _ThemePreferences._initial(mode: mode);
+  @override
+  void initState() {
+    super.initState();
+
+    _theme = widget.light.copyWith();
+    _modeChangeNotifier = ValueNotifier(widget.initial);
+    _darkTheme = widget.dark.copyWith();
+    _preferences = _ThemePreferences._initial(mode: widget.initial);
     _ThemePreferences._fromPrefs().then((pref) {
       if (pref == null) {
         _preferences._save();
@@ -116,6 +116,19 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
         }
       }
     });
+    WidgetsBinding.instance?.addObserver(this);
+  }
+
+  /// When device theme mode is changed, Flutter does not rebuild
+  /// [CupertinoApp] and Because of that, if theme is set to
+  /// [AdaptiveThemeMode.system]. it doesn't take effect. This check mitigates
+  /// that and refreshes the UI to use new theme if needed.
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    if (mode.isSystem && mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -137,8 +150,8 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
 
   @override
   bool get isDefault =>
-      _theme == _defaultTheme &&
-      _darkTheme == _defaultDarkTheme &&
+      _theme == widget.light &&
+      _darkTheme == widget.dark &&
       _preferences.mode == _preferences.defaultMode;
 
   @override
@@ -167,16 +180,11 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   void setTheme({
     required CupertinoThemeData light,
     CupertinoThemeData? dark,
-    bool isDefault = false,
     bool notify = true,
   }) {
     _theme = light;
     if (dark != null) {
       _darkTheme = dark;
-    }
-    if (isDefault) {
-      _defaultTheme = light.copyWith();
-      _defaultDarkTheme = _darkTheme.copyWith();
     }
     if (notify && mounted) {
       setState(() {});
@@ -196,8 +204,8 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   @override
   Future<bool> reset() async {
     _preferences._reset();
-    _theme = _defaultTheme.copyWith();
-    _darkTheme = _defaultDarkTheme.copyWith();
+    _theme = widget.light.copyWith();
+    _darkTheme = widget.dark.copyWith();
     if (mounted) {
       setState(() {});
     }
@@ -206,12 +214,21 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   }
 
   @override
-  Widget build(BuildContext context) =>
-      widget.builder(_preferences.mode.isLight ? _theme : _darkTheme);
+  Widget build(BuildContext context) {
+    // This ensures that when device theme mode is changed, this also reacts
+    // to it and applies required changes.
+    if (_preferences.mode.isSystem) {
+      final brightness = SchedulerBinding.instance!.window.platformBrightness;
+      return widget
+          .builder(brightness == Brightness.light ? _theme : _darkTheme);
+    }
+    return widget.builder(_preferences.mode.isLight ? _theme : _darkTheme);
+  }
 
   @override
   void dispose() {
     _modeChangeNotifier.dispose();
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 }

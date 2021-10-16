@@ -87,6 +87,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () => CupertinoAdaptiveTheme.of(context).setSystem(),
                 child: Text('Set System Default'),
               ),
+              SizedBox(height: 16),
+              CupertinoButton.filled(
+                onPressed: () =>
+                    CupertinoAdaptiveTheme.maybeOf(context)?.setTheme(
+                  light: CupertinoThemeData(
+                      brightness: Brightness.light,
+                      primaryColor: CupertinoColors.destructiveRed),
+                  dark: CupertinoThemeData(
+                      brightness: Brightness.dark,
+                      primaryColor: CupertinoColors.destructiveRed),
+                ),
+                child: Text('Set Custom Theme'),
+              ),
+              SizedBox(height: 16),
+              CupertinoButton.filled(
+                onPressed: () => CupertinoAdaptiveTheme.of(context).reset(),
+                child: Text('Reset to Default Themes'),
+              ),
               Spacer(flex: 2),
               CupertinoButton(
                 onPressed: widget.onChanged,

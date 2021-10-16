@@ -59,13 +59,10 @@ abstract class AdaptiveThemeManager {
   void setThemeMode(AdaptiveThemeMode mode);
 
   /// Allows to set/change the entire theme.
-  /// [notify] when set to true, will update the UI to use the new theme.
-  /// [isDefault] when set to true, will force to use this [light] and [dark]
-  /// theme when [AdaptiveThemeManager.reset] method is called.
+  /// [notify] when set to true, will update the UI to use the new theme..
   void setTheme({
     required ThemeData light,
     ThemeData? dark,
-    bool isDefault = false,
     bool notify = true,
   });
 

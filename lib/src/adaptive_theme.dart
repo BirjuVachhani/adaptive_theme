@@ -64,8 +64,7 @@ class AdaptiveTheme extends StatefulWidget {
         super(key: key);
 
   @override
-  _AdaptiveThemeState createState() =>
-      _AdaptiveThemeState._(light, dark, initial);
+  _AdaptiveThemeState createState() => _AdaptiveThemeState();
 
   /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [AdaptiveTheme] in a restrictive way.
@@ -93,17 +92,16 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
     implements AdaptiveThemeManager {
   late ThemeData _theme;
   late ThemeData _darkTheme;
-  late ThemeData _defaultTheme;
-  late ThemeData _defaultDarkTheme;
   late _ThemePreferences _preferences;
   late ValueNotifier<AdaptiveThemeMode> _modeChangeNotifier;
 
-  _AdaptiveThemeState._(
-      this._defaultTheme, this._defaultDarkTheme, AdaptiveThemeMode mode) {
-    _theme = _defaultTheme.copyWith();
-    _modeChangeNotifier = ValueNotifier(mode);
-    _darkTheme = _defaultDarkTheme.copyWith();
-    _preferences = _ThemePreferences._initial(mode: mode);
+  @override
+  void initState() {
+    super.initState();
+    _theme = widget.light.copyWith();
+    _modeChangeNotifier = ValueNotifier(widget.initial);
+    _darkTheme = widget.dark.copyWith();
+    _preferences = _ThemePreferences._initial(mode: widget.initial);
     _ThemePreferences._fromPrefs().then((pref) {
       if (pref == null) {
         _preferences._save();
@@ -134,8 +132,8 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
 
   @override
   bool get isDefault =>
-      _theme == _defaultTheme &&
-      _darkTheme == _defaultDarkTheme &&
+      _theme == widget.light &&
+      _darkTheme == widget.dark &&
       _preferences.mode == _preferences.defaultMode;
 
   @override
@@ -164,16 +162,11 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   void setTheme({
     required ThemeData light,
     ThemeData? dark,
-    bool isDefault = false,
     bool notify = true,
   }) {
     _theme = light;
     if (dark != null) {
       _darkTheme = dark;
-    }
-    if (isDefault) {
-      _defaultTheme = light.copyWith();
-      _defaultDarkTheme = _darkTheme.copyWith();
     }
     if (notify && mounted) {
       setState(() {});
@@ -193,8 +186,8 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   @override
   Future<bool> reset() async {
     _preferences._reset();
-    _theme = _defaultTheme.copyWith();
-    _darkTheme = _defaultDarkTheme.copyWith();
+    _theme = widget.light.copyWith();
+    _darkTheme = widget.dark.copyWith();
     if (mounted) {
       setState(() {});
     }
