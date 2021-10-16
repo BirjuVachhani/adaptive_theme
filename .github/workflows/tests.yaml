@@ -13,7 +13,7 @@ on:
 
 jobs:
   tests_and_coverage:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Tap Google's Dart formula repository
         run: brew tap dart-lang/dart
