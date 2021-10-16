@@ -60,7 +60,7 @@ class AdaptiveTheme extends StatefulWidget {
     ThemeData? dark,
     required this.initial,
     required this.builder,
-  })  : this.dark = dark ?? light,
+  })  : dark = dark ?? light,
         super(key: key);
 
   @override

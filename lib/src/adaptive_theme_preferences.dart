@@ -56,8 +56,12 @@ class _ThemePreferences {
       if (themeDataString == null || themeDataString.isEmpty) return null;
       return _ThemePreferences._fromJson(json.decode(themeDataString));
     } on Exception catch (error, stacktrace) {
-      print(error);
-      print(stacktrace);
+      if (!kReleaseMode) {
+        // ignore: avoid_print
+        print(error);
+        // ignore: avoid_print
+        print(stacktrace);
+      }
       return null;
     }
   }

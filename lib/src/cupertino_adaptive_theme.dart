@@ -61,7 +61,7 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
     CupertinoThemeData? dark,
     required this.initial,
     required this.builder,
-  })  : this.dark = dark ?? light,
+  })  : dark = dark ?? light,
         super(key: key);
 
   @override
