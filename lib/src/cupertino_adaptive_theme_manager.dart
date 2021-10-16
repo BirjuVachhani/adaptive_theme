@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-part of adaptive_theme;
+import 'package:flutter/cupertino.dart';
+
+import 'adaptive_theme_mode.dart';
 
 /// Entry point to change/modify theme or access theme related information
 /// from [CupertinoAdaptiveTheme].
@@ -41,7 +43,7 @@ abstract class CupertinoAdaptiveThemeManager {
   bool get isDefault;
 
   /// provides brightness of the current theme
-  Brightness get brightness;
+  Brightness? get brightness;
 
   /// Sets light theme as current
   /// Uses [AdaptiveThemeMode.light].

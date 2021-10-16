@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-part of adaptive_theme;
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/scheduler.dart';
+
+import 'adaptive_theme_mode.dart';
+import 'adaptive_theme_preferences.dart';
+import 'cupertino_adaptive_theme_manager.dart';
 
 /// Builder function to build themed widgets
 typedef CupertinoAdaptiveThemeBuilder = Widget Function(
@@ -86,7 +91,7 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
   /// returns most recent theme mode. This can be used to eagerly get previous
   /// theme mode inside main method before calling [runApp].
   static Future<AdaptiveThemeMode?> getThemeMode() async {
-    return (await _ThemePreferences._fromPrefs())?.mode;
+    return (await ThemePreferences.fromPrefs())?.mode;
   }
 }
 
@@ -95,7 +100,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
     implements CupertinoAdaptiveThemeManager {
   late CupertinoThemeData _theme;
   late CupertinoThemeData _darkTheme;
-  late _ThemePreferences _preferences;
+  late ThemePreferences _preferences;
   late ValueNotifier<AdaptiveThemeMode> _modeChangeNotifier;
 
   @override
@@ -105,10 +110,10 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
     _theme = widget.light.copyWith();
     _modeChangeNotifier = ValueNotifier(widget.initial);
     _darkTheme = widget.dark.copyWith();
-    _preferences = _ThemePreferences._initial(mode: widget.initial);
-    _ThemePreferences._fromPrefs().then((pref) {
+    _preferences = ThemePreferences.initial(mode: widget.initial);
+    ThemePreferences.fromPrefs().then((pref) {
       if (pref == null) {
-        _preferences._save();
+        _preferences.save();
       } else {
         _preferences = pref;
         if (mounted) {
@@ -155,7 +160,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
       _preferences.mode == _preferences.defaultMode;
 
   @override
-  Brightness get brightness => Theme.of(context).brightness;
+  Brightness? get brightness => CupertinoTheme.of(context).brightness;
 
   @override
   void setLight() => setThemeMode(AdaptiveThemeMode.light);
@@ -173,7 +178,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
       setState(() {});
     }
     _modeChangeNotifier.value = mode;
-    _preferences._save();
+    _preferences.save();
   }
 
   @override
@@ -199,18 +204,18 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   }
 
   @override
-  Future<bool> persist() async => _preferences._save();
+  Future<bool> persist() async => _preferences.save();
 
   @override
   Future<bool> reset() async {
-    _preferences._reset();
+    _preferences.reset();
     _theme = widget.light.copyWith();
     _darkTheme = widget.dark.copyWith();
     if (mounted) {
       setState(() {});
     }
     modeChangeNotifier.value = mode;
-    return _preferences._save();
+    return _preferences.save();
   }
 
   @override

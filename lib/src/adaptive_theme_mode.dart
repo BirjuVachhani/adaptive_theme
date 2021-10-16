@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-part of adaptive_theme;
-
 /// Represents the mode of the theme.
 enum AdaptiveThemeMode { light, dark, system }
 

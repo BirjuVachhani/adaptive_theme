@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-part of adaptive_theme;
+import 'package:flutter/material.dart';
+
+import 'adaptive_theme_manager.dart';
+import 'adaptive_theme_mode.dart';
+import 'adaptive_theme_preferences.dart';
 
 /// Builder function to build themed widgets
 typedef AdaptiveThemeBuilder = Widget Function(ThemeData light, ThemeData dark);
@@ -84,7 +88,7 @@ class AdaptiveTheme extends StatefulWidget {
   /// returns most recent theme mode. This can be used to eagerly get previous
   /// theme mode inside main method before calling [runApp].
   static Future<AdaptiveThemeMode?> getThemeMode() async {
-    return (await _ThemePreferences._fromPrefs())?.mode;
+    return (await ThemePreferences.fromPrefs())?.mode;
   }
 }
 
@@ -92,7 +96,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
     implements AdaptiveThemeManager {
   late ThemeData _theme;
   late ThemeData _darkTheme;
-  late _ThemePreferences _preferences;
+  late ThemePreferences _preferences;
   late ValueNotifier<AdaptiveThemeMode> _modeChangeNotifier;
 
   @override
@@ -101,10 +105,10 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
     _theme = widget.light.copyWith();
     _modeChangeNotifier = ValueNotifier(widget.initial);
     _darkTheme = widget.dark.copyWith();
-    _preferences = _ThemePreferences._initial(mode: widget.initial);
-    _ThemePreferences._fromPrefs().then((pref) {
+    _preferences = ThemePreferences.initial(mode: widget.initial);
+    ThemePreferences.fromPrefs().then((pref) {
       if (pref == null) {
-        _preferences._save();
+        _preferences.save();
       } else {
         _preferences = pref;
         if (mounted) {
@@ -155,7 +159,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
       setState(() {});
     }
     _modeChangeNotifier.value = mode;
-    _preferences._save();
+    _preferences.save();
   }
 
   @override
@@ -181,18 +185,18 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   }
 
   @override
-  Future<bool> persist() async => _preferences._save();
+  Future<bool> persist() async => _preferences.save();
 
   @override
   Future<bool> reset() async {
-    _preferences._reset();
+    _preferences.reset();
     _theme = widget.light.copyWith();
     _darkTheme = widget.dark.copyWith();
     if (mounted) {
       setState(() {});
     }
     modeChangeNotifier.value = mode;
-    return _preferences._save();
+    return _preferences.save();
   }
 
   @override
