@@ -17,6 +17,8 @@ jobs:
         run: flutter packages get
       - name: Format code
         run: dart format --fix .
+      - name: Tests
+        run: flutter test .
       - name: Dry Run
         run: flutter pub publish --dry-run
       - name: Publish
