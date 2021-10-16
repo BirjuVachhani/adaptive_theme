@@ -15,6 +15,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'adaptive_theme_manager.dart';
 import 'adaptive_theme_mode.dart';
@@ -123,7 +124,13 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
       _modeChangeNotifier;
 
   @override
-  ThemeData get theme => _preferences.mode.isDark ? _darkTheme : _theme;
+  ThemeData get theme {
+    if (_preferences.mode.isSystem) {
+      final brightness = SchedulerBinding.instance!.window.platformBrightness;
+      return brightness == Brightness.light ? _theme : _darkTheme;
+    }
+    return _preferences.mode.isDark ? _darkTheme : _theme;
+  }
 
   @override
   ThemeData get lightTheme => _theme;
@@ -141,7 +148,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
       _preferences.mode == _preferences.defaultMode;
 
   @override
-  Brightness get brightness => Theme.of(context).brightness;
+  Brightness get brightness => theme.brightness;
 
   @override
   void setLight() => setThemeMode(AdaptiveThemeMode.light);
