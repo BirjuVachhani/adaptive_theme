@@ -107,9 +107,9 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   void initState() {
     super.initState();
 
-    _theme = widget.light.copyWith();
+    _theme = widget.light;
     _modeChangeNotifier = ValueNotifier(widget.initial);
-    _darkTheme = widget.dark.copyWith();
+    _darkTheme = widget.dark;
     _preferences = ThemePreferences.initial(mode: widget.initial);
     ThemePreferences.fromPrefs().then((pref) {
       if (pref == null) {
@@ -141,8 +141,15 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
       _modeChangeNotifier;
 
   @override
-  CupertinoThemeData get theme =>
-      _preferences.mode.isDark ? _darkTheme : _theme;
+  CupertinoThemeData get theme {
+    // This ensures that when device theme mode is changed, this also reacts
+    // to it and applies required changes.
+    if (_preferences.mode.isSystem) {
+      final brightness = SchedulerBinding.instance!.window.platformBrightness;
+      return brightness == Brightness.light ? _theme : _darkTheme;
+    }
+    return _preferences.mode.isDark ? _darkTheme : _theme;
+  }
 
   @override
   CupertinoThemeData get lightTheme => _theme;
@@ -160,7 +167,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
       _preferences.mode == _preferences.defaultMode;
 
   @override
-  Brightness? get brightness => CupertinoTheme.of(context).brightness;
+  Brightness? get brightness => theme.brightness;
 
   @override
   void setLight() => setThemeMode(AdaptiveThemeMode.light);
@@ -209,8 +216,8 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   @override
   Future<bool> reset() async {
     _preferences.reset();
-    _theme = widget.light.copyWith();
-    _darkTheme = widget.dark.copyWith();
+    _theme = widget.light;
+    _darkTheme = widget.dark;
     if (mounted) {
       setState(() {});
     }
