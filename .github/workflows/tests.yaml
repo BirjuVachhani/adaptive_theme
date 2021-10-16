@@ -1,0 +1,31 @@
+name: Tests & Coverage
+
+on:
+  push:
+    paths:
+      - '**.dart'
+    branches:
+      - main
+    tags-ignore:
+      - '**'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests_and_coverage:
+    runs-on: macos-latest
+    steps:
+      - name: Tap Google's Dart formula repository
+        run: brew tap dart-lang/dart
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: stable
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Run tests
+        run: flutter test --coverage .
+      - uses: codecov/codecov-action@v1
+        with:
+          file: coverage/lcov.info

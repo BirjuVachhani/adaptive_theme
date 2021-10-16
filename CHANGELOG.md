@@ -1,11 +1,14 @@
 # 2.3.0 - [Unreleased]
 
-- Fix Cupertino theme not changing when on system mode.
+- Fixed Cupertino theme not changing when on system mode.
 - Internal code cleanup.
 - Removed `isDefault` option from `setTheme` method. Default are meant to come from `AdaptiveTheme` widget itself.
 - Added flutter lints.
-- Fix doc comments and typos.
+- Fixed doc comments and typos.
 - Added `reset` and custom theme options in the example app.
+- Fixed `AdaptiveTheme`'s `brightness` and `theme` getters.
+- Fixed `CupertinoAdaptiveTheme`'s `brightness` and `theme` getters.
+- Added Tests.
 
 # 2.2.0
 
