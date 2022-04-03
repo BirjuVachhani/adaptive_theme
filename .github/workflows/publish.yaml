@@ -22,7 +22,7 @@ jobs:
       - name: Dry Run
         run: flutter pub publish --dry-run
       - name: Publish
-        uses: sakebook/actions-flutter-pub-publisher@v1.4.0
+        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
         with:
           credential: ${{ secrets.CREDENTIAL_JSON }}
           flutter_package: true
