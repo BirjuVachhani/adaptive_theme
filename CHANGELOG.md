@@ -1,3 +1,8 @@
+# 2.3.1
+
+- Fixed Material theme not updating on system theme change.
+- Updated example android project.
+
 # 2.3.0
 
 - Fixed Cupertino theme not changing when on system mode.
