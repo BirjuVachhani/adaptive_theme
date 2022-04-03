@@ -94,6 +94,7 @@ class AdaptiveTheme extends StatefulWidget {
 }
 
 class _AdaptiveThemeState extends State<AdaptiveTheme>
+    with WidgetsBindingObserver
     implements AdaptiveThemeManager {
   late ThemeData _theme;
   late ThemeData _darkTheme;
@@ -112,11 +113,20 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
         _preferences.save();
       } else {
         _preferences = pref;
-        if (mounted) {
-          setState(() {});
-        }
+        if (mounted) setState(() {});
       }
     });
+    WidgetsBinding.instance?.addObserver(this);
+  }
+
+  // When device theme mode is changed, Flutter does not rebuild
+  /// [CupertinoApp] and Because of that, if theme is set to
+  /// [AdaptiveThemeMode.system]. it doesn't take effect. This check mitigates
+  /// that and refreshes the UI to use new theme if needed.
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    if (mode.isSystem && mounted) setState(() {});
   }
 
   @override
@@ -162,9 +172,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   @override
   void setThemeMode(AdaptiveThemeMode mode) {
     _preferences.mode = mode;
-    if (mounted) {
-      setState(() {});
-    }
+    if (mounted) setState(() {});
     _modeChangeNotifier.value = mode;
     _preferences.save();
   }
@@ -176,12 +184,8 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
     bool notify = true,
   }) {
     _theme = light;
-    if (dark != null) {
-      _darkTheme = dark;
-    }
-    if (notify && mounted) {
-      setState(() {});
-    }
+    if (dark != null) _darkTheme = dark;
+    if (notify && mounted) setState(() {});
   }
 
   @override
@@ -199,9 +203,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
     _preferences.reset();
     _theme = widget.light.copyWith();
     _darkTheme = widget.dark.copyWith();
-    if (mounted) {
-      setState(() {});
-    }
+    if (mounted) setState(() {});
     modeChangeNotifier.value = mode;
     return _preferences.save();
   }
@@ -213,6 +215,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   @override
   void dispose() {
     _modeChangeNotifier.dispose();
+    WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 }

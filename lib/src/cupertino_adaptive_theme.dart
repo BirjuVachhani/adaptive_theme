@@ -116,9 +116,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
         _preferences.save();
       } else {
         _preferences = pref;
-        if (mounted) {
-          setState(() {});
-        }
+        if (mounted) setState(() {});
       }
     });
     WidgetsBinding.instance?.addObserver(this);
@@ -131,9 +129,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   @override
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
-    if (mode.isSystem && mounted) {
-      setState(() {});
-    }
+    if (mode.isSystem && mounted) setState(() {});
   }
 
   @override
@@ -181,9 +177,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   @override
   void setThemeMode(AdaptiveThemeMode mode) {
     _preferences.mode = mode;
-    if (mounted) {
-      setState(() {});
-    }
+    if (mounted) setState(() {});
     _modeChangeNotifier.value = mode;
     _preferences.save();
   }
@@ -195,12 +189,8 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
     bool notify = true,
   }) {
     _theme = light;
-    if (dark != null) {
-      _darkTheme = dark;
-    }
-    if (notify && mounted) {
-      setState(() {});
-    }
+    if (dark != null) _darkTheme = dark;
+    if (notify && mounted) setState(() {});
   }
 
   @override
@@ -218,9 +208,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
     _preferences.reset();
     _theme = widget.light;
     _darkTheme = widget.dark;
-    if (mounted) {
-      setState(() {});
-    }
+    if (mounted) setState(() {});
     modeChangeNotifier.value = mode;
     return _preferences.save();
   }
