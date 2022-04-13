@@ -119,7 +119,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
         if (mounted) setState(() {});
       }
     });
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   /// When device theme mode is changed, Flutter does not rebuild
@@ -141,7 +141,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
     // This ensures that when device theme mode is changed, this also reacts
     // to it and applies required changes.
     if (_preferences.mode.isSystem) {
-      final brightness = SchedulerBinding.instance!.window.platformBrightness;
+      final brightness = SchedulerBinding.instance.window.platformBrightness;
       return brightness == Brightness.light ? _theme : _darkTheme;
     }
     return _preferences.mode.isDark ? _darkTheme : _theme;
@@ -218,7 +218,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
     // This ensures that when device theme mode is changed, this also reacts
     // to it and applies required changes.
     if (_preferences.mode.isSystem) {
-      final brightness = SchedulerBinding.instance!.window.platformBrightness;
+      final brightness = SchedulerBinding.instance.window.platformBrightness;
       return widget
           .builder(brightness == Brightness.light ? _theme : _darkTheme);
     }
@@ -228,7 +228,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   @override
   void dispose() {
     _modeChangeNotifier.dispose();
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 }
