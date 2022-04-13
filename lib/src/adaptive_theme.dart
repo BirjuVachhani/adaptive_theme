@@ -116,7 +116,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
         if (mounted) setState(() {});
       }
     });
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   // When device theme mode is changed, Flutter does not rebuild
@@ -136,7 +136,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   @override
   ThemeData get theme {
     if (_preferences.mode.isSystem) {
-      final brightness = SchedulerBinding.instance!.window.platformBrightness;
+      final brightness = SchedulerBinding.instance.window.platformBrightness;
       return brightness == Brightness.light ? _theme : _darkTheme;
     }
     return _preferences.mode.isDark ? _darkTheme : _theme;
@@ -215,7 +215,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   @override
   void dispose() {
     _modeChangeNotifier.dispose();
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 }
