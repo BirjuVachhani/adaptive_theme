@@ -8,9 +8,11 @@ class MaterialExample extends StatelessWidget {
   final AdaptiveThemeMode? savedThemeMode;
   final VoidCallback onChanged;
 
-  const MaterialExample(
-      {Key? key, this.savedThemeMode, required this.onChanged})
-      : super(key: key);
+  const MaterialExample({
+    super.key,
+    this.savedThemeMode,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +33,21 @@ class MaterialExample extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   final VoidCallback onChanged;
 
-  const MyHomePage({Key? key, required this.onChanged}) : super(key: key);
+  const MyHomePage({super.key, required this.onChanged});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return AnimatedTheme(
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       data: Theme.of(context),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Material Example'),
+          title: const Text('Material Example'),
         ),
         body: SafeArea(
           child: SizedBox.expand(
@@ -53,8 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(),
-                Text(
+                const Spacer(),
+                const Text(
                   'Current Theme Mode',
                   style: TextStyle(
                     fontSize: 20,
@@ -63,45 +65,49 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Text(
                   AdaptiveTheme.of(context).mode.name.toUpperCase(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 24,
                     height: 2.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 ElevatedButton(
                   onPressed: () => AdaptiveTheme.of(context).toggleThemeMode(),
-                  child: Text('Toggle Theme Mode'),
                   style: ElevatedButton.styleFrom(
-                    visualDensity: VisualDensity(horizontal: 4, vertical: 2),
+                    visualDensity:
+                        const VisualDensity(horizontal: 4, vertical: 2),
                   ),
+                  child: const Text('Toggle Theme Mode'),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () => AdaptiveTheme.of(context).setDark(),
-                  child: Text('Set Dark'),
                   style: ElevatedButton.styleFrom(
-                    visualDensity: VisualDensity(horizontal: 4, vertical: 2),
+                    visualDensity:
+                        const VisualDensity(horizontal: 4, vertical: 2),
                   ),
+                  child: const Text('Set Dark'),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () => AdaptiveTheme.of(context).setLight(),
-                  child: Text('set Light'),
                   style: ElevatedButton.styleFrom(
-                    visualDensity: VisualDensity(horizontal: 4, vertical: 2),
+                    visualDensity:
+                        const VisualDensity(horizontal: 4, vertical: 2),
                   ),
+                  child: const Text('set Light'),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () => AdaptiveTheme.of(context).setSystem(),
-                  child: Text('Set System Default'),
                   style: ElevatedButton.styleFrom(
-                    visualDensity: VisualDensity(horizontal: 4, vertical: 2),
+                    visualDensity:
+                        const VisualDensity(horizontal: 4, vertical: 2),
                   ),
+                  child: const Text('Set System Default'),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () => AdaptiveTheme.of(context).setTheme(
                     light: ThemeData(
@@ -113,23 +119,25 @@ class _MyHomePageState extends State<MyHomePage> {
                       primarySwatch: Colors.pink,
                     ),
                   ),
-                  child: Text('Set Custom Theme'),
                   style: ElevatedButton.styleFrom(
-                    visualDensity: VisualDensity(horizontal: 4, vertical: 2),
+                    visualDensity:
+                        const VisualDensity(horizontal: 4, vertical: 2),
                   ),
+                  child: const Text('Set Custom Theme'),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () => AdaptiveTheme.of(context).reset(),
-                  child: Text('Reset to Default Themes'),
                   style: ElevatedButton.styleFrom(
-                    visualDensity: VisualDensity(horizontal: 4, vertical: 2),
+                    visualDensity:
+                        const VisualDensity(horizontal: 4, vertical: 2),
                   ),
+                  child: const Text('Reset to Default Themes'),
                 ),
-                Spacer(flex: 2),
+                const Spacer(flex: 2),
                 TextButton(
                   onPressed: widget.onChanged,
-                  child: Text('Switch to Cupertino Example'),
+                  child: const Text('Switch to Cupertino Example'),
                 ),
               ],
             ),
@@ -137,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       ),
     );

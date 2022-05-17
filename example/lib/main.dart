@@ -14,10 +14,10 @@ void main() async {
 class MyApp extends StatefulWidget {
   final AdaptiveThemeMode? savedThemeMode;
 
-  const MyApp({Key? key, this.savedThemeMode}) : super(key: key);
+  const MyApp({super.key, this.savedThemeMode});
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       child: isMaterial
           ? MaterialExample(
               savedThemeMode: widget.savedThemeMode,
