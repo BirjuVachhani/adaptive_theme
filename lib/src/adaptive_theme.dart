@@ -60,16 +60,15 @@ class AdaptiveTheme extends StatefulWidget {
 
   /// Primary constructor which allows to configure themes initially.
   const AdaptiveTheme({
-    Key? key,
+    super.key,
     required this.light,
     ThemeData? dark,
     required this.initial,
     required this.builder,
-  })  : dark = dark ?? light,
-        super(key: key);
+  }) : dark = dark ?? light;
 
   @override
-  _AdaptiveThemeState createState() => _AdaptiveThemeState();
+  State<AdaptiveTheme> createState() => _AdaptiveThemeState();
 
   /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [AdaptiveTheme] in a restrictive way.

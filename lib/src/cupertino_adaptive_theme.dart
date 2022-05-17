@@ -61,16 +61,15 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
 
   /// Primary constructor which allows to configure themes initially.
   const CupertinoAdaptiveTheme({
-    Key? key,
+    super.key,
     required this.light,
     CupertinoThemeData? dark,
     required this.initial,
     required this.builder,
-  })  : dark = dark ?? light,
-        super(key: key);
+  }) : dark = dark ?? light;
 
   @override
-  _CupertinoAdaptiveThemeState createState() => _CupertinoAdaptiveThemeState();
+  State<CupertinoAdaptiveTheme> createState() => _CupertinoAdaptiveThemeState();
 
   /// Returns reference of the [CupertinoAdaptiveThemeManager] which allows access of
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.

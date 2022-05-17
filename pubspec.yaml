@@ -4,7 +4,8 @@ version: 2.3.1
 homepage: https://github.com/birjuvachhani/adaptive_theme
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
@@ -14,4 +15,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.1

@@ -35,6 +35,8 @@ class ThemePreferences {
   ThemePreferences.fromJson(Map<String, dynamic> json) {
     if (json['theme_mode'] != null) {
       mode = AdaptiveThemeMode.values[json['theme_mode']];
+    } else {
+      mode = AdaptiveThemeMode.light;
     }
     if (json['default_theme_mode'] != null) {
       defaultMode = AdaptiveThemeMode.values[json['default_theme_mode']];
@@ -62,10 +64,8 @@ class ThemePreferences {
       if (themeDataString == null || themeDataString.isEmpty) return null;
       return ThemePreferences.fromJson(json.decode(themeDataString));
     } on Exception catch (error, stacktrace) {
-      if (!kReleaseMode) {
-        // ignore: avoid_print
+      if (kDebugMode) {
         print(error);
-        // ignore: avoid_print
         print(stacktrace);
       }
       return null;

@@ -15,25 +15,18 @@
  */
 
 /// Represents the mode of the theme.
-enum AdaptiveThemeMode { light, dark, system }
+enum AdaptiveThemeMode {
+  light('Light'),
+  dark('Dark'),
+  system('System');
 
-/// Provides accessibility methods for theme modes.
-extension AdaptiveThemeModeExtensions on AdaptiveThemeMode {
+  const AdaptiveThemeMode(this.name);
+
+  final String name;
+
   bool get isLight => this == AdaptiveThemeMode.light;
 
   bool get isDark => this == AdaptiveThemeMode.dark;
 
   bool get isSystem => this == AdaptiveThemeMode.system;
-
-  /// String representation of [AdaptiveThemeMode]
-  String get name {
-    switch (this) {
-      case AdaptiveThemeMode.light:
-        return 'Light';
-      case AdaptiveThemeMode.dark:
-        return 'Dark';
-      default:
-        return 'System';
-    }
-  }
 }
