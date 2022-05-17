@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Text(
-                CupertinoAdaptiveTheme.of(context).mode.name.toUpperCase(),
+                CupertinoAdaptiveTheme.of(context).mode.modeName.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 24,
                   height: 2.0,

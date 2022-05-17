@@ -20,9 +20,9 @@ enum AdaptiveThemeMode {
   dark('Dark'),
   system('System');
 
-  const AdaptiveThemeMode(this.name);
+  const AdaptiveThemeMode(this.modeName);
 
-  final String name;
+  final String modeName;
 
   bool get isLight => this == AdaptiveThemeMode.light;
 
