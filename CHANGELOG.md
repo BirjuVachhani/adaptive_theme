@@ -1,3 +1,10 @@
+# 3.0.0
+
+- Upgrade to Flutter 3.
+- Update & fix tests.
+- Update AdaptiveThemeMode enum.
+- Fix lints warnings & refactor code.
+
 # 2.3.1
 
 - Fixed Material theme not updating on system theme change.
