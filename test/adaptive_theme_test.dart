@@ -310,11 +310,11 @@ void main() {
   });
 
   testWidgets('Theme name tests', (tester) async {
-    expect(AdaptiveThemeMode.light.name, equals('Light'),
+    expect(AdaptiveThemeMode.light.modeName, equals('Light'),
         reason: 'light mode name is altered.');
-    expect(AdaptiveThemeMode.dark.name, equals('Dark'),
+    expect(AdaptiveThemeMode.dark.modeName, equals('Dark'),
         reason: 'dark mode name is altered.');
-    expect(AdaptiveThemeMode.system.name, equals('System'),
+    expect(AdaptiveThemeMode.system.modeName, equals('System'),
         reason: 'system mode name is altered.');
   });
 
