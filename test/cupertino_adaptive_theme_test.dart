@@ -18,8 +18,8 @@ void main() {
     primaryColor: CupertinoColors.systemBlue,
   );
 
-  setUp(() async {
-    await clearPref();
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
   });
 
   testWidgets('CupertinoAdaptiveTheme initial light theme test',
@@ -337,7 +337,8 @@ void main() {
   });
 
   testWidgets('device theme change tests', (tester) async {
-    tester.binding.window.platformBrightnessTestValue = Brightness.light;
+    tester.binding.window.platformDispatcher.platformBrightnessTestValue =
+        Brightness.light;
 
     await pumpCupertinoApp(
       tester,
@@ -354,7 +355,8 @@ void main() {
     expect(manager.brightness, equals(Brightness.light),
         reason: 'manager.brightness should be light but it is not.');
 
-    tester.binding.window.platformBrightnessTestValue = Brightness.dark;
+    tester.binding.window.platformDispatcher.platformBrightnessTestValue =
+        Brightness.dark;
     await tester.pumpAndSettle();
     expect(CupertinoTheme.of(context).brightness, equals(Brightness.dark),
         reason:
@@ -362,7 +364,8 @@ void main() {
     expect(manager.brightness, equals(Brightness.dark),
         reason: 'manager.brightness should be dark but it is not.');
 
-    tester.binding.window.platformBrightnessTestValue = Brightness.light;
+    tester.binding.window.platformDispatcher.platformBrightnessTestValue =
+        Brightness.light;
     await tester.pumpAndSettle();
     expect(CupertinoTheme.of(context).brightness, equals(Brightness.light),
         reason:

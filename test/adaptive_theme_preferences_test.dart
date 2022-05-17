@@ -9,6 +9,7 @@ void main() {
   group('ThemePreferences Tests', () {
     setUp(() async {
       // clear preference before running each tests
+      SharedPreferences.setMockInitialValues({});
       final pref = await SharedPreferences.getInstance();
       await pref.clear();
     });
