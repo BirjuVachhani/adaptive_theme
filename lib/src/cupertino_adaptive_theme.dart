@@ -17,9 +17,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 
+import 'adaptive_theme_manager.dart';
 import 'adaptive_theme_mode.dart';
 import 'adaptive_theme_preferences.dart';
-import 'cupertino_adaptive_theme_manager.dart';
 
 /// Builder function to build themed widgets
 typedef CupertinoAdaptiveThemeBuilder = Widget Function(
@@ -73,18 +73,21 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
 
   /// Returns reference of the [CupertinoAdaptiveThemeManager] which allows access of
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
-  static CupertinoAdaptiveThemeManager of(BuildContext context) =>
+  static AdaptiveThemeManager<CupertinoThemeData> of(BuildContext context) =>
       context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>()!
-          as CupertinoAdaptiveThemeManager;
+          as AdaptiveThemeManager<CupertinoThemeData>;
 
   /// Returns reference of the [CupertinoAdaptiveThemeManager] which allows access of
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
   /// This returns null if the state instance of [CupertinoAdaptiveTheme] is not found.
-  static CupertinoAdaptiveThemeManager? maybeOf(BuildContext context) {
+  static AdaptiveThemeManager<CupertinoThemeData>? maybeOf(
+      BuildContext context) {
     final state =
         context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>();
-    if (state == null || state is! CupertinoAdaptiveThemeManager) return null;
-    return state as CupertinoAdaptiveThemeManager;
+    if (state == null || state is! AdaptiveThemeManager<CupertinoThemeData>) {
+      return null;
+    }
+    return state as AdaptiveThemeManager<CupertinoThemeData>;
   }
 
   /// returns most recent theme mode. This can be used to eagerly get previous
@@ -95,8 +98,7 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
 }
 
 class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
-    with WidgetsBindingObserver
-    implements CupertinoAdaptiveThemeManager {
+    with WidgetsBindingObserver, AdaptiveThemeManager<CupertinoThemeData> {
   late CupertinoThemeData _theme;
   late CupertinoThemeData _darkTheme;
   late ThemePreferences _preferences;
@@ -165,15 +167,6 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   Brightness? get brightness => theme.brightness;
 
   @override
-  void setLight() => setThemeMode(AdaptiveThemeMode.light);
-
-  @override
-  void setDark() => setThemeMode(AdaptiveThemeMode.dark);
-
-  @override
-  void setSystem() => setThemeMode(AdaptiveThemeMode.system);
-
-  @override
   void setThemeMode(AdaptiveThemeMode mode) {
     _preferences.mode = mode;
     if (mounted) setState(() {});
@@ -190,13 +183,6 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
     _theme = light;
     if (dark != null) _darkTheme = dark;
     if (notify && mounted) setState(() {});
-  }
-
-  @override
-  void toggleThemeMode() {
-    final nextModeIndex = (mode.index + 1) % AdaptiveThemeMode.values.length;
-    final nextMode = AdaptiveThemeMode.values[nextModeIndex];
-    setThemeMode(nextMode);
   }
 
   @override

@@ -1,3 +1,11 @@
+# 3.1.0 (Unreleased)
+
+- `CupertinoAdaptiveThemeManager` is now deprecated and replaced with `AdaptiveThemeManager<CupertinoThemeData>` in
+  favor of supporting theming for other UI frameworks. (e.g. Fluent UI). This will be removed in `v4.0.0`.
+- `AdaptiveThemeManager` is now generic typed where the generic type represents the type of the theme data object.
+  Replace `AdaptiveThemeManager` with `AdaptiveThemeManager<ThemeData>`
+- `AdaptiveThemeManager` is now a **mixin** instead of **an abstract class** to reduce code duplication.
+
 # 3.0.0
 
 - Upgrade to Flutter 3.
@@ -28,18 +36,22 @@
 
 # 2.1.1
 
-- Fixed [#18](https://github.com/BirjuVachhani/adaptive_theme/issues/18) - Dark theme not working properly on all platforms.
+- Fixed [#18](https://github.com/BirjuVachhani/adaptive_theme/issues/18) - Dark theme not working properly on all
+  platforms.
 
 ## 2.1.0
 
-- Fixed [#16](https://github.com/BirjuVachhani/adaptive_theme/issues/16) - get theme and get darkTheme returns the same theme depended on mode
+- Fixed [#16](https://github.com/BirjuVachhani/adaptive_theme/issues/16) - get theme and get darkTheme returns the same
+  theme depended on mode
 - Added [#15](https://github.com/BirjuVachhani/adaptive_theme/issues/15) - Notify listener when changing theme mode
 
 ## 2.0.0
 
 - Improved documentation
 - Stable null safety support
-- Calling `AdaptiveTheme.of(context).toggleThemeMode()` now will sequentially loop through `AdaptiveThemeMode.light`, `AdaptiveThemeMode.dark` and `AdaptiveThemeMode.system` instead of just `AdaptiveThemeMode.light` and `AdaptiveThemeMode.dark`.
+- Calling `AdaptiveTheme.of(context).toggleThemeMode()` now will sequentially loop through `AdaptiveThemeMode.light`
+  , `AdaptiveThemeMode.dark` and `AdaptiveThemeMode.system` instead of just `AdaptiveThemeMode.light`
+  and `AdaptiveThemeMode.dark`.
 
 ## 2.0.0-nullsafety.1
 
@@ -49,7 +61,8 @@
 
 - Removed hard coded `shared_preferences` version.
 - Hide public constructors for `ThemePreferences`.
-- `AdaptiveTheme.of()` now returns instance of `AdaptiveThemeManager` instead of `AdaptiveThemeState` to set restrictions for accessing state directly.
+- `AdaptiveTheme.of()` now returns instance of `AdaptiveThemeManager` instead of `AdaptiveThemeState` to set
+  restrictions for accessing state directly.
 
 ## 1.0.0
 
