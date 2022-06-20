@@ -21,15 +21,15 @@ import 'adaptive_theme_mode.dart';
 /// Entry point to change/modify theme or access theme related information
 /// from [AdaptiveTheme].
 /// An instance of this can be retrieved by calling [AdaptiveTheme.of].
-abstract class AdaptiveThemeManager {
+mixin AdaptiveThemeManager<T extends Object> {
   /// provides current theme
-  ThemeData get theme;
+  T get theme;
 
   /// provides the light theme
-  ThemeData get lightTheme;
+  T get lightTheme;
 
   /// provides the dark theme
-  ThemeData get darkTheme;
+  T get darkTheme;
 
   /// Returns current theme mode
   AdaptiveThemeMode get mode;
@@ -43,19 +43,19 @@ abstract class AdaptiveThemeManager {
   bool get isDefault;
 
   /// provides brightness of the current theme
-  Brightness get brightness;
+  Brightness? get brightness;
 
   /// Sets light theme as current
   /// Uses [AdaptiveThemeMode.light].
-  void setLight();
+  void setLight() => setThemeMode(AdaptiveThemeMode.light);
 
   /// Sets dark theme as current
   /// Uses [AdaptiveThemeMode.dark].
-  void setDark();
+  void setDark() => setThemeMode(AdaptiveThemeMode.dark);
 
   /// Sets theme based on the theme of the underlying OS.
   /// Uses [AdaptiveThemeMode.system].
-  void setSystem();
+  void setSystem() => setThemeMode(AdaptiveThemeMode.system);
 
   /// Allows to set/change theme mode.
   void setThemeMode(AdaptiveThemeMode mode);
@@ -63,14 +63,18 @@ abstract class AdaptiveThemeManager {
   /// Allows to set/change the entire theme.
   /// [notify] when set to true, will update the UI to use the new theme..
   void setTheme({
-    required ThemeData light,
-    ThemeData? dark,
+    required T light,
+    T? dark,
     bool notify = true,
   });
 
   /// Allows to toggle between theme modes [AdaptiveThemeMode.light],
   /// [AdaptiveThemeMode.dark] and [AdaptiveThemeMode.system].
-  void toggleThemeMode();
+  void toggleThemeMode() {
+    final nextModeIndex = (mode.index + 1) % AdaptiveThemeMode.values.length;
+    final nextMode = AdaptiveThemeMode.values[nextModeIndex];
+    setThemeMode(nextMode);
+  }
 
   /// Saves the configuration to the shared-preferences. This can be useful
   /// when you want to persist theme settings after clearing

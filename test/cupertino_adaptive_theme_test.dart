@@ -90,14 +90,14 @@ void main() {
 
     BuildContext context = tester.element(find.byType(CupertinoPageScaffold));
     expect(CupertinoAdaptiveTheme.of(context),
-        isA<CupertinoAdaptiveThemeManager>(),
+        isA<AdaptiveThemeManager<CupertinoThemeData>>(),
         reason:
             'CupertinoAdaptiveTheme.of should return instance of CupertinoAdaptiveThemeManager but actually returned something else.');
     expect(CupertinoAdaptiveTheme.maybeOf(context), isNotNull,
         reason:
             'CupertinoAdaptiveTheme.maybeOf should not return null but it did.');
     expect(CupertinoAdaptiveTheme.maybeOf(context),
-        isA<CupertinoAdaptiveThemeManager>(),
+        isA<AdaptiveThemeManager<CupertinoThemeData>>(),
         reason:
             'CupertinoAdaptiveTheme.maybeOf should return instance of CupertinoAdaptiveThemeManager but actually returned something else.');
 

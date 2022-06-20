@@ -72,17 +72,17 @@ class AdaptiveTheme extends StatefulWidget {
 
   /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [AdaptiveTheme] in a restrictive way.
-  static AdaptiveThemeManager of(BuildContext context) =>
+  static AdaptiveThemeManager<ThemeData> of(BuildContext context) =>
       context.findAncestorStateOfType<State<AdaptiveTheme>>()!
-          as AdaptiveThemeManager;
+          as AdaptiveThemeManager<ThemeData>;
 
   /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [AdaptiveTheme] in a restrictive way.
   /// This returns null if the state instance of [AdaptiveTheme] is not found.
-  static AdaptiveThemeManager? maybeOf(BuildContext context) {
+  static AdaptiveThemeManager<ThemeData>? maybeOf(BuildContext context) {
     final state = context.findAncestorStateOfType<State<AdaptiveTheme>>();
     if (state == null) return null;
-    return state as AdaptiveThemeManager;
+    return state as AdaptiveThemeManager<ThemeData>;
   }
 
   /// returns most recent theme mode. This can be used to eagerly get previous
@@ -93,8 +93,7 @@ class AdaptiveTheme extends StatefulWidget {
 }
 
 class _AdaptiveThemeState extends State<AdaptiveTheme>
-    with WidgetsBindingObserver
-    implements AdaptiveThemeManager {
+    with WidgetsBindingObserver, AdaptiveThemeManager<ThemeData> {
   late ThemeData _theme;
   late ThemeData _darkTheme;
   late ThemePreferences _preferences;
@@ -160,15 +159,6 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   Brightness get brightness => theme.brightness;
 
   @override
-  void setLight() => setThemeMode(AdaptiveThemeMode.light);
-
-  @override
-  void setDark() => setThemeMode(AdaptiveThemeMode.dark);
-
-  @override
-  void setSystem() => setThemeMode(AdaptiveThemeMode.system);
-
-  @override
   void setThemeMode(AdaptiveThemeMode mode) {
     _preferences.mode = mode;
     if (mounted) setState(() {});
@@ -185,13 +175,6 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
     _theme = light;
     if (dark != null) _darkTheme = dark;
     if (notify && mounted) setState(() {});
-  }
-
-  @override
-  void toggleThemeMode() {
-    final nextModeIndex = (mode.index + 1) % AdaptiveThemeMode.values.length;
-    final nextMode = AdaptiveThemeMode.values[nextModeIndex];
-    setThemeMode(nextMode);
   }
 
   @override
