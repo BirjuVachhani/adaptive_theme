@@ -27,8 +27,10 @@ class ThemePreferences {
   late AdaptiveThemeMode mode;
   late AdaptiveThemeMode defaultMode;
 
-  ThemePreferences.initial({this.mode = AdaptiveThemeMode.light})
-      : defaultMode = mode;
+  ThemePreferences._(this.mode, this.defaultMode);
+
+  ThemePreferences.initial({AdaptiveThemeMode mode = AdaptiveThemeMode.light})
+      : this._(mode, mode);
 
   void reset() => mode = defaultMode;
 
