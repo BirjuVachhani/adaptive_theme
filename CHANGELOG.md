@@ -1,4 +1,4 @@
-# 3.1.0 (Unreleased)
+# 3.1.0
 
 - `CupertinoAdaptiveThemeManager` is now deprecated and replaced with `AdaptiveThemeManager<CupertinoThemeData>` in
   favor of supporting theming for other UI frameworks. (e.g. Fluent UI). This will be removed in `v4.0.0`.
