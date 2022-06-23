@@ -15,7 +15,6 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 import 'adaptive_theme_manager.dart';
 import 'adaptive_theme_mode.dart';
@@ -94,26 +93,14 @@ class AdaptiveTheme extends StatefulWidget {
 
 class _AdaptiveThemeState extends State<AdaptiveTheme>
     with WidgetsBindingObserver, AdaptiveThemeManager<ThemeData> {
-  late ThemeData _theme;
-  late ThemeData _darkTheme;
-  late ThemePreferences _preferences;
-  late ValueNotifier<AdaptiveThemeMode> _modeChangeNotifier;
-
   @override
   void initState() {
     super.initState();
-    _theme = widget.light.copyWith();
-    _modeChangeNotifier = ValueNotifier(widget.initial);
-    _darkTheme = widget.dark.copyWith();
-    _preferences = ThemePreferences.initial(mode: widget.initial);
-    ThemePreferences.fromPrefs().then((pref) {
-      if (pref == null) {
-        _preferences.save();
-      } else {
-        _preferences = pref;
-        if (mounted) setState(() {});
-      }
-    });
+    initialize(
+      light: widget.light,
+      dark: widget.dark,
+      initial: widget.initial,
+    );
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -128,75 +115,36 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   }
 
   @override
-  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier =>
-      _modeChangeNotifier;
-
-  @override
-  ThemeData get theme {
-    if (_preferences.mode.isSystem) {
-      final brightness = SchedulerBinding.instance.window.platformBrightness;
-      return brightness == Brightness.light ? _theme : _darkTheme;
-    }
-    return _preferences.mode.isDark ? _darkTheme : _theme;
-  }
-
-  @override
-  ThemeData get lightTheme => _theme;
-
-  @override
-  ThemeData get darkTheme => _darkTheme;
-
-  @override
-  AdaptiveThemeMode get mode => _preferences.mode;
-
-  @override
   bool get isDefault =>
-      _theme == widget.light &&
-      _darkTheme == widget.dark &&
-      _preferences.mode == _preferences.defaultMode;
+      lightTheme == widget.light &&
+      darkTheme == widget.dark &&
+      mode == defaultMode;
 
   @override
   Brightness get brightness => theme.brightness;
 
   @override
-  void setThemeMode(AdaptiveThemeMode mode) {
-    _preferences.mode = mode;
-    if (mounted) setState(() {});
-    _modeChangeNotifier.value = mode;
-    _preferences.save();
-  }
-
-  @override
-  void setTheme({
-    required ThemeData light,
-    ThemeData? dark,
-    bool notify = true,
-  }) {
-    _theme = light;
-    if (dark != null) _darkTheme = dark;
-    if (notify && mounted) setState(() {});
-  }
-
-  @override
-  Future<bool> persist() async => _preferences.save();
-
-  @override
   Future<bool> reset() async {
-    _preferences.reset();
-    _theme = widget.light.copyWith();
-    _darkTheme = widget.dark.copyWith();
-    if (mounted) setState(() {});
-    modeChangeNotifier.value = mode;
-    return _preferences.save();
+    setTheme(
+      light: widget.light,
+      dark: widget.dark,
+      notify: false,
+    );
+    return super.reset();
   }
 
   @override
   Widget build(BuildContext context) =>
-      widget.builder(theme, _preferences.mode.isLight ? _theme : _darkTheme);
+      widget.builder(theme, mode.isLight ? theme : darkTheme);
+
+  @override
+  void updateState() {
+    if (mounted) setState(() {});
+  }
 
   @override
   void dispose() {
-    _modeChangeNotifier.dispose();
+    modeChangeNotifier.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

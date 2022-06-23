@@ -99,28 +99,23 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
 
 class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
     with WidgetsBindingObserver, AdaptiveThemeManager<CupertinoThemeData> {
-  late CupertinoThemeData _theme;
-  late CupertinoThemeData _darkTheme;
-  late ThemePreferences _preferences;
-  late ValueNotifier<AdaptiveThemeMode> _modeChangeNotifier;
-
   @override
   void initState() {
     super.initState();
-
-    _theme = widget.light;
-    _modeChangeNotifier = ValueNotifier(widget.initial);
-    _darkTheme = widget.dark;
-    _preferences = ThemePreferences.initial(mode: widget.initial);
-    ThemePreferences.fromPrefs().then((pref) {
-      if (pref == null) {
-        _preferences.save();
-      } else {
-        _preferences = pref;
-        if (mounted) setState(() {});
-      }
-    });
+    initialize(
+      light: widget.light,
+      dark: widget.dark,
+      initial: widget.initial,
+    );
     WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didUpdateWidget(covariant CupertinoAdaptiveTheme oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // if(widget.light != oldWidget.light || widget.dark != oldWidget.dark) {
+    //
+    // }
   }
 
   /// When device theme mode is changed, Flutter does not rebuild
@@ -134,85 +129,41 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   }
 
   @override
-  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier =>
-      _modeChangeNotifier;
-
-  @override
-  CupertinoThemeData get theme {
-    // This ensures that when device theme mode is changed, this also reacts
-    // to it and applies required changes.
-    if (_preferences.mode.isSystem) {
-      final brightness = SchedulerBinding.instance.window.platformBrightness;
-      return brightness == Brightness.light ? _theme : _darkTheme;
-    }
-    return _preferences.mode.isDark ? _darkTheme : _theme;
-  }
-
-  @override
-  CupertinoThemeData get lightTheme => _theme;
-
-  @override
-  CupertinoThemeData get darkTheme => _darkTheme;
-
-  @override
-  AdaptiveThemeMode get mode => _preferences.mode;
-
-  @override
   bool get isDefault =>
-      _theme == widget.light &&
-      _darkTheme == widget.dark &&
-      _preferences.mode == _preferences.defaultMode;
+      theme == widget.light && darkTheme == widget.dark && mode == defaultMode;
 
   @override
   Brightness? get brightness => theme.brightness;
 
   @override
-  void setThemeMode(AdaptiveThemeMode mode) {
-    _preferences.mode = mode;
-    if (mounted) setState(() {});
-    _modeChangeNotifier.value = mode;
-    _preferences.save();
-  }
-
-  @override
-  void setTheme({
-    required CupertinoThemeData light,
-    CupertinoThemeData? dark,
-    bool notify = true,
-  }) {
-    _theme = light;
-    if (dark != null) _darkTheme = dark;
-    if (notify && mounted) setState(() {});
-  }
-
-  @override
-  Future<bool> persist() async => _preferences.save();
-
-  @override
   Future<bool> reset() async {
-    _preferences.reset();
-    _theme = widget.light;
-    _darkTheme = widget.dark;
-    if (mounted) setState(() {});
-    modeChangeNotifier.value = mode;
-    return _preferences.save();
+    setTheme(
+      light: widget.light,
+      dark: widget.dark,
+      notify: false,
+    );
+    return super.reset();
   }
 
   @override
   Widget build(BuildContext context) {
     // This ensures that when device theme mode is changed, this also reacts
     // to it and applies required changes.
-    if (_preferences.mode.isSystem) {
+    if (mode.isSystem) {
       final brightness = SchedulerBinding.instance.window.platformBrightness;
-      return widget
-          .builder(brightness == Brightness.light ? _theme : _darkTheme);
+      return widget.builder(brightness == Brightness.light ? theme : darkTheme);
     }
-    return widget.builder(_preferences.mode.isLight ? _theme : _darkTheme);
+    return widget.builder(mode.isLight ? theme : darkTheme);
+  }
+
+  @override
+  void updateState() {
+    if (mounted) setState(() {});
   }
 
   @override
   void dispose() {
-    _modeChangeNotifier.dispose();
+    modeChangeNotifier.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
