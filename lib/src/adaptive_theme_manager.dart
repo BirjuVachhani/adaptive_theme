@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
+import 'package:adaptive_theme/src/adaptive_theme_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'adaptive_theme_mode.dart';
 
@@ -22,20 +24,37 @@ import 'adaptive_theme_mode.dart';
 /// from [AdaptiveTheme].
 /// An instance of this can be retrieved by calling [AdaptiveTheme.of].
 mixin AdaptiveThemeManager<T extends Object> {
+  late T _theme;
+  late T _darkTheme;
+
+  late ThemePreferences _preferences;
+
+  late ValueNotifier<AdaptiveThemeMode> _modeChangeNotifier;
+
   /// provides current theme
-  T get theme;
+  T get theme {
+    if (_preferences.mode.isSystem) {
+      final brightness = SchedulerBinding.instance.window.platformBrightness;
+      return brightness == Brightness.light ? _theme : _darkTheme;
+    }
+    return _preferences.mode.isDark ? _darkTheme : _theme;
+  }
 
   /// provides the light theme
-  T get lightTheme;
+  T get lightTheme => _theme;
 
   /// provides the dark theme
-  T get darkTheme;
+  T get darkTheme => _darkTheme;
 
   /// Returns current theme mode
-  AdaptiveThemeMode get mode;
+  AdaptiveThemeMode get mode => _preferences.mode;
+
+  /// Returns the default(initial) theme mode
+  AdaptiveThemeMode get defaultMode => _preferences.defaultMode;
 
   /// Allows to listen to changes in them mode.
-  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier;
+  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier =>
+      _modeChangeNotifier;
 
   /// checks whether current theme is default theme or not. Default theme
   /// refers to he themes provided at the time of initialization
@@ -44,6 +63,26 @@ mixin AdaptiveThemeManager<T extends Object> {
 
   /// provides brightness of the current theme
   Brightness? get brightness;
+
+  void initialize({
+    required T light,
+    required T dark,
+    required AdaptiveThemeMode initial,
+  }) {
+    _theme = light;
+    _modeChangeNotifier = ValueNotifier(initial);
+    _darkTheme = dark;
+    _preferences = ThemePreferences.initial(mode: initial);
+
+    ThemePreferences.fromPrefs().then((pref) {
+      if (pref == null) {
+        _preferences.save();
+      } else {
+        _preferences = pref;
+        updateState();
+      }
+    });
+  }
 
   /// Sets light theme as current
   /// Uses [AdaptiveThemeMode.light].
@@ -58,7 +97,12 @@ mixin AdaptiveThemeManager<T extends Object> {
   void setSystem() => setThemeMode(AdaptiveThemeMode.system);
 
   /// Allows to set/change theme mode.
-  void setThemeMode(AdaptiveThemeMode mode);
+  void setThemeMode(AdaptiveThemeMode mode) {
+    _preferences.mode = mode;
+    updateState();
+    _modeChangeNotifier.value = mode;
+    _preferences.save();
+  }
 
   /// Allows to set/change the entire theme.
   /// [notify] when set to true, will update the UI to use the new theme..
@@ -66,7 +110,11 @@ mixin AdaptiveThemeManager<T extends Object> {
     required T light,
     T? dark,
     bool notify = true,
-  });
+  }) {
+    _theme = light;
+    if (dark != null) _darkTheme = dark;
+    if (notify) updateState();
+  }
 
   /// Allows to toggle between theme modes [AdaptiveThemeMode.light],
   /// [AdaptiveThemeMode.dark] and [AdaptiveThemeMode.system].
@@ -81,12 +129,22 @@ mixin AdaptiveThemeManager<T extends Object> {
   /// shared-preferences. e.g. when user logs out, usually, preferences
   /// are cleared. Call this method after clearing preferences to
   /// persist theme mode.
-  Future<bool> persist();
+  Future<bool> persist() async => _preferences.save();
 
   /// Resets configuration to default configuration which has been provided
   /// while initializing [MaterialApp].
   /// If [setTheme] method has been called with [isDefault] to true, Calling
   /// this method afterwards will use theme provided by [setTheme] as default
   /// themes.
-  Future<bool> reset();
+  /// Implementations of this method should end with a call to the inherited
+  /// method, as in `super.reset()`.
+  @mustCallSuper
+  Future<bool> reset() async {
+    _preferences.reset();
+    updateState();
+    modeChangeNotifier.value = mode;
+    return _preferences.save();
+  }
+
+  void updateState();
 }
