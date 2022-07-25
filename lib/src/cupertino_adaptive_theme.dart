@@ -110,14 +110,6 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
     WidgetsBinding.instance.addObserver(this);
   }
 
-  @override
-  void didUpdateWidget(covariant CupertinoAdaptiveTheme oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // if(widget.light != oldWidget.light || widget.dark != oldWidget.dark) {
-    //
-    // }
-  }
-
   /// When device theme mode is changed, Flutter does not rebuild
   /// [CupertinoApp] and Because of that, if theme is set to
   /// [AdaptiveThemeMode.system]. it doesn't take effect. This check mitigates
