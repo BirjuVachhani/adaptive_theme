@@ -1,6 +1,6 @@
-# 3.1.1 (Unreleased)
+# 3.1.1
 
-- Add `fix_data.yaml` for deprecation quick fix suggestion.
+- Add `fix_data.yaml` for Flutter fix feature for deprecation quick fix suggestion.
 - Remove redundant code.
 - Update copyright headers.
 
