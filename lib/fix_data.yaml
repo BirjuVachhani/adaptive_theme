@@ -1,0 +1,26 @@
+# Copyright © 2020 Birju Vachhani. All rights reserved.
+# Use of this source code is governed by an Apache license that can be
+# found in the LICENSE file.
+
+# Flutter Fix feature
+# For details regarding the *Flutter Fix* feature, see
+# https://flutter.dev/docs/development/tools/flutter-fix
+
+# Please add new fixes to the top of the file, separated by one blank line
+# from other fixes. In a comment, include a link to the PR where the change
+# requiring the fix was made.
+
+# For documentation about this file format, see
+# https://dart.dev/go/data-driven-fixes.
+
+version: 1
+transforms:
+  # Deprecation of CupertinoAdaptiveThemeManager in https://github.com/BirjuVachhani/adaptive_theme/commit/6a6932a173cfbdefc21bd26c2e433d0eb7bf084f
+  - title: "Replace with AdaptiveThemeManager<CupertinoThemeData>"
+    date: 2022-06-23
+    element:
+      uris: [ 'adaptive_theme.dart' ]
+      class: 'CupertinoAdaptiveThemeManager'
+    changes:
+      - kind: 'rename'
+        newName: 'AdaptiveThemeManager<CupertinoThemeData>'
