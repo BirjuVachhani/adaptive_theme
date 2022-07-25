@@ -1,3 +1,9 @@
+# 3.1.1 (Unreleased)
+
+- Add `fix_data.yaml` for deprecation quick fix suggestion.
+- Remove redundant code.
+- Update copyright headers.
+
 # 3.1.0
 
 - `CupertinoAdaptiveThemeManager` is now deprecated and replaced with `AdaptiveThemeManager<CupertinoThemeData>` in
