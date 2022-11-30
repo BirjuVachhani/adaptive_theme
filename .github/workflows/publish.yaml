@@ -2,7 +2,7 @@ name: Publish Package
 
 on:
   release:
-    types: [published]
+    types: [ published ]
   workflow_dispatch:
 
 jobs:
@@ -24,9 +24,8 @@ jobs:
       - name: Dry Run
         run: flutter pub publish --dry-run
       - name: Publish
-        uses: k-paxian/dart-package-publisher@v1.3
+        uses: k-paxian/dart-package-publisher@v1.5.1
         with:
           credentialJson: ${{ secrets.CREDENTIAL_JSON }}
           flutter: true
           skipTests: true
-          dryRunOnly: false
