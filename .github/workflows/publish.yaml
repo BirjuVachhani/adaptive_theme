@@ -9,7 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -24,8 +25,10 @@ jobs:
       - name: Dry Run
         run: flutter pub publish --dry-run
       - name: Publish
-        uses: k-paxian/dart-package-publisher@v1.5.1
-        with:
-          credentialJson: ${{ secrets.CREDENTIAL_JSON }}
-          flutter: true
-          skipTests: true
+        run: dart pub publish --force
+#       - name: Publish
+#         uses: k-paxian/dart-package-publisher@v1.5.1
+#         with:
+#           credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+#           flutter: true
+#           skipTests: true
