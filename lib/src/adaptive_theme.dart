@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'adaptive_theme_manager.dart';
 import 'adaptive_theme_mode.dart';
 import 'adaptive_theme_preferences.dart';
+import 'inherited_adaptive_theme.dart';
 
 /// Builder function to build themed widgets
 typedef AdaptiveThemeBuilder = Widget Function(ThemeData light, ThemeData dark);
@@ -59,14 +60,19 @@ class AdaptiveTheme extends StatefulWidget {
 
   /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [AdaptiveTheme] in a restrictive way.
-  static AdaptiveThemeManager<ThemeData> of(BuildContext context) =>
-      context.findAncestorStateOfType<State<AdaptiveTheme>>()!
-          as AdaptiveThemeManager<ThemeData>;
+  static AdaptiveThemeManager<ThemeData> of(BuildContext context) {
+    context.dependOnInheritedWidgetOfExactType<
+        InheritedAdaptiveTheme<ThemeData>>();
+    return context.findAncestorStateOfType<State<AdaptiveTheme>>()!
+        as AdaptiveThemeManager<ThemeData>;
+  }
 
   /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [AdaptiveTheme] in a restrictive way.
   /// This returns null if the state instance of [AdaptiveTheme] is not found.
   static AdaptiveThemeManager<ThemeData>? maybeOf(BuildContext context) {
+    context.dependOnInheritedWidgetOfExactType<
+        InheritedAdaptiveTheme<ThemeData>>();
     final state = context.findAncestorStateOfType<State<AdaptiveTheme>>();
     if (state == null) return null;
     return state as AdaptiveThemeManager<ThemeData>;
@@ -122,8 +128,12 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   }
 
   @override
-  Widget build(BuildContext context) =>
-      widget.builder(theme, mode.isLight ? theme : darkTheme);
+  Widget build(BuildContext context) {
+    return InheritedAdaptiveTheme<ThemeData>(
+      manager: this,
+      child: widget.builder(theme, mode.isLight ? theme : darkTheme),
+    );
+  }
 
   @override
   void updateState() {

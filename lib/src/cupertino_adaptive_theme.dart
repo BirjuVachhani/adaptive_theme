@@ -2,6 +2,7 @@
 // Use of this source code is governed by an Apache license that can be
 // found in the LICENSE file.
 
+import 'package:adaptive_theme/src/inherited_adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -61,15 +62,20 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
 
   /// Returns reference of the [CupertinoAdaptiveThemeManager] which allows access of
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
-  static AdaptiveThemeManager<CupertinoThemeData> of(BuildContext context) =>
-      context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>()!
-          as AdaptiveThemeManager<CupertinoThemeData>;
+  static AdaptiveThemeManager<CupertinoThemeData> of(BuildContext context) {
+    context.dependOnInheritedWidgetOfExactType<
+        InheritedAdaptiveTheme<CupertinoThemeData>>();
+    return context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>()!
+        as AdaptiveThemeManager<CupertinoThemeData>;
+  }
 
   /// Returns reference of the [CupertinoAdaptiveThemeManager] which allows access of
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
   /// This returns null if the state instance of [CupertinoAdaptiveTheme] is not found.
   static AdaptiveThemeManager<CupertinoThemeData>? maybeOf(
       BuildContext context) {
+    context.dependOnInheritedWidgetOfExactType<
+        InheritedAdaptiveTheme<CupertinoThemeData>>();
     final state =
         context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>();
     if (state == null || state is! AdaptiveThemeManager<CupertinoThemeData>) {
