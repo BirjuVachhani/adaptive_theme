@@ -1,6 +1,6 @@
 # 3.2.0
 
-- Use inherited widget to create dependency on `AdaptiveTheme` using `AdaptiveTheme.of`.
+- Fix calling `AdaptiveTheme.of` or `CupertinoAdaptiveTheme.of` not creating a dependency on it.
 - Add screenshots for pub.dev.
 
 # 3.1.1
