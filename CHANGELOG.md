@@ -1,3 +1,8 @@
+# 3.2.0
+
+- Use inherited widget to create dependency on `AdaptiveTheme` using `AdaptiveTheme.of`.
+- Add screenshots for pub.dev.
+
 # 3.1.1
 
 - Add `fix_data.yaml` for Flutter fix feature for deprecation quick fix suggestion.
