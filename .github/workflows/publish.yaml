@@ -28,16 +28,10 @@ jobs:
       - name: Install dependencies
         run: flutter packages get
       - name: Format code
-        run: dart format --fix .
+        run: dart format --set-exit-if-changed .
       - name: Tests
         run: flutter test .
       - name: Dry Run
         run: flutter pub publish --dry-run
       - name: Publish
         run: dart pub publish --force
-#       - name: Publish
-#         uses: k-paxian/dart-package-publisher@v1.5.1
-#         with:
-#           credentialJson: ${{ secrets.CREDENTIAL_JSON }}
-#           flutter: true
-#           skipTests: true

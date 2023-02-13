@@ -18,7 +18,7 @@ jobs:
       - name: Tap Google's Dart formula repository
         run: brew tap dart-lang/dart
       - name: Install Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v3
         with:
           channel: stable
       - run: flutter --version
