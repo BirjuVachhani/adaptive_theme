@@ -1,3 +1,7 @@
+# 3.2.1
+
+- Fix missing inherited widget for CupertinoAdaptiveTheme.
+
 # 3.2.0
 
 - Fix calling `AdaptiveTheme.of` or `CupertinoAdaptiveTheme.of` not creating a dependency on it.
