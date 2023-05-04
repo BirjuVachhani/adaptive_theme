@@ -23,6 +23,7 @@ class MaterialExample extends StatelessWidget {
     return AdaptiveTheme(
       light: ThemeData.light(),
       dark: ThemeData.dark(),
+      debugShowFloatingThemeButton: true,
       initial: savedThemeMode ?? AdaptiveThemeMode.light,
       builder: (theme, darkTheme) => MaterialApp(
         title: 'Adaptive Theme Demo',
@@ -47,7 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return AnimatedTheme(
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOut,
       data: Theme.of(context),
       child: Scaffold(
         appBar: AppBar(

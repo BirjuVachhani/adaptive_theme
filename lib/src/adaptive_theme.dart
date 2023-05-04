@@ -2,6 +2,8 @@
 // Use of this source code is governed by an Apache license that can be
 // found in the LICENSE file.
 
+import 'package:adaptive_theme/src/debug_floating_theme_buttons.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'adaptive_theme_manager.dart';
@@ -40,6 +42,10 @@ class AdaptiveTheme extends StatefulWidget {
   /// be used to return [MaterialApp].
   final AdaptiveThemeBuilder builder;
 
+  /// Indicates whether to show floating theme mode switcher button or not.
+  /// This is ignored in release mode.
+  final bool debugShowFloatingThemeButton;
+
   /// Key used to store theme information into shared-preferences. If you want
   /// to persist theme mode changes even after shared-preferences
   /// is cleared (e.g. after log out), do not remove this [prefKey] key from
@@ -53,6 +59,7 @@ class AdaptiveTheme extends StatefulWidget {
     ThemeData? dark,
     required this.initial,
     required this.builder,
+    this.debugShowFloatingThemeButton = false,
   }) : dark = dark ?? light;
 
   @override
@@ -129,9 +136,23 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
 
   @override
   Widget build(BuildContext context) {
+    final child = widget.builder(theme, mode.isLight ? theme : darkTheme);
+
     return InheritedAdaptiveTheme<ThemeData>(
       manager: this,
-      child: widget.builder(theme, mode.isLight ? theme : darkTheme),
+      child: Builder(
+        builder: (context) {
+          if (!kReleaseMode && widget.debugShowFloatingThemeButton) {
+            return DebugFloatingThemeButtonWrapper(
+              manager: this,
+              debugShow: true,
+              child: child,
+            );
+          }
+
+          return child;
+        },
+      ),
     );
   }
 

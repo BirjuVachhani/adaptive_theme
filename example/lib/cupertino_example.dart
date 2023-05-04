@@ -24,6 +24,7 @@ class CupertinoExample extends StatelessWidget {
       light: const CupertinoThemeData(brightness: Brightness.light),
       dark: const CupertinoThemeData(brightness: Brightness.dark),
       initial: savedThemeMode ?? AdaptiveThemeMode.light,
+      debugShowFloatingThemeButton: true,
       builder: (theme) => CupertinoApp(
         title: 'Adaptive Theme Demo',
         theme: theme,

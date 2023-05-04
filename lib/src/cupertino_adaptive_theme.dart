@@ -2,8 +2,10 @@
 // Use of this source code is governed by an Apache license that can be
 // found in the LICENSE file.
 
+import 'package:adaptive_theme/src/debug_floating_theme_buttons.dart';
 import 'package:adaptive_theme/src/inherited_adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 
 import 'adaptive_theme_manager.dart';
@@ -42,6 +44,10 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
   /// be used to return [CupertinoApp].
   final CupertinoAdaptiveThemeBuilder builder;
 
+  /// Indicates whether to show floating theme mode switcher button or not.
+  /// This is ignored in release mode.
+  final bool debugShowFloatingThemeButton;
+
   /// Key used to store theme information into shared-preferences. If you want
   /// to persist theme mode changes even after shared-preferences
   /// is cleared (e.g. after log out), do not remove this [prefKey] key from
@@ -55,6 +61,7 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
     CupertinoThemeData? dark,
     required this.initial,
     required this.builder,
+    this.debugShowFloatingThemeButton = false,
   }) : dark = dark ?? light;
 
   @override
@@ -137,15 +144,27 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
       manager: this,
       child: Builder(
         builder: (context) {
+          final Widget child;
           // This ensures that when device theme mode is changed, this also reacts
           // to it and applies required changes.
           if (mode.isSystem) {
             final brightness =
                 SchedulerBinding.instance.window.platformBrightness;
-            return widget
+            child = widget
                 .builder(brightness == Brightness.light ? theme : darkTheme);
+          } else {
+            child = widget.builder(mode.isLight ? theme : darkTheme);
           }
-          return widget.builder(mode.isLight ? theme : darkTheme);
+
+          if (!kReleaseMode && widget.debugShowFloatingThemeButton) {
+            return DebugFloatingThemeButtonWrapper(
+              manager: this,
+              debugShow: true,
+              child: child,
+            );
+          }
+
+          return child;
         },
       ),
     );
