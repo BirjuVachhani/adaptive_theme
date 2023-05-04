@@ -64,7 +64,7 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
   static AdaptiveThemeManager<CupertinoThemeData> of(BuildContext context) {
     context.dependOnInheritedWidgetOfExactType<
-        InheritedAdaptiveTheme<CupertinoThemeData>>();
+        InheritedAdaptiveTheme<CupertinoThemeData>>()!;
     return context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>()!
         as AdaptiveThemeManager<CupertinoThemeData>;
   }
@@ -133,13 +133,22 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
 
   @override
   Widget build(BuildContext context) {
-    // This ensures that when device theme mode is changed, this also reacts
-    // to it and applies required changes.
-    if (mode.isSystem) {
-      final brightness = SchedulerBinding.instance.window.platformBrightness;
-      return widget.builder(brightness == Brightness.light ? theme : darkTheme);
-    }
-    return widget.builder(mode.isLight ? theme : darkTheme);
+    return InheritedAdaptiveTheme<CupertinoThemeData>(
+      manager: this,
+      child: Builder(
+        builder: (context) {
+          // This ensures that when device theme mode is changed, this also reacts
+          // to it and applies required changes.
+          if (mode.isSystem) {
+            final brightness =
+                SchedulerBinding.instance.window.platformBrightness;
+            return widget
+                .builder(brightness == Brightness.light ? theme : darkTheme);
+          }
+          return widget.builder(mode.isLight ? theme : darkTheme);
+        },
+      ),
+    );
   }
 
   @override

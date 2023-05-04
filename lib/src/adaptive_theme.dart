@@ -62,7 +62,7 @@ class AdaptiveTheme extends StatefulWidget {
   /// the state object of [AdaptiveTheme] in a restrictive way.
   static AdaptiveThemeManager<ThemeData> of(BuildContext context) {
     context.dependOnInheritedWidgetOfExactType<
-        InheritedAdaptiveTheme<ThemeData>>();
+        InheritedAdaptiveTheme<ThemeData>>()!;
     return context.findAncestorStateOfType<State<AdaptiveTheme>>()!
         as AdaptiveThemeManager<ThemeData>;
   }
