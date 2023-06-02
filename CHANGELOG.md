@@ -1,3 +1,9 @@
+# 3.3.0
+
+- Upgrade SDK constraints to Dart 3.0 and Flutter 3.10.0.
+- Refactor deprecated api usages to new ones.
+- Use `WidgetsBinding.instance.platformDispatcher` instead of `PlatformDispatcher.instance` since its recommended.
+
 # 3.2.1
 
 - Fix missing inherited widget for CupertinoAdaptiveTheme.
