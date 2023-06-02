@@ -4,7 +4,6 @@
 
 import 'package:adaptive_theme/src/adaptive_theme_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 import 'adaptive_theme_mode.dart';
 
@@ -22,7 +21,8 @@ mixin AdaptiveThemeManager<T extends Object> {
   /// provides current theme
   T get theme {
     if (_preferences.mode.isSystem) {
-      final brightness = SchedulerBinding.instance.window.platformBrightness;
+      final brightness =
+          WidgetsBinding.instance.platformDispatcher.platformBrightness;
       return brightness == Brightness.light ? _theme : _darkTheme;
     }
     return _preferences.mode.isDark ? _darkTheme : _theme;

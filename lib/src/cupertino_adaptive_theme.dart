@@ -6,7 +6,6 @@ import 'package:adaptive_theme/src/debug_floating_theme_buttons.dart';
 import 'package:adaptive_theme/src/inherited_adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/scheduler.dart';
 
 import 'adaptive_theme_manager.dart';
 import 'adaptive_theme_mode.dart';
@@ -149,7 +148,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
           // to it and applies required changes.
           if (mode.isSystem) {
             final brightness =
-                SchedulerBinding.instance.window.platformBrightness;
+                View.of(context).platformDispatcher.platformBrightness;
             child = widget
                 .builder(brightness == Brightness.light ? theme : darkTheme);
           } else {

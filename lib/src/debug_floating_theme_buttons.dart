@@ -21,7 +21,8 @@ class DebugFloatingThemeButtonWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery.fromWindow(
+    return MediaQuery.fromView(
+      view: View.of(context),
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: DebugFloatingThemeButton(
@@ -92,7 +93,8 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
     // don't show in release mode
     if (kReleaseMode || !widget.debugShow) return widget.child;
 
-    return MediaQuery.fromWindow(
+    return MediaQuery.fromView(
+      view: View.of(context),
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: Theme(
