@@ -346,7 +346,7 @@ void main() {
   });
 
   testWidgets('device theme change tests', (tester) async {
-    tester.binding.window.platformDispatcher.platformBrightnessTestValue =
+    tester.view.platformDispatcher.platformBrightnessTestValue =
         Brightness.light;
 
     await pumpMaterialApp(
@@ -363,7 +363,7 @@ void main() {
     expect(manager.brightness, equals(Brightness.light),
         reason: 'manager.brightness should be light but it is not.');
 
-    tester.binding.window.platformDispatcher.platformBrightnessTestValue =
+    tester.view.platformDispatcher.platformBrightnessTestValue =
         Brightness.dark;
     await tester.pumpAndSettle();
     expect(Theme.of(context).brightness, equals(Brightness.dark),
@@ -372,7 +372,7 @@ void main() {
     expect(manager.brightness, equals(Brightness.dark),
         reason: 'manager.brightness should be dark but it is not.');
 
-    tester.binding.window.platformDispatcher.platformBrightnessTestValue =
+    tester.view.platformDispatcher.platformBrightnessTestValue =
         Brightness.light;
     await tester.pumpAndSettle();
     expect(Theme.of(context).brightness, equals(Brightness.light),
