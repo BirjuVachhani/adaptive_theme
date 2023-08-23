@@ -22,6 +22,7 @@ Demo: [Adaptive Theme](https://adaptivetheme.codemagic.app/)
 - [Set Default Theme](#Set-Default-Theme)
 - [Handling App Start](#Get-ThemeMode-at-App-Start)
 - [Handling Theme Changes](#Listen-to-the-theme-mode-changes)
+- [Using floating theme button overlay](#Using-floating-theme-button-overlay)
 - [Ceveats](#Ceveats)
   - *[Non-Persist theme changes](#Non-Persist-theme-changes)*
   - *[Using SharedPreferences](#Using-SharedPreferences)*
@@ -30,6 +31,25 @@ Demo: [Adaptive Theme](https://adaptivetheme.codemagic.app/)
 - [Contribution](#Contribution)
 - [License](#License)
 
+## Using floating theme button overlay
+
+Starting from `v3.3.0`, you can now set `debugShowFloatingThemeButton` to `true` and enable a floating button that can 
+be used to toggle theme mode very easily. This is useful when you want to test your app with both light and dark theme 
+without restarting the app or navigating to settings screen where your theme settings are available.
+
+```dart
+AdaptiveTheme(
+  light: ThemeData.light(),
+  dark: ThemeData.dark(),
+  debugShowFloatingThemeButton: true, // <------ add this line
+  initial: AdaptiveThemeMode.light,
+  builder: (theme, darkTheme) => MaterialApp(
+    theme: theme,
+    darkTheme: darkTheme,
+    home: MyHomePage(),
+  ),
+);
+```
 
 ## Getting Started
 
