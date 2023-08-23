@@ -242,6 +242,8 @@ AdaptiveTheme(
 );
 ```
 
+[Video](https://github.com/BirjuVachhani/adaptive_theme/assets/20423471/c3a9fd05-c266-468c-a929-f54c17ece3ba)
+
 ## Ceveats
 
 #### Non-Persist theme changes
