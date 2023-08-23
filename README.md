@@ -1,4 +1,4 @@
-![adaptive_theme](https://github.com/BirjuVachhani/adaptive_theme/blob/main/banner.png)
+![adaptive_theme](https://raw.githubusercontent.com/BirjuVachhani/adaptive_theme/main/banner.png)
 
 # Adaptive Theme
 
