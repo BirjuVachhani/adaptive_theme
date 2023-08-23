@@ -13,23 +13,23 @@ Demo: [Adaptive Theme](https://adaptivetheme.codemagic.app/)
 
 ## Index
 
-- [Getting Started](#Getting-Started)
-- [Initialization](#Initialization)
-- [Changing Theme Mode](#Changing-Theme-Mode)
-- [Toggle Theme Mode](#Toggle-Theme-Mode)
-- [Changing Themes](#Changing-Themes)
-- [Reset Theme](#Reset-Theme)
-- [Set Default Theme](#Set-Default-Theme)
-- [Handling App Start](#Get-ThemeMode-at-App-Start)
-- [Handling Theme Changes](#Listen-to-the-theme-mode-changes)
-- [Using floating theme button overlay](#Using-floating-theme-button-overlay)
-- [Ceveats](#Ceveats)
-  - *[Non-Persist theme changes](#Non-Persist-theme-changes)*
-  - *[Using SharedPreferences](#Using-SharedPreferences)*
+- [Getting Started](#getting-started)
+- [Initialization](#initialization)
+- [Changing Theme Mode](#changing-theme-mode)
+- [Toggle Theme Mode](#toggle-theme-mode)
+- [Changing Themes](#changing-themes)
+- [Reset Theme](#reset-theme)
+- [Set Default Theme](#set-default-theme)
+- [Handling App Start](#get-themeMode-at-app-start)
+- [Handling Theme Changes](#listen-to-the-theme-mode-changes)
+- [Using floating theme button overlay](#using-floating-theme-button-overlay)
+- [Ceveats](#ceveats)
+  - *[Non-Persist theme changes](#non-persist-theme-changes)*
+  - *[Using SharedPreferences](#using-sharedpreferences)*
 - [Using-CupertinoTheme](#Using-CupertinoTheme)
-  - *[Changing Cupertino Theme](#Changing-Cupertino-Theme)*
-- [Contribution](#Contribution)
-- [License](#License)
+  - *[Changing Cupertino Theme](#changing-cupertino-theme)*
+- [Contribution](#contribution)
+- [License](#license)
 
 ## Getting Started
 
