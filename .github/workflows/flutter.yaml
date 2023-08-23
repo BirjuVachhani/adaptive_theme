@@ -24,6 +24,6 @@ jobs:
           channel: stable
       - run: flutter --version
       - name: Install dependencies
-        run: flutter packages get
+        run: flutter pub get
       - name: Check Publish Warnings
         run: flutter pub publish --dry-run
