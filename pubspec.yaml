@@ -20,3 +20,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.3
+
+topics:
+  - theme
+  - theming
+  - dark-mode
+  - light-mode
+  - dynamic-theme
+  - adaptive-theme
+  - theme-switcher
+  - app-theme
+  - cupertino-theme
