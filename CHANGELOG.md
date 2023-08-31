@@ -1,3 +1,8 @@
+# 3.3.1
+
+- Add pub topics to package metadata.
+- Upgrade dependencies.
+
 # 3.3.0
 
 - Upgrade SDK constraints to Dart 3.0 and Flutter 3.10.0.
