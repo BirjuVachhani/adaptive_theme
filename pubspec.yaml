@@ -24,10 +24,6 @@ dev_dependencies:
 topics:
   - theme
   - theming
-  - dark-mode
-  - light-mode
   - dynamic-theme
   - adaptive-theme
   - theme-switcher
-  - app-theme
-  - cupertino-theme
