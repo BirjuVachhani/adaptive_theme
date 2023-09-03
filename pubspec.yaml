@@ -27,3 +27,5 @@ topics:
   - dynamic-theme
   - adaptive-theme
   - theme-switcher
+
+scripts: scripts.yaml
