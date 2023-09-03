@@ -1,6 +1,6 @@
 name: adaptive_theme
 description: Allows to change between light and dark theme dynamically and add system adaptive theme support.
-version: 3.3.1
+version: 3.4.0
 homepage: https://github.com/birjuvachhani/adaptive_theme
 
 screenshots:
