@@ -20,11 +20,13 @@ Future<void> pumpMaterialApp(
   required ThemeData light,
   required ThemeData dark,
   required AdaptiveThemeMode mode,
+  bool? debugShowFloatingThemeButton,
 }) async {
   await tester.pumpWidget(AdaptiveTheme(
     light: light,
     dark: dark,
     initial: mode,
+    debugShowFloatingThemeButton: debugShowFloatingThemeButton ?? false,
     builder: (light, dark) => MaterialApp(
       theme: light,
       darkTheme: dark,
