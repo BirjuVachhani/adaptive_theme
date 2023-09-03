@@ -184,6 +184,37 @@ void main() {
         reason: 'manager.mode should be system mode but it is not.');
   });
 
+  testWidgets('toggleThemeMode without system Tests', (tester) async {
+    final light = ThemeData.light();
+    final dark = ThemeData.dark();
+    await pumpMaterialApp(
+      tester,
+      light: light,
+      dark: dark,
+      mode: AdaptiveThemeMode.light,
+    );
+
+    final BuildContext context = tester.element(find.byType(Scaffold));
+    final manager = AdaptiveTheme.of(context);
+
+    expect(manager.mode, equals(AdaptiveThemeMode.light),
+        reason: 'manager.mode should be light mode but it is not.');
+    expect(manager.mode.isLight, isTrue,
+        reason: 'manager.mode should be light mode but it is not.');
+
+    manager.toggleThemeMode(useSystem: false);
+    expect(manager.mode, equals(AdaptiveThemeMode.dark),
+        reason: 'manager.mode should be dark mode but it is not.');
+    expect(manager.mode.isDark, isTrue,
+        reason: 'manager.mode should be dark mode but it is not.');
+
+    manager.toggleThemeMode(useSystem: false);
+    expect(manager.mode, equals(AdaptiveThemeMode.light),
+        reason: 'manager.mode should be light mode but it is not.');
+    expect(manager.mode.isLight, isTrue,
+        reason: 'manager.mode should be light mode but it is not.');
+  });
+
   testWidgets('setThemeMode Tests', (tester) async {
     final light = ThemeData.light();
     final dark = ThemeData.dark();
