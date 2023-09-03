@@ -1,3 +1,8 @@
+# 3.4.0 (Unreleased)
+
+- FEAT: Add` useSystem` flag for `toggleThemeMode` method to toggle between light, dark only when the flag is set to
+  false.
+
 # 3.3.1
 
 - Add pub topics to package metadata.
