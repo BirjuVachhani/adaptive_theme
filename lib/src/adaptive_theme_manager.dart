@@ -106,9 +106,12 @@ mixin AdaptiveThemeManager<T extends Object> {
 
   /// Allows to toggle between theme modes [AdaptiveThemeMode.light],
   /// [AdaptiveThemeMode.dark] and [AdaptiveThemeMode.system].
-  void toggleThemeMode() {
-    final nextModeIndex = (mode.index + 1) % AdaptiveThemeMode.values.length;
-    final nextMode = AdaptiveThemeMode.values[nextModeIndex];
+  void toggleThemeMode({bool useSystem = true}) {
+    AdaptiveThemeMode nextMode = mode.next();
+    if (!useSystem && nextMode.isSystem) {
+      // Skip system mode.
+      nextMode = nextMode.next();
+    }
     setThemeMode(nextMode);
   }
 

@@ -17,4 +17,14 @@ enum AdaptiveThemeMode {
   bool get isDark => this == AdaptiveThemeMode.dark;
 
   bool get isSystem => this == AdaptiveThemeMode.system;
+
+  AdaptiveThemeMode next() {
+    final nextIndex = (index + 1) % AdaptiveThemeMode.values.length;
+    return AdaptiveThemeMode.values[nextIndex];
+  }
+
+  AdaptiveThemeMode previous() {
+    final previousIndex = (index - 1) % AdaptiveThemeMode.values.length;
+    return AdaptiveThemeMode.values[previousIndex];
+  }
 }
