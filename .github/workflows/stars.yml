@@ -1,0 +1,12 @@
+name: Stars
+
+on:
+  watch:
+    types: [started]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Payload
+        run: ${{ github.event.issue.number }}
