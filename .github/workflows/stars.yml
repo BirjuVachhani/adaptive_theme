@@ -10,9 +10,12 @@ jobs:
     steps:
       - name: Print Info
         run: |
-          echo "Repository: ${{ github.repository }}"
+          REPO="$(echo '${{ github.repository }}' | cut -d'_' -f2)"
+          echo "$REPO"
           echo "Event: ${{ github.event_name }}"
           echo "User: ${{ github.actor }}"
           echo "Done!"
       - name: Ntfy
-        run: curl -d "Someone starred your repository" http://155.248.254.32/github
+        run: |
+          REPO="$(echo '${{ github.repository }}' | cut -d'_' -f2)"
+          curl -d "${{ github.actor }} starred $REPO" ${{ secrets.NTFY_TOPIC }}
