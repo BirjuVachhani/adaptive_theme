@@ -8,5 +8,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Payload
-        run: ${{ github.event.issue.number }}
+      - name: Print Info
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Event: ${{ github.event_name }}"
+          echo "User: ${{ github.actor }}"
+          echo "Done!"
+      - name: Ntfy
+        run: curl -d "Someone starred your repository" http://155.248.254.32/github
