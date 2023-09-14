@@ -5,17 +5,7 @@ on:
     types: [started]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print Info
-        run: |
-          REPO="$(echo '${{ github.repository }}' | cut -d'_' -f2)"
-          echo "$REPO"
-          echo "Event: ${{ github.event_name }}"
-          echo "User: ${{ github.actor }}"
-          echo "Done!"
-      - name: Ntfy
-        run: |
-          REPO="$(echo '${{ github.repository }}' | cut -d'_' -f2)"
-          curl -d "${{ github.actor }} starred $REPO" ${{ secrets.NTFY_TOPIC }}
+  notify:
+    uses: BirjuVachhani/shared-workflows/.github/workflows/stars.yml@main
+    secrets:
+      ntfy_url: ${{ secrets.NTFY_TOPIC }}
