@@ -109,14 +109,14 @@ If you want to change the theme entirely like change all the colors to some othe
 ```dart
 AdaptiveTheme.of(context).setTheme(
   light: ThemeData(
+    useMaterial3: true,
     brightness: Brightness.light,
-    primarySwatch: Colors.purple,
-    accentColor: Colors.amber,
+    colorSchemeSeed: Colors.purple,
   ),
   dark: ThemeData(
+    useMaterial3: true,
     brightness: Brightness.dark,
-    primarySwatch: Colors.purple,
-    accentColor: Colors.amber,
+    colorSchemeSeed: Colors.purple,
   ),
 );
 ```
@@ -148,14 +148,14 @@ Doing so is quit easy. You would set a new theme normally as you do by calling `
 ```dart
 AdaptiveTheme.of(context).setTheme(
   light: ThemeData(
+    useMaterial3: true,
     brightness: Brightness.light,
-    primarySwatch: Colors.blue,
-    accentColor: Colors.amber,
+    colorSchemeSeed: Colors.blue,
   ),
   dark: ThemeData(
+    useMaterial3: true,
     brightness: Brightness.dark,
-    primarySwatch: Colors.blue,
-    accentColor: Colors.amber,
+    colorSchemeSeed: Colors.blue,
   ),
   isDefault: true,
 );
