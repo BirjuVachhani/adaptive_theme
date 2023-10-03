@@ -1,3 +1,9 @@
+# 3.4.1
+
+- Fix readme example code.
+- Update example app for a simpler example code.
+- Update example to use Material 3.
+
 # 3.4.0
 
 - FEAT: Add` useSystem` flag for `toggleThemeMode` method to toggle between light, dark only when the flag is set to
