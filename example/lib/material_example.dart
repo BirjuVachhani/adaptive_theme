@@ -21,8 +21,12 @@ class MaterialExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
-      light: ThemeData.light(),
-      dark: ThemeData.dark(),
+      light: ThemeData.light(
+        useMaterial3: true,
+      ),
+      dark: ThemeData.dark(
+        useMaterial3: true,
+      ),
       debugShowFloatingThemeButton: true,
       initial: savedThemeMode ?? AdaptiveThemeMode.light,
       builder: (theme, darkTheme) => MaterialApp(
@@ -78,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const Spacer(),
-                ElevatedButton(
+                FilledButton(
                   onPressed: () => AdaptiveTheme.of(context).toggleThemeMode(),
                   style: ElevatedButton.styleFrom(
                     visualDensity:
@@ -87,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('Toggle Theme Mode'),
                 ),
                 const SizedBox(height: 8),
-                ElevatedButton(
+                FilledButton(
                   onPressed: () => AdaptiveTheme.of(context).setDark(),
                   style: ElevatedButton.styleFrom(
                     visualDensity:
@@ -96,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('Set Dark'),
                 ),
                 const SizedBox(height: 8),
-                ElevatedButton(
+                FilledButton(
                   onPressed: () => AdaptiveTheme.of(context).setLight(),
                   style: ElevatedButton.styleFrom(
                     visualDensity:
@@ -105,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('set Light'),
                 ),
                 const SizedBox(height: 8),
-                ElevatedButton(
+                FilledButton(
                   onPressed: () => AdaptiveTheme.of(context).setSystem(),
                   style: ElevatedButton.styleFrom(
                     visualDensity:
@@ -114,15 +118,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('Set System Default'),
                 ),
                 const SizedBox(height: 8),
-                ElevatedButton(
+                FilledButton(
                   onPressed: () => AdaptiveTheme.of(context).setTheme(
                     light: ThemeData(
+                      useMaterial3: true,
+                      colorSchemeSeed: Colors.pink,
                       brightness: Brightness.light,
-                      primarySwatch: Colors.pink,
                     ),
                     dark: ThemeData(
+                      useMaterial3: true,
                       brightness: Brightness.dark,
-                      primarySwatch: Colors.pink,
+                      colorSchemeSeed: Colors.pink,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -132,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('Set Custom Theme'),
                 ),
                 const SizedBox(height: 8),
-                ElevatedButton(
+                FilledButton(
                   onPressed: () => AdaptiveTheme.of(context).reset(),
                   style: ElevatedButton.styleFrom(
                     visualDensity:
