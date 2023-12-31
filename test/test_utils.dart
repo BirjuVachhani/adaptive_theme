@@ -21,10 +21,9 @@ Future<void> pumpMaterialApp(
   required ThemeData dark,
   required AdaptiveThemeMode mode,
   bool? debugShowFloatingThemeButton,
-  bool pumpFrames = false,
   Duration? maxDuration,
 }) async {
-  final widget = AdaptiveTheme(
+  await tester.pumpWidget(AdaptiveTheme(
     light: light,
     dark: dark,
     initial: mode,
@@ -41,13 +40,7 @@ Future<void> pumpMaterialApp(
         ),
       ),
     ),
-  );
-  if (pumpFrames) {
-    await tester.pumpFrames(
-        widget, maxDuration ?? const Duration(milliseconds: 500));
-  } else {
-    await tester.pumpWidget(widget);
-  }
+  ));
 }
 
 /// pumps [CupertinoAdaptiveTheme] and [CupertinoApp] with given [light], [dark] and [mode].

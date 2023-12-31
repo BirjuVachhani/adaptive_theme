@@ -56,6 +56,58 @@ void main() {
     expect(manager.debugShowFloatingThemeButton, isFalse);
   });
 
+  testWidgets('setDebugShowFloatingThemeButton test with didUpdateWidget',
+      (tester) async {
+    final light = ThemeData.light();
+    final dark = ThemeData.dark();
+    ValueNotifier<bool> debugShowFloatingThemeButton = ValueNotifier(true);
+
+    await tester.pumpWidget(
+      ValueListenableBuilder<bool>(
+        valueListenable: debugShowFloatingThemeButton,
+        builder: (context, value, child) {
+          return AdaptiveTheme(
+            light: light,
+            dark: dark,
+            initial: AdaptiveThemeMode.light,
+            debugShowFloatingThemeButton: value,
+            builder: (light, dark) => MaterialApp(
+              theme: light,
+              darkTheme: dark,
+              home: Scaffold(
+                appBar: AppBar(
+                  title: const Text('AdaptiveTheme Test'),
+                ),
+                body: const Center(
+                  child: Text('Hello'),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+
+    DebugFloatingThemeButton widget = tester.widget<DebugFloatingThemeButton>(
+        find.byType(DebugFloatingThemeButton));
+    expect(widget.debugShow, isTrue);
+
+    BuildContext context = tester.element(find.byType(Scaffold));
+    AdaptiveThemeManager<ThemeData> manager = AdaptiveTheme.of(context);
+
+    expect(manager.debugShowFloatingThemeButton, isTrue);
+
+    debugShowFloatingThemeButton.value = false;
+
+    await tester.pumpAndSettle();
+
+    expect(find.byType(DebugFloatingThemeButton), findsNothing);
+
+    context = tester.element(find.byType(Scaffold));
+    manager = AdaptiveTheme.of(context);
+    expect(manager.debugShowFloatingThemeButton, isFalse);
+  });
+
   testWidgets('setDebugShowFloatingThemeButton for cupertino test',
       (tester) async {
     const light = CupertinoThemeData(brightness: Brightness.light);
@@ -82,6 +134,59 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(DebugFloatingThemeButton), findsNothing);
+    expect(manager.debugShowFloatingThemeButton, isFalse);
+  });
+
+  testWidgets(
+      'setDebugShowFloatingThemeButton test for cupertino with didUpdateWidget',
+      (tester) async {
+    const light = CupertinoThemeData(brightness: Brightness.light);
+    const dark = CupertinoThemeData(brightness: Brightness.dark);
+    ValueNotifier<bool> debugShowFloatingThemeButton = ValueNotifier(true);
+
+    await tester.pumpWidget(
+      ValueListenableBuilder<bool>(
+        valueListenable: debugShowFloatingThemeButton,
+        builder: (context, value, child) {
+          return CupertinoAdaptiveTheme(
+            light: light,
+            dark: dark,
+            initial: AdaptiveThemeMode.light,
+            debugShowFloatingThemeButton: value,
+            builder: (theme) => CupertinoApp(
+              theme: theme,
+              home: const CupertinoPageScaffold(
+                navigationBar: CupertinoNavigationBar(
+                  middle: Text('Cupertino Example'),
+                ),
+                child: Center(
+                  child: Text('Hello'),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+
+    DebugFloatingThemeButton widget = tester.widget<DebugFloatingThemeButton>(
+        find.byType(DebugFloatingThemeButton));
+    expect(widget.debugShow, isTrue);
+
+    BuildContext context = tester.element(find.byType(CupertinoPageScaffold));
+    AdaptiveThemeManager<CupertinoThemeData> manager =
+        CupertinoAdaptiveTheme.of(context);
+
+    expect(manager.debugShowFloatingThemeButton, isTrue);
+
+    debugShowFloatingThemeButton.value = false;
+
+    await tester.pumpAndSettle();
+
+    expect(find.byType(DebugFloatingThemeButton), findsNothing);
+
+    context = tester.element(find.byType(CupertinoPageScaffold));
+    manager = CupertinoAdaptiveTheme.of(context);
     expect(manager.debugShowFloatingThemeButton, isFalse);
   });
 
