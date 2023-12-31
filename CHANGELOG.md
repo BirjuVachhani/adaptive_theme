@@ -1,3 +1,8 @@
+# 3.5.0
+
+- Add support for dynamically changing `debugShowFloatingThemeButton` state using `AdaptiveTheme.of(context).setDebugShowFloatingThemeButton(bool)` method.
+- Allow reading state of `debugShowFloatingThemeButton` using `AdaptiveTheme.of(context).debugShowFloatingThemeButton`.
+
 # 3.4.1
 
 - Fix readme example code.
