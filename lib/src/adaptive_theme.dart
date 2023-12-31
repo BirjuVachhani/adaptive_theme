@@ -94,6 +94,11 @@ class AdaptiveTheme extends StatefulWidget {
 
 class _AdaptiveThemeState extends State<AdaptiveTheme>
     with WidgetsBindingObserver, AdaptiveThemeManager<ThemeData> {
+  late bool _debugShowFloatingThemeButton = widget.debugShowFloatingThemeButton;
+
+  @override
+  bool get debugShowFloatingThemeButton => _debugShowFloatingThemeButton;
+
   @override
   void initState() {
     super.initState();
@@ -113,6 +118,16 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
     if (mode.isSystem && mounted) setState(() {});
+  }
+
+  @override
+  void didUpdateWidget(covariant AdaptiveTheme oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.debugShowFloatingThemeButton !=
+            oldWidget.debugShowFloatingThemeButton &&
+        _debugShowFloatingThemeButton != widget.debugShowFloatingThemeButton) {
+      _debugShowFloatingThemeButton = widget.debugShowFloatingThemeButton;
+    }
   }
 
   @override
@@ -142,7 +157,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
       manager: this,
       child: Builder(
         builder: (context) {
-          if (!kReleaseMode && widget.debugShowFloatingThemeButton) {
+          if (!kReleaseMode && _debugShowFloatingThemeButton) {
             return DebugFloatingThemeButtonWrapper(
               manager: this,
               debugShow: true,
@@ -166,5 +181,11 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
     modeChangeNotifier.dispose();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void setDebugShowFloatingThemeButton(bool enabled) {
+    _debugShowFloatingThemeButton = enabled;
+    setState(() {});
   }
 }

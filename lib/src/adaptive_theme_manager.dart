@@ -52,6 +52,9 @@ mixin AdaptiveThemeManager<T extends Object> {
   /// provides brightness of the current theme
   Brightness? get brightness;
 
+  /// Whether to show floating theme mode switcher button or not.
+  bool get debugShowFloatingThemeButton;
+
   void initialize({
     required T light,
     required T dark,
@@ -138,4 +141,7 @@ mixin AdaptiveThemeManager<T extends Object> {
   }
 
   void updateState();
+
+  /// Sets whether to show floating theme mode switcher button or not.
+  void setDebugShowFloatingThemeButton(bool enabled);
 }

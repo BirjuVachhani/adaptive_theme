@@ -99,6 +99,11 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
 
 class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
     with WidgetsBindingObserver, AdaptiveThemeManager<CupertinoThemeData> {
+  late bool _debugShowFloatingThemeButton = widget.debugShowFloatingThemeButton;
+
+  @override
+  bool get debugShowFloatingThemeButton => _debugShowFloatingThemeButton;
+
   @override
   void initState() {
     super.initState();
@@ -118,6 +123,16 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
     if (mode.isSystem && mounted) setState(() {});
+  }
+
+  @override
+  void didUpdateWidget(covariant CupertinoAdaptiveTheme oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.debugShowFloatingThemeButton !=
+            oldWidget.debugShowFloatingThemeButton &&
+        _debugShowFloatingThemeButton != widget.debugShowFloatingThemeButton) {
+      _debugShowFloatingThemeButton = widget.debugShowFloatingThemeButton;
+    }
   }
 
   @override
@@ -155,7 +170,7 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
             child = widget.builder(mode.isLight ? theme : darkTheme);
           }
 
-          if (!kReleaseMode && widget.debugShowFloatingThemeButton) {
+          if (!kReleaseMode && _debugShowFloatingThemeButton) {
             return DebugFloatingThemeButtonWrapper(
               manager: this,
               debugShow: true,
@@ -172,6 +187,12 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   @override
   void updateState() {
     if (mounted) setState(() {});
+  }
+
+  @override
+  void setDebugShowFloatingThemeButton(bool enabled) {
+    _debugShowFloatingThemeButton = enabled;
+    setState(() {});
   }
 
   @override
