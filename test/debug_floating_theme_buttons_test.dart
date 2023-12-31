@@ -6,6 +6,7 @@
 
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:adaptive_theme/src/debug_floating_theme_buttons.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -26,6 +27,62 @@ void main() {
     final widget = tester.widget<DebugFloatingThemeButton>(
         find.byType(DebugFloatingThemeButton));
     expect(widget.debugShow, isTrue);
+  });
+
+  testWidgets('setDebugShowFloatingThemeButton test', (tester) async {
+    final light = ThemeData.light();
+    final dark = ThemeData.dark();
+    await pumpMaterialApp(
+      tester,
+      light: light,
+      dark: dark,
+      mode: AdaptiveThemeMode.light,
+      debugShowFloatingThemeButton: true,
+    );
+
+    DebugFloatingThemeButton widget = tester.widget<DebugFloatingThemeButton>(
+        find.byType(DebugFloatingThemeButton));
+    expect(widget.debugShow, isTrue);
+
+    BuildContext context = tester.element(find.byType(Scaffold));
+    AdaptiveThemeManager<ThemeData> manager = AdaptiveTheme.of(context);
+
+    expect(manager.debugShowFloatingThemeButton, isTrue);
+    manager.setDebugShowFloatingThemeButton(false);
+
+    await tester.pumpAndSettle();
+
+    expect(find.byType(DebugFloatingThemeButton), findsNothing);
+    expect(manager.debugShowFloatingThemeButton, isFalse);
+  });
+
+  testWidgets('setDebugShowFloatingThemeButton for cupertino test',
+      (tester) async {
+    const light = CupertinoThemeData(brightness: Brightness.light);
+    const dark = CupertinoThemeData(brightness: Brightness.dark);
+    await pumpCupertinoApp(
+      tester,
+      light: light,
+      dark: dark,
+      mode: AdaptiveThemeMode.light,
+      debugShowFloatingThemeButton: true,
+    );
+
+    DebugFloatingThemeButton widget = tester.widget<DebugFloatingThemeButton>(
+        find.byType(DebugFloatingThemeButton));
+    expect(widget.debugShow, isTrue);
+
+    BuildContext context = tester.element(find.byType(CupertinoPageScaffold));
+    AdaptiveThemeManager<CupertinoThemeData> manager =
+        CupertinoAdaptiveTheme.of(context);
+
+    expect(manager.debugShowFloatingThemeButton, isTrue);
+    manager.setDebugShowFloatingThemeButton(false);
+
+    await tester.pumpAndSettle();
+
+    expect(find.byType(DebugFloatingThemeButton), findsNothing);
+    expect(manager.debugShowFloatingThemeButton, isFalse);
   });
 
   testWidgets('DebugFloatingThemeButton show/hide test', (tester) async {
