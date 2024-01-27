@@ -215,29 +215,36 @@ void main() {
     await tester.tapAt(rect.center);
     await tester.pumpAndSettle();
 
-    final toggleButtonFinder =
-        find.descendant(of: widgetFinder, matching: find.byType(ToggleButtons));
-    ToggleButtons buttonsWidget() =>
-        tester.widget<ToggleButtons>(toggleButtonFinder);
+    final segmentedButtonFinder = find.descendant(
+        of: widgetFinder,
+        matching: find.byType(SegmentedButton<AdaptiveThemeMode>));
+    SegmentedButton<AdaptiveThemeMode> buttonsWidget() => tester
+        .widget<SegmentedButton<AdaptiveThemeMode>>(segmentedButtonFinder);
 
     // check if light theme is selected
     expect(
-        buttonsWidget().isSelected, containsAllInOrder([true, false, false]));
+      buttonsWidget().selected,
+      containsAllInOrder({AdaptiveThemeMode.light}),
+    );
 
     // select dark theme
-    buttonsWidget().onPressed?.call(1);
+    buttonsWidget().onSelectionChanged?.call({AdaptiveThemeMode.dark});
     await tester.pumpAndSettle();
 
     expect(manager.mode, AdaptiveThemeMode.dark);
     expect(
-        buttonsWidget().isSelected, containsAllInOrder([false, true, false]));
+      buttonsWidget().selected,
+      containsAllInOrder({AdaptiveThemeMode.dark}),
+    );
 
     // select system theme
-    buttonsWidget().onPressed?.call(2);
+    buttonsWidget().onSelectionChanged?.call({AdaptiveThemeMode.system});
     await tester.pumpAndSettle();
 
     expect(manager.mode, AdaptiveThemeMode.system);
     expect(
-        buttonsWidget().isSelected, containsAllInOrder([false, false, true]));
+      buttonsWidget().selected,
+      containsAllInOrder({AdaptiveThemeMode.system}),
+    );
   });
 }

@@ -1,3 +1,6 @@
+# 3.6.0
+- Migrate `DebugFloatingThemeButton` to Material 3.
+
 # 3.5.0
 
 - Add support for dynamically changing `debugShowFloatingThemeButton` state using `AdaptiveTheme.of(context).setDebugShowFloatingThemeButton(bool)` method.
