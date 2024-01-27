@@ -80,14 +80,6 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
     }
   }
 
-  void onTap() {
-    animate = true;
-    final width = MediaQuery.of(context).size.width;
-    final left = !hidden ? width - kHandleWidth : width - 180;
-    hidden = !hidden;
-    setState(() => position = Offset(left, position.dy));
-  }
-
   @override
   Widget build(BuildContext context) {
     // don't show in release mode
@@ -170,7 +162,7 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
                                 initialLocalPosition = Offset.zero;
                                 initialPosition = Offset.zero;
                               },
-                              onTap: onTap,
+                              onTap: _handleTap,
                               child: SizedBox(
                                 width: kHandleWidth,
                                 height: double.infinity,
@@ -184,35 +176,11 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
                                 ),
                               ),
                             ),
-                            ToggleButtons(
-                              borderRadius: BorderRadius.circular(6),
-                              constraints: const BoxConstraints.tightFor(
-                                  width: 40, height: 40),
-                              onPressed: (index) {
-                                final mode = AdaptiveThemeMode.values[index];
-                                widget.manager.setThemeMode(mode);
-                              },
-                              isSelected: [
-                                widget.manager.mode == AdaptiveThemeMode.light,
-                                widget.manager.mode == AdaptiveThemeMode.dark,
-                                widget.manager.mode == AdaptiveThemeMode.system,
-                              ],
-                              children: [
-                                const Center(
-                                  child: Icon(Icons.sunny, size: 18),
-                                ),
-                                Center(
-                                  child: Transform.rotate(
-                                    angle: pi * -30 / 180,
-                                    child:
-                                        const Icon(Icons.nightlight, size: 18),
-                                  ),
-                                ),
-                                const Center(
-                                  child: Icon(Icons.brightness_auto_outlined,
-                                      size: 18),
-                                )
-                              ],
+                            _ThemeModeSelector(
+                              selectedThemeMode: widget.manager.mode,
+                              onThemeModeChanged: (newThemeMode) => setState(
+                                () => widget.manager.setThemeMode(newThemeMode),
+                              ),
                             ),
                           ],
                         ),
@@ -225,6 +193,64 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
           ),
         ),
       ),
+    );
+  }
+
+  void _handleTap() {
+    animate = true;
+    final width = MediaQuery.of(context).size.width;
+    final left = !hidden ? width - kHandleWidth : width - 180;
+    hidden = !hidden;
+    setState(() => position = Offset(left, position.dy));
+  }
+}
+
+typedef _ThemeModeChangedCallback = void Function(
+    AdaptiveThemeMode newThemeModeSet);
+
+class _ThemeModeSelector extends StatelessWidget {
+  const _ThemeModeSelector({
+    required this.selectedThemeMode,
+    required this.onThemeModeChanged,
+  });
+
+  final AdaptiveThemeMode selectedThemeMode;
+  final _ThemeModeChangedCallback onThemeModeChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return SegmentedButton<AdaptiveThemeMode>(
+      style: const ButtonStyle(visualDensity: VisualDensity.compact),
+      showSelectedIcon: false,
+      segments: const <ButtonSegment<AdaptiveThemeMode>>[
+        ButtonSegment<AdaptiveThemeMode>(
+          value: AdaptiveThemeMode.light,
+          icon: Icon(Icons.sunny),
+        ),
+        ButtonSegment<AdaptiveThemeMode>(
+          value: AdaptiveThemeMode.dark,
+          icon: _RotatedNightlightIcon(),
+        ),
+        ButtonSegment<AdaptiveThemeMode>(
+          value: AdaptiveThemeMode.system,
+          icon: Icon(Icons.brightness_auto_outlined),
+        ),
+      ],
+      selected: {selectedThemeMode},
+      onSelectionChanged: (Set<AdaptiveThemeMode> newThemeModeSet) =>
+          onThemeModeChanged(newThemeModeSet.first),
+    );
+  }
+}
+
+class _RotatedNightlightIcon extends StatelessWidget {
+  const _RotatedNightlightIcon();
+
+  @override
+  Widget build(BuildContext context) {
+    return Transform.rotate(
+      angle: pi * -30 / 180,
+      child: const Icon(Icons.nightlight, size: 18),
     );
   }
 }
