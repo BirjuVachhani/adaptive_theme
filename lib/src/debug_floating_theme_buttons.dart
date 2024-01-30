@@ -70,6 +70,8 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
   bool animate = false;
   bool hidden = true;
 
+  late final GlobalKey _buttonBarKey = GlobalKey();
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -105,6 +107,7 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
                   animate = false;
                 },
                 child: Material(
+                  key: _buttonBarKey,
                   type: MaterialType.transparency,
                   child: Builder(
                     builder: (context) {
@@ -198,8 +201,11 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
 
   void _handleTap() {
     animate = true;
+    final buttonBarWidth =
+        _buttonBarKey.currentContext?.findRenderObject()?.paintBounds.width ??
+            210;
     final width = MediaQuery.of(context).size.width;
-    final left = !hidden ? width - kHandleWidth : width - 180;
+    final left = !hidden ? width - kHandleWidth : width - (buttonBarWidth + 8);
     hidden = !hidden;
     setState(() => position = Offset(left, position.dy));
   }
