@@ -5,7 +5,6 @@
  */
 
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:adaptive_theme/src/debug_floating_theme_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
