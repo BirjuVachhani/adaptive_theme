@@ -1,5 +1,6 @@
 # 3.6.0
 - Migrate `DebugFloatingThemeButton` to Material 3.
+- Expose `DebugFloatingThemeButton` as a public widget for extensions to work with it.
 
 # 3.5.0
 
