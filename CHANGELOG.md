@@ -83,16 +83,17 @@
 
 # 2.1.1
 
-- Fixed [#18](https://github.com/BirjuVachhani/adaptive_theme/issues/18) - Dark theme not working properly on all
+- Fixed [#18](https://github.com/BirjuVachhani/adaptive_theme/issues/18)
+- Dark theme not working properly on all
   platforms.
 
-## 2.1.0
+# 2.1.0
 
 - Fixed [#16](https://github.com/BirjuVachhani/adaptive_theme/issues/16) - get theme and get darkTheme returns the same
   theme depended on mode
 - Added [#15](https://github.com/BirjuVachhani/adaptive_theme/issues/15) - Notify listener when changing theme mode
 
-## 2.0.0
+# 2.0.0
 
 - Improved documentation
 - Stable null safety support
@@ -100,26 +101,26 @@
   , `AdaptiveThemeMode.dark` and `AdaptiveThemeMode.system` instead of just `AdaptiveThemeMode.light`
   and `AdaptiveThemeMode.dark`.
 
-## 2.0.0-nullsafety.1
+# 2.0.0-nullsafety.1
 
-- migrate to null safety
+- Migrate to null safety.
 
-## 1.1.0
+# 1.1.0
 
 - Removed hard coded `shared_preferences` version.
 - Hide public constructors for `ThemePreferences`.
 - `AdaptiveTheme.of()` now returns instance of `AdaptiveThemeManager` instead of `AdaptiveThemeState` to set
   restrictions for accessing state directly.
 
-## 1.0.0
+# 1.0.0
 
-- add option to get previous theme mode on app startup
+- Add option to get previous theme mode on app startup.
 
-## 0.1.1
+# 0.1.1
 
-- add option to silently update theme without notifying. Useful when chaining multiple changes.
+- Add option to silently update theme without notifying. Useful when chaining multiple changes.
 
-## 0.1.0
+# 0.1.0
 
 - Supports theme modes: light, dart, system default.
 - Persists theme modes across app restarts.
