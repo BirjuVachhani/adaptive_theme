@@ -8,6 +8,5 @@ export 'src/adaptive_theme.dart';
 export 'src/adaptive_theme_manager.dart';
 export 'src/adaptive_theme_mode.dart';
 export 'src/cupertino_adaptive_theme.dart';
-export 'src/cupertino_adaptive_theme_manager.dart';
 export 'src/debug_floating_theme_buttons.dart';
 export 'src/inherited_adaptive_theme.dart';
