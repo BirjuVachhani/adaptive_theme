@@ -1,4 +1,9 @@
+# 3.7.0 [Unreleased]
+
+- Remove deprecated `CupertinoAdaptiveThemeManager`. Use `AdaptiveThemeManager<CupertinoThemeData>` instead.
+
 # 3.6.0
+
 - Migrate `DebugFloatingThemeButton` to Material 3.
 - Expose `DebugFloatingThemeButton` as a public widget for extensions to work with it.
 
