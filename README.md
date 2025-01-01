@@ -259,7 +259,7 @@ Or you can call `AdaptiveTheme.persist()` method after clearing the preferences 
 
 ```dart
 final prefs = await SharedPreferences.getInstance();
-await pref.clear();
+await prefs.clear();
 AdaptiveTheme.persist();
 ```
 
