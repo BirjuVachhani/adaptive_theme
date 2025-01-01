@@ -1,3 +1,7 @@
+// Copyright © 2020 Birju Vachhani. All rights reserved.
+// Use of this source code is governed by an Apache license that can be
+// found in the LICENSE file.
+
 import 'dart:math';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
@@ -7,6 +11,11 @@ import 'package:flutter/material.dart';
 const double kHandleWidth = 28;
 const double kThemeButtonHeight = 56;
 
+/// Wraps the child widget with a debug floating theme button. This is like a
+/// floating chat bubble kind of button/s which can be moved around or clicked
+/// show/hide itself at the right edge of the screen.
+///
+/// This is intended to be used above [MaterialApp] or any other *App widget.
 class DebugFloatingThemeButtonWrapper extends StatelessWidget {
   final Widget child;
   final bool debugShow;
