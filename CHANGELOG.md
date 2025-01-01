@@ -1,6 +1,8 @@
 # 3.7.0 [Unreleased]
 
-- Remove deprecated `CupertinoAdaptiveThemeManager`. Use `AdaptiveThemeManager<CupertinoThemeData>` instead.
+- [BREAKING] Remove deprecated `CupertinoAdaptiveThemeManager`. Use `AdaptiveThemeManager<CupertinoThemeData>` instead.
+- [BREAKING] Require Flutter `3.27.0` or higher: Replace deprecated use of `withOpacity` with `withValues`.
+- Fix unnecessary material imports.
 
 # 3.6.0
 
