@@ -60,17 +60,23 @@ mixin AdaptiveThemeManager<T extends Object> {
     required T light,
     required T dark,
     required AdaptiveThemeMode initial,
+    required AdaptiveThemeMode? overrideMode,
   }) {
     _theme = light;
-    _modeChangeNotifier = ValueNotifier(initial);
+    _modeChangeNotifier = ValueNotifier(overrideMode ?? initial);
     _darkTheme = dark;
-    _preferences = ThemePreferences.initial(mode: initial);
+    _preferences = ThemePreferences.initial(mode: overrideMode ?? initial);
 
     ThemePreferences.fromPrefs().then((pref) {
       if (pref == null) {
         _preferences.save();
       } else {
         _preferences = pref;
+        // if override mode is provided, use it and save it to preferences.
+        if (overrideMode != null && _preferences.mode != overrideMode) {
+          _preferences.mode = overrideMode;
+          _preferences.save();
+        }
         updateState();
       }
     });

@@ -38,6 +38,12 @@ class AdaptiveTheme extends StatefulWidget {
   /// Indicates which [AdaptiveThemeMode] to use initially.
   final AdaptiveThemeMode initial;
 
+  /// Allows to ignore the persisted or [initial] theme mode and use this
+  /// mode instead always. This is useful when you want to always start with
+  /// a specific theme mode regardless of the persisted theme mode.
+  /// Note that this will override the persisted theme mode as well.
+  final AdaptiveThemeMode? overrideMode;
+
   /// Provides a builder with access of light and dark theme. Intended to
   /// be used to return [MaterialApp].
   final AdaptiveThemeBuilder builder;
@@ -59,6 +65,7 @@ class AdaptiveTheme extends StatefulWidget {
     ThemeData? dark,
     required this.initial,
     required this.builder,
+    this.overrideMode,
     this.debugShowFloatingThemeButton = false,
   }) : dark = dark ?? light;
 
@@ -106,6 +113,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
       light: widget.light,
       dark: widget.dark,
       initial: widget.initial,
+      overrideMode: widget.overrideMode,
     );
     WidgetsBinding.instance.addObserver(this);
   }
@@ -127,6 +135,12 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
             oldWidget.debugShowFloatingThemeButton &&
         _debugShowFloatingThemeButton != widget.debugShowFloatingThemeButton) {
       _debugShowFloatingThemeButton = widget.debugShowFloatingThemeButton;
+    }
+    if (widget.overrideMode != oldWidget.overrideMode) {
+      if (widget.overrideMode != null) {
+        // Update the mode to the new override mode.
+        setThemeMode(widget.overrideMode!);
+      }
     }
   }
 

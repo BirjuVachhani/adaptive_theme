@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: Colors.blue,
       ),
       initial: savedThemeMode ?? AdaptiveThemeMode.light,
+      // overrideMode: AdaptiveThemeMode.dark,
       builder: (theme, darkTheme) => MaterialApp(
         title: 'Adaptive Theme Demo',
         theme: theme,
