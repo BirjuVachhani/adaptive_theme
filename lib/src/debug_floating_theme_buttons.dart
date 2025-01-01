@@ -121,7 +121,7 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
                             color: Theme.of(context)
                                 .colorScheme
                                 .onSurface
-                                .withOpacity(0.1),
+                                .withValues(alpha: 0.1),
                             width: 1,
                           ),
                           boxShadow: [
@@ -129,7 +129,7 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
                               color: Theme.of(context)
                                   .colorScheme
                                   .onSurface
-                                  .withOpacity(0.1),
+                                  .withValues(alpha: 0.1),
                               blurRadius: 4,
                               offset: const Offset(0, 2),
                             ),
@@ -175,7 +175,7 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .onSurface
-                                      .withOpacity(0.6),
+                                      .withValues(alpha: 0.6),
                                 ),
                               ),
                             ),
