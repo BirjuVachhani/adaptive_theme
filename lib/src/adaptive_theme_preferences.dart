@@ -12,16 +12,22 @@ import 'adaptive_theme_mode.dart';
 
 /// Utility for storing theme info in SharedPreferences
 class ThemePreferences {
+  /// Represents the current theme mode.
   late AdaptiveThemeMode mode;
+
+  /// Represents the default theme mode.
   late AdaptiveThemeMode defaultMode;
 
   ThemePreferences._(this.mode, this.defaultMode);
 
+  /// Creates a new instance of ThemePreferences with the given [mode].
   ThemePreferences.initial({AdaptiveThemeMode mode = AdaptiveThemeMode.light})
       : this._(mode, mode);
 
+  /// Resets the saved preferences to the default values.
   void reset() => mode = defaultMode;
 
+  /// Creates a new instance of ThemePreferences from the given [json] data.
   ThemePreferences.fromJson(Map<String, dynamic> json) {
     if (json['theme_mode'] != null) {
       mode = AdaptiveThemeMode.values[json['theme_mode']];
@@ -35,6 +41,7 @@ class ThemePreferences {
     }
   }
 
+  /// Converts the current instance to a json object.
   Map<String, dynamic> toJson() => {
         'theme_mode': mode.index,
         'default_theme_mode': defaultMode.index,

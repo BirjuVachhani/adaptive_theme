@@ -56,6 +56,13 @@ mixin AdaptiveThemeManager<T extends Object> {
   /// Whether to show floating theme mode switcher button or not.
   bool get debugShowFloatingThemeButton;
 
+  /// Initializes the theme manager with the provided themes and initial mode.
+  /// [light] is the light theme.
+  /// [dark] is the dark theme.
+  /// [initial] is the initial theme mode to be used until saved mode is
+  /// retrieved from shared-preferences.
+  /// [overrideMode] is the mode to be used always regardless of the saved
+  /// mode in shared-preferences. It overrides the saved mode.
   void initialize({
     required T light,
     required T dark,
@@ -147,6 +154,7 @@ mixin AdaptiveThemeManager<T extends Object> {
     return _preferences.save();
   }
 
+  /// Updates the state of the app to use new changes.
   void updateState();
 
   /// Sets whether to show floating theme mode switcher button or not.

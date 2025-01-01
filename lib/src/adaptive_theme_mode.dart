@@ -4,27 +4,40 @@
 
 /// Represents the mode of the theme.
 enum AdaptiveThemeMode {
+  /// Represents the light mode of the theme.
   light('Light'),
+
+  /// Represents the dark mode of the theme.
   dark('Dark'),
+
+  /// Represents the system mode of the theme.
   system('System');
 
   const AdaptiveThemeMode(this.modeName);
 
+  /// A formatted string representing the mode.
   final String modeName;
 
+  /// Whether the mode is light mode.
   bool get isLight => this == AdaptiveThemeMode.light;
 
+  /// Whether the mode is dark mode.
   bool get isDark => this == AdaptiveThemeMode.dark;
 
+  /// Whether the mode is system mode.
   bool get isSystem => this == AdaptiveThemeMode.system;
 
+  /// Loops through the mode values in a cyclic manner and returns the next mode
+  /// in the sequence.
   AdaptiveThemeMode next() {
-    final nextIndex = (index + 1) % AdaptiveThemeMode.values.length;
+    final int nextIndex = (index + 1) % AdaptiveThemeMode.values.length;
     return AdaptiveThemeMode.values[nextIndex];
   }
 
+  /// Loops through the mode values in a cyclic manner and returns the previous
+  /// mode in the sequence.
   AdaptiveThemeMode previous() {
-    final previousIndex = (index - 1) % AdaptiveThemeMode.values.length;
+    final int previousIndex = (index - 1) % AdaptiveThemeMode.values.length;
     return AdaptiveThemeMode.values[previousIndex];
   }
 }

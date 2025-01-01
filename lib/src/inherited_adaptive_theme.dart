@@ -11,11 +11,21 @@ import '../adaptive_theme.dart';
 /// brightness to its children.
 /// This is an internal widget and should not be used directly.
 class InheritedAdaptiveTheme<T extends Object> extends InheritedWidget {
+  /// The current mode of the theme.
   final AdaptiveThemeMode mode;
+
+  /// The light theme instance provided in the [AdaptiveTheme] or
+  /// implementations of it.
   final T theme;
+
+  /// The dark theme instance provided in the [AdaptiveTheme] or
+  /// implementations of it.
   final T darkTheme;
+
+  /// The current brightness of the theme.
   final Brightness? brightness;
 
+  /// Creates an instance of [InheritedAdaptiveTheme].
   InheritedAdaptiveTheme({
     super.key,
     required AdaptiveThemeManager<T> manager,

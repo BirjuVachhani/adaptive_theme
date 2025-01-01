@@ -8,7 +8,10 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+/// The width of the handle of the floating theme button.
 const double kHandleWidth = 28;
+
+/// The height of the floating theme button.
 const double kThemeButtonHeight = 56;
 
 /// Wraps the child widget with a debug floating theme button. This is like a
@@ -17,10 +20,18 @@ const double kThemeButtonHeight = 56;
 ///
 /// This is intended to be used above [MaterialApp] or any other *App widget.
 class DebugFloatingThemeButtonWrapper extends StatelessWidget {
+  /// The child widget to be rendered below this button. This ideally should
+  /// be [MaterialApp] or the whole screen.
   final Widget child;
+
+  /// Indicates whether to show floating theme mode switcher button or not.
+  /// This is ignored in release mode.
   final bool debugShow;
+
+  /// The theme manager instance to be used for accessing/managing the theme.
   final AdaptiveThemeManager manager;
 
+  /// Creates a [DebugFloatingThemeButtonWrapper] widget.
   const DebugFloatingThemeButtonWrapper({
     super.key,
     required this.debugShow,
@@ -56,6 +67,7 @@ class DebugFloatingThemeButton extends StatefulWidget {
   /// Default value is false. This is ignored in release mode.
   final bool debugShow;
 
+  /// The theme manager instance to be used for accessing/managing the theme.
   final AdaptiveThemeManager manager;
 
   /// Creates a [DebugFloatingThemeButton] widget.
