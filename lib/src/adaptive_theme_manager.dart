@@ -3,7 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:adaptive_theme/src/adaptive_theme_preferences.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import 'adaptive_theme_mode.dart';
 
