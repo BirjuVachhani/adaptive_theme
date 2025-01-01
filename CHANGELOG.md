@@ -2,6 +2,7 @@
 
 - [BREAKING] Remove deprecated `CupertinoAdaptiveThemeManager`. Use `AdaptiveThemeManager<CupertinoThemeData>` instead.
 - [BREAKING] Require Flutter `3.27.0` or higher: Replace deprecated use of `withOpacity` with `withValues`.
+- Add `overrideMode` parameter to `AdaptiveTheme` and `CupertinoAdaptiveTheme` to override theme mode manually.
 - Fix unnecessary material imports.
 - Update missing docs for source code.
 
@@ -12,7 +13,8 @@
 
 # 3.5.0
 
-- Add support for dynamically changing `debugShowFloatingThemeButton` state using `AdaptiveTheme.of(context).setDebugShowFloatingThemeButton(bool)` method.
+- Add support for dynamically changing `debugShowFloatingThemeButton` state using
+  `AdaptiveTheme.of(context).setDebugShowFloatingThemeButton(bool)` method.
 - Allow reading state of `debugShowFloatingThemeButton` using `AdaptiveTheme.of(context).debugShowFloatingThemeButton`.
 
 # 3.4.1
