@@ -2,8 +2,9 @@
 
 # Adaptive Theme
 
-Easiest way to add support for **light** and **dark** theme in your Flutter app. It allows to manually set light or dark theme and also lets you define
-themes based on the system. It also persists the theme modes changes across app restarts.
+The easiest way to add support for **light** and **dark** themes in your Flutter app. It allows you 
+to manually set a light or dark theme and also lets you define themes based on the system. It also
+persists the theme mode changes across app restarts.
 
 [![Build](https://github.com/BirjuVachhani/adaptive_theme/workflows/Build/badge.svg?branch=main)](https://github.com/BirjuVachhani/adaptive_theme/actions) [![Tests](https://github.com/BirjuVachhani/adaptive_theme/workflows/Tests/badge.svg?branch=main)](https://github.com/BirjuVachhani/adaptive_theme/actions) [![Codecov](https://img.shields.io/codecov/c/github/BirjuVachhani/adaptive_theme.svg)](https://codecov.io/gh/birjuvachhani/adaptive_theme) [![Pub Version](https://img.shields.io/pub/v/adaptive_theme?label=Pub)](https://pub.dev/packages/adaptive_theme)
 
@@ -22,18 +23,18 @@ Demo: [Adaptive Theme](https://adaptivetheme.codemagic.app/)
 - [Set Default Theme](#set-default-theme)
 - [Handling App Start](#get-themeMode-at-app-start)
 - [Handling Theme Changes](#listen-to-the-theme-mode-changes)
-- [Using floating theme button overlay](#using-floating-theme-button-overlay)
-- [Ceveats](#ceveats)
-  - *[Non-Persist theme changes](#non-persist-theme-changes)*
-  - *[Using SharedPreferences](#using-sharedpreferences)*
-- [Using-CupertinoTheme](#Using-CupertinoTheme)
-  - *[Changing Cupertino Theme](#changing-cupertino-theme)*
+- [Using a floating theme button overlay](#using-a-floating-theme-button-overlay)
+- [Caveats](#caveats)
+  - [Non-Persistent theme changes](#non-persistent-theme-changes)
+  - [Using SharedPreferences](#using-sharedpreferences)
+- [Using CupertinoTheme](#Using-CupertinoTheme)
+  - [Changing Cupertino Theme](#changing-cupertino-theme)
 - [Contribution](#contribution)
 - [License](#license)
 
 ## Getting Started
 
-add following dependency to your `pubspec.yaml`
+Add the following dependency to your `pubspec.yaml`
 
 ```yaml
 dependencies:
@@ -77,7 +78,8 @@ class MyApp extends StatelessWidget {
 
 ## Changing Theme Mode
 
-Now that you have initialized your app as mentioned above. It's very easy and straight forward to change your theme modes: **light to dark, dark to light or to system default**.
+Now that you have initialized your app as mentioned above. It's very easy and straightforward to 
+change your theme modes: light to dark, dark to light, or to system default.
 
 ```dart
 // sets theme mode to dark
@@ -93,8 +95,7 @@ AdaptiveTheme.of(context).setSystem();
 
 
 ## Toggle Theme Mode
-
-`AdaptiveTheme` allows you to toggle between light, dark and system theme the easiest way possible.
+AdaptiveTheme allows you to toggle between light, dark, and system themes the easiest way possible.
 
 ```dart
 AdaptiveTheme.of(context).toggleThemeMode();
@@ -104,7 +105,8 @@ AdaptiveTheme.of(context).toggleThemeMode();
 
 ## Changing Themes
 
-If you want to change the theme entirely like change all the colors to some other color swatch, then you can use `setTheme` method.
+If you want to change the theme entirely, e.g., change all the colors to some other color swatch,
+then you can use `setTheme` method.
 
 ```dart
 AdaptiveTheme.of(context).setTheme(
@@ -124,24 +126,29 @@ AdaptiveTheme.of(context).setTheme(
 
 
 ## Reset Theme
-
-`AdaptiveTheme` is smart enough to keep your **default** themes handy that you provided at the time of initialization. You can fallback to those default themes in a very easy way.
+`AdaptiveTheme` is smart enough to keep your **default** themes handy that you provided at the time 
+of initialization. You can fall back to those default themes in a very easy way.
 
 ```dart
 AdaptiveTheme.of(context).reset();
 ```
 
-This will reset your **theme** as well as **theme mode** to the **initial** values provided at the time of initialization.
+This will reset your theme as well as theme mode to the initial values provided at the time of 
+initialization.
 
 
 
 ## Set Default Theme
 
-`AdaptiveTheme` persists theme mode changes across app restarts and uses the default themes to set theme modes(light/dark) on. You can change this behavior if you want to set a different theme as default theme other then the one provided at the time of initialization.
+`AdaptiveTheme` persists theme mode changes across app restarts and uses the default themes to set 
+theme modes (light/dark) on. You can change this behavior if you want to set a different theme as 
+the default theme other than the one provided at the time of initialization.
 
-This comes handy when you're fetching themes remotely on app starts and setting theme as current theme.
+This comes in handy when you're fetching themes remotely on app starts and the setting theme as the 
+current theme.
 
-Doing so is quit easy. You would set a new theme normally as you do by calling `setTheme` method but this time, with a flag `isDefault` set to true.
+Doing so is quite easy. You would set a new theme normally as you do by calling `setTheme` method 
+but this time, with a flag isDefault set to true.
 
 > This is only useful when you might want to reset to default theme at some point.
 
@@ -165,7 +172,11 @@ AdaptiveTheme.of(context).setTheme(
 
 ## Get ThemeMode at App Start
 
-When you change your theme, next app run won't be able to pick the most recent theme directly before rendering with default theme first time. This is because at time of initialization, we cannot run async code to get previous theme mode. However it can be avoided if you make your `main()` method async and load previous theme mode asynchronously. Below example shows how it can be done.
+When you change your theme, the next app run won't be able to pick the most recent theme directly 
+before rendering with the default theme for the first time. This is because at the time of 
+initialization, we cannot run async code to get the previous theme mode. However, it can be avoided 
+if you make your main() method async and load the previous theme mode asynchronously. The example 
+below shows how it can be done.
 
 ```dart
 void main() async {
@@ -188,13 +199,15 @@ AdaptiveTheme(
   ),
 )
 ```
-Notice that I passed the retrieved theme mode to my material app so that I can use it while initializing the default theme. This helps avoiding theme change flickering on app startup.
+Notice that I passed the retrieved theme mode to my material app so that I can use it while 
+initializing the default theme. This helps to avoid theme change flickering on app startup.
 
 
 
 ## Listen to the theme mode changes
 
-You can listen to the changes in the theme mode via a `ValueNotifier`. This can be useful when designing theme settings screen or developing ui to show theme status.
+You can listen to the changes in the theme mode via a ValueNotifier. This can be useful when 
+designing a theme settings screen or developing UI to show theme status.
 
 ```dart
 AdaptiveTheme.of(context).modeChangeNotifier.addListener(() {
@@ -214,11 +227,12 @@ ValueListenableBuilder(
 );
 ```
 
-## Using floating theme button overlay
+## Using a floating theme button overlay
 
-Starting from `v3.3.0`, you can now set `debugShowFloatingThemeButton` to `true` and enable a floating button that can
-be used to toggle theme mode very easily. This is useful when you want to test your app with both light and dark theme
-without restarting the app or navigating to settings screen where your theme settings are available.
+Starting from `v3.3.0`, you can now set `debugShowFloatingThemeButton` to `true` and enable a 
+floating button that can be used to toggle theme mode very easily. This is useful when you want to 
+test your app with both light and dark themes without restarting the app or navigating to the 
+settings screen where your theme settings are available.
 
 ```dart
 AdaptiveTheme(
@@ -236,11 +250,11 @@ AdaptiveTheme(
 
 [Video](https://github.com/BirjuVachhani/adaptive_theme/assets/20423471/c3a9fd05-c266-468c-a929-f54c17ece3ba)
 
-## Ceveats
+## Caveats
 
-#### Non-Persist theme changes
+#### Non-Persistent theme changes
 
-> This is only useful in scenarios where you load your themes dynamically from network in the splash screen or some initial screens of the app. Please note that `AdaptiveTheme` does not persist the themes, it only persists the theme modes(light/dark/system). Any changes made to the provided themes won't be persisted and you will have to do the same changes at the time of the initialization if you want them to apply every time app is opened. e.g changing the accent color.
+> This is only useful in scenarios where you load your themes dynamically from network in the splash screen or some initial screens of the app. Please note that AdaptiveTheme does not persist the themes, it only persists the theme modes(light/dark/system). Any changes made to the provided themes won't be persisted and you will have to do the same changes at the time of the initialization if you want them to apply every time app is opened. e.g changing the accent color.
 
 
 
@@ -253,9 +267,10 @@ AdaptiveTheme(
 AdaptiveTheme.prefKey
 ```
 
-You can use above key to exclude it while clearing the all the preferences.
+You can use the above key to exclude it while clearing all the preferences.
 
-Or you can call `AdaptiveTheme.persist()` method after clearing the preferences to make it persistable again as shown below.
+Or you can call AdaptiveTheme.persist() method after clearing the preferences to make it persistable
+again as shown below.
 
 ```dart
 final prefs = await SharedPreferences.getInstance();
