@@ -1,3 +1,8 @@
+# 3.7.1
+
+- Code cleanup.
+- Remove deprecated class name usage from docs.
+
 # 3.7.0
 
 - [BREAKING] Remove deprecated `CupertinoAdaptiveThemeManager`. Use `AdaptiveThemeManager<CupertinoThemeData>` instead.
