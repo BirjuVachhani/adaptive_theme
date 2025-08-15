@@ -84,7 +84,8 @@ void main() {
         reason: 'saved mode was dark but loaded mode is different.');
   });
 
-  testWidgets('AdaptiveThemeManager<CupertinoThemeData> retrieval tests', (tester) async {
+  testWidgets('AdaptiveThemeManager<CupertinoThemeData> retrieval tests',
+      (tester) async {
     await pumpCupertinoApp(
       tester,
       light: light,
