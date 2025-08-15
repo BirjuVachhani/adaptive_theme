@@ -73,7 +73,7 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
   @override
   State<CupertinoAdaptiveTheme> createState() => _CupertinoAdaptiveThemeState();
 
-  /// Returns reference of the [CupertinoAdaptiveThemeManager] which allows access of
+  /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
   static AdaptiveThemeManager<CupertinoThemeData> of(BuildContext context) {
     context.dependOnInheritedWidgetOfExactType<
@@ -82,7 +82,7 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
         as AdaptiveThemeManager<CupertinoThemeData>;
   }
 
-  /// Returns reference of the [CupertinoAdaptiveThemeManager] which allows access of
+  /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
   /// This returns null if the state instance of [CupertinoAdaptiveTheme] is not found.
   static AdaptiveThemeManager<CupertinoThemeData>? maybeOf(

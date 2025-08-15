@@ -84,7 +84,7 @@ void main() {
         reason: 'saved mode was dark but loaded mode is different.');
   });
 
-  testWidgets('CupertinoAdaptiveThemeManager retrieval tests', (tester) async {
+  testWidgets('AdaptiveThemeManager<CupertinoThemeData> retrieval tests', (tester) async {
     await pumpCupertinoApp(
       tester,
       light: light,
@@ -96,14 +96,14 @@ void main() {
     expect(CupertinoAdaptiveTheme.of(context),
         isA<AdaptiveThemeManager<CupertinoThemeData>>(),
         reason:
-            'CupertinoAdaptiveTheme.of should return instance of CupertinoAdaptiveThemeManager but actually returned something else.');
+            'CupertinoAdaptiveTheme.of should return instance of AdaptiveThemeManager<CupertinoThemeData> but actually returned something else.');
     expect(CupertinoAdaptiveTheme.maybeOf(context), isNotNull,
         reason:
             'CupertinoAdaptiveTheme.maybeOf should not return null but it did.');
     expect(CupertinoAdaptiveTheme.maybeOf(context),
         isA<AdaptiveThemeManager<CupertinoThemeData>>(),
         reason:
-            'CupertinoAdaptiveTheme.maybeOf should return instance of CupertinoAdaptiveThemeManager but actually returned something else.');
+            'CupertinoAdaptiveTheme.maybeOf should return instance of AdaptiveThemeManager<CupertinoThemeData> but actually returned something else.');
 
     await tester.pumpWidget(Container());
     context = tester.element(find.byType(Container));
