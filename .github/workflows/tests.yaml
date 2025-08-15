@@ -22,7 +22,7 @@ jobs:
         with:
           channel: stable
       - run: flutter --version
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Install dependencies
         run: flutter pub get
       - name: Run tests
