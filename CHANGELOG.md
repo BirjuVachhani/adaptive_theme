@@ -2,6 +2,7 @@
 
 - Re-generate `example/web` directory with latest Flutter version.
 - Bump up `shared_preferences` dependency's minimum constraints to `2.5.0`.
+- Fix imports for `Brightness`.
 
 # 3.7.1+1
 
