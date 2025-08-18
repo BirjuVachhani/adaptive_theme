@@ -3,3 +3,6 @@ include: package:flutter_lints/flutter.yaml
 linter:
   rules:
     public_member_api_docs: true
+    prefer_relative_imports: true
+    use_super_parameters: true
+    prefer_const_constructors: true

@@ -2,10 +2,10 @@
 // Use of this source code is governed by an Apache license that can be
 // found in the LICENSE file.
 
-import 'package:adaptive_theme/src/adaptive_theme_preferences.dart';
 import 'package:flutter/widgets.dart';
 
 import 'adaptive_theme_mode.dart';
+import 'adaptive_theme_preferences.dart';
 
 /// Entry point to change/modify theme or access theme related information
 /// from [AdaptiveTheme].

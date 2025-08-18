@@ -2,13 +2,13 @@
 // Use of this source code is governed by an Apache license that can be
 // found in the LICENSE file.
 
-import 'package:adaptive_theme/src/debug_floating_theme_buttons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'adaptive_theme_manager.dart';
 import 'adaptive_theme_mode.dart';
 import 'adaptive_theme_preferences.dart';
+import 'debug_floating_theme_buttons.dart';
 import 'inherited_adaptive_theme.dart';
 
 /// Builder function to build themed widgets

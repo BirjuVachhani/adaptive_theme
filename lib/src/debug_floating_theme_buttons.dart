@@ -4,9 +4,10 @@
 
 import 'dart:math';
 
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../adaptive_theme.dart';
 
 /// The width of the handle of the floating theme button.
 const double kHandleWidth = 28;
