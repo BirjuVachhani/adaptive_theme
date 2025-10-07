@@ -10,6 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'adaptive_theme.dart';
 import 'adaptive_theme_mode.dart';
 
+final SharedPreferencesAsync _prefs = SharedPreferencesAsync();
+
 /// Utility for storing theme info in SharedPreferences
 class ThemePreferences {
   /// Represents the current theme mode.
@@ -21,8 +23,7 @@ class ThemePreferences {
   ThemePreferences._(this.mode, this.defaultMode);
 
   /// Creates a new instance of ThemePreferences with the given [mode].
-  ThemePreferences.initial({AdaptiveThemeMode mode = AdaptiveThemeMode.light})
-      : this._(mode, mode);
+  ThemePreferences.initial({AdaptiveThemeMode mode = AdaptiveThemeMode.light}) : this._(mode, mode);
 
   /// Resets the saved preferences to the default values.
   void reset() => mode = defaultMode;
@@ -42,22 +43,15 @@ class ThemePreferences {
   }
 
   /// Converts the current instance to a json object.
-  Map<String, dynamic> toJson() => {
-        'theme_mode': mode.index,
-        'default_theme_mode': defaultMode.index,
-      };
+  Map<String, dynamic> toJson() => {'theme_mode': mode.index, 'default_theme_mode': defaultMode.index};
 
   /// saves the current theme preferences to the shared-preferences
-  Future<bool> save() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.setString(AdaptiveTheme.prefKey, json.encode(toJson()));
-  }
+  Future<void> save() => _prefs.setString(AdaptiveTheme.prefKey, json.encode(toJson()));
 
   /// retrieves preferences from the shared-preferences
   static Future<ThemePreferences?> fromPrefs() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final themeDataString = prefs.getString(AdaptiveTheme.prefKey);
+      final themeDataString = await _prefs.getString(AdaptiveTheme.prefKey);
       if (themeDataString == null || themeDataString.isEmpty) return null;
       return ThemePreferences.fromJson(json.decode(themeDataString));
     } on Exception catch (error, stacktrace) {

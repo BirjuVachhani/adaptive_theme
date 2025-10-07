@@ -75,18 +75,15 @@ class AdaptiveTheme extends StatefulWidget {
   /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [AdaptiveTheme] in a restrictive way.
   static AdaptiveThemeManager<ThemeData> of(BuildContext context) {
-    context.dependOnInheritedWidgetOfExactType<
-        InheritedAdaptiveTheme<ThemeData>>()!;
-    return context.findAncestorStateOfType<State<AdaptiveTheme>>()!
-        as AdaptiveThemeManager<ThemeData>;
+    context.dependOnInheritedWidgetOfExactType<InheritedAdaptiveTheme<ThemeData>>()!;
+    return context.findAncestorStateOfType<State<AdaptiveTheme>>()! as AdaptiveThemeManager<ThemeData>;
   }
 
   /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [AdaptiveTheme] in a restrictive way.
   /// This returns null if the state instance of [AdaptiveTheme] is not found.
   static AdaptiveThemeManager<ThemeData>? maybeOf(BuildContext context) {
-    context.dependOnInheritedWidgetOfExactType<
-        InheritedAdaptiveTheme<ThemeData>>();
+    context.dependOnInheritedWidgetOfExactType<InheritedAdaptiveTheme<ThemeData>>();
     final state = context.findAncestorStateOfType<State<AdaptiveTheme>>();
     if (state == null) return null;
     return state as AdaptiveThemeManager<ThemeData>;
@@ -99,8 +96,7 @@ class AdaptiveTheme extends StatefulWidget {
   }
 }
 
-class _AdaptiveThemeState extends State<AdaptiveTheme>
-    with WidgetsBindingObserver, AdaptiveThemeManager<ThemeData> {
+class _AdaptiveThemeState extends State<AdaptiveTheme> with WidgetsBindingObserver, AdaptiveThemeManager<ThemeData> {
   late bool _debugShowFloatingThemeButton = widget.debugShowFloatingThemeButton;
 
   @override
@@ -131,8 +127,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   @override
   void didUpdateWidget(covariant AdaptiveTheme oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.debugShowFloatingThemeButton !=
-            oldWidget.debugShowFloatingThemeButton &&
+    if (widget.debugShowFloatingThemeButton != oldWidget.debugShowFloatingThemeButton &&
         _debugShowFloatingThemeButton != widget.debugShowFloatingThemeButton) {
       _debugShowFloatingThemeButton = widget.debugShowFloatingThemeButton;
     }
@@ -145,16 +140,13 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
   }
 
   @override
-  bool get isDefault =>
-      lightTheme == widget.light &&
-      darkTheme == widget.dark &&
-      mode == defaultMode;
+  bool get isDefault => lightTheme == widget.light && darkTheme == widget.dark && mode == defaultMode;
 
   @override
   Brightness get brightness => theme.brightness;
 
   @override
-  Future<bool> reset() async {
+  Future<void> reset() async {
     setTheme(
       light: widget.light,
       dark: widget.dark,

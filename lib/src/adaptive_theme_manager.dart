@@ -2,7 +2,6 @@
 // Use of this source code is governed by an Apache license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import 'adaptive_theme_mode.dart';
@@ -22,8 +21,7 @@ mixin AdaptiveThemeManager<T extends Object> {
   /// provides current theme
   T get theme {
     if (_preferences.mode.isSystem) {
-      final brightness =
-          WidgetsBinding.instance.platformDispatcher.platformBrightness;
+      final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
       return brightness == Brightness.light ? _theme : _darkTheme;
     }
     return _preferences.mode.isDark ? _darkTheme : _theme;
@@ -42,8 +40,7 @@ mixin AdaptiveThemeManager<T extends Object> {
   AdaptiveThemeMode get defaultMode => _preferences.defaultMode;
 
   /// Allows to listen to changes in them mode.
-  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier =>
-      _modeChangeNotifier;
+  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier => _modeChangeNotifier;
 
   /// checks whether current theme is default theme or not. Default theme
   /// refers to he themes provided at the time of initialization
@@ -137,7 +134,7 @@ mixin AdaptiveThemeManager<T extends Object> {
   /// shared-preferences. e.g. when user logs out, usually, preferences
   /// are cleared. Call this method after clearing preferences to
   /// persist theme mode.
-  Future<bool> persist() async => _preferences.save();
+  Future<void> persist() async => _preferences.save();
 
   /// Resets configuration to default configuration which has been provided
   /// while initializing [MaterialApp].
@@ -147,7 +144,7 @@ mixin AdaptiveThemeManager<T extends Object> {
   /// Implementations of this method should end with a call to the inherited
   /// method, as in `super.reset()`.
   @mustCallSuper
-  Future<bool> reset() async {
+  Future<void> reset() async {
     _preferences.reset();
     updateState();
     modeChangeNotifier.value = mode;
