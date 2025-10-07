@@ -8,14 +8,20 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:adaptive_theme/src/adaptive_theme_preferences.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
 
 void main() {
   group('ThemePreferences Tests', () {
-    setUp(() async {
-      // clear preference before running each tests
-      SharedPreferences.setMockInitialValues({});
-      final pref = await SharedPreferences.getInstance();
-      await pref.clear();
+    setUp(() {
+      // Set up fresh in-memory shared preferences for each test
+      SharedPreferencesAsyncPlatform.instance =
+          InMemorySharedPreferencesAsync.empty();
+    });
+
+    tearDown(() {
+      SharedPreferencesAsyncPlatform.instance =
+          InMemorySharedPreferencesAsync.empty();
     });
 
     test('theme preferences fromPref tests when not set', () async {
@@ -27,9 +33,8 @@ void main() {
     });
 
     test('theme preferences fromPref tests when invalid data is set', () async {
-      SharedPreferences.setMockInitialValues({
-        AdaptiveTheme.prefKey: 'text',
-      });
+      final prefs = SharedPreferencesAsync();
+      await prefs.setString(AdaptiveTheme.prefKey, 'text');
 
       expect(ThemePreferences.fromPrefs(), completes,
           reason:
@@ -41,9 +46,8 @@ void main() {
         'theme_mode': AdaptiveThemeMode.dark.index,
         'default_theme_mode': AdaptiveThemeMode.light.index,
       };
-      SharedPreferences.setMockInitialValues({
-        AdaptiveTheme.prefKey: json.encode(initialData),
-      });
+      final prefs = SharedPreferencesAsync();
+      await prefs.setString(AdaptiveTheme.prefKey, json.encode(initialData));
       expect(ThemePreferences.fromPrefs(), completion(isNotNull),
           reason:
               'fromPrefs() must not return null when there is data in shared preferences');
@@ -65,9 +69,8 @@ void main() {
       final initialData = {
         'theme_mode': AdaptiveThemeMode.dark.index,
       };
-      SharedPreferences.setMockInitialValues({
-        AdaptiveTheme.prefKey: json.encode(initialData),
-      });
+      final prefs = SharedPreferencesAsync();
+      await prefs.setString(AdaptiveTheme.prefKey, json.encode(initialData));
 
       final retrieved = await ThemePreferences.fromPrefs();
       expect(retrieved!.mode, equals(AdaptiveThemeMode.dark),
@@ -109,9 +112,8 @@ void main() {
         'theme_mode': AdaptiveThemeMode.dark.index,
         'default_theme_mode': AdaptiveThemeMode.system.index,
       };
-      SharedPreferences.setMockInitialValues({
-        AdaptiveTheme.prefKey: json.encode(initialData),
-      });
+      final prefs = SharedPreferencesAsync();
+      await prefs.setString(AdaptiveTheme.prefKey, json.encode(initialData));
 
       final retrieved = await ThemePreferences.fromPrefs();
       expect(retrieved, isNotNull,
@@ -127,12 +129,6 @@ void main() {
       expect(retrieved.mode, equals(AdaptiveThemeMode.system),
           reason:
               'reset() should have reset mode to default mode but it did not.');
-    });
-
-    tearDown(() async {
-      // clear preference after running each test
-      final pref = await SharedPreferences.getInstance();
-      await pref.clear();
     });
   });
 }
