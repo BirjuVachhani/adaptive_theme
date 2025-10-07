@@ -12,7 +12,8 @@ import 'debug_floating_theme_buttons.dart';
 import 'inherited_adaptive_theme.dart';
 
 /// Builder function to build themed widgets
-typedef CupertinoAdaptiveThemeBuilder = Widget Function(CupertinoThemeData theme);
+typedef CupertinoAdaptiveThemeBuilder = Widget Function(
+    CupertinoThemeData theme);
 
 /// Widget that allows to switch themes dynamically. This is intended to be
 /// used above [CupertinoApp].
@@ -75,7 +76,8 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
   /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
   static AdaptiveThemeManager<CupertinoThemeData> of(BuildContext context) {
-    context.dependOnInheritedWidgetOfExactType<InheritedAdaptiveTheme<CupertinoThemeData>>()!;
+    context.dependOnInheritedWidgetOfExactType<
+        InheritedAdaptiveTheme<CupertinoThemeData>>()!;
     return context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>()!
         as AdaptiveThemeManager<CupertinoThemeData>;
   }
@@ -83,10 +85,14 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
   /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [CupertinoAdaptiveTheme] in a restrictive way.
   /// This returns null if the state instance of [CupertinoAdaptiveTheme] is not found.
-  static AdaptiveThemeManager<CupertinoThemeData>? maybeOf(BuildContext context) {
-    context.dependOnInheritedWidgetOfExactType<InheritedAdaptiveTheme<CupertinoThemeData>>();
-    final state = context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>();
-    if (state == null || state is! AdaptiveThemeManager<CupertinoThemeData>) return null;
+  static AdaptiveThemeManager<CupertinoThemeData>? maybeOf(
+      BuildContext context) {
+    context.dependOnInheritedWidgetOfExactType<
+        InheritedAdaptiveTheme<CupertinoThemeData>>();
+    final state =
+        context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>();
+    if (state == null || state is! AdaptiveThemeManager<CupertinoThemeData>)
+      return null;
     return state as AdaptiveThemeManager<CupertinoThemeData>;
   }
 
@@ -99,8 +105,10 @@ class CupertinoAdaptiveTheme extends StatefulWidget {
   /// This is safe to call inside initState or other places where you
   /// cannot call [BuildContext.dependOnInheritedWidgetOfExactType].
   static AdaptiveThemeManager<CupertinoThemeData>? read(BuildContext context) {
-    final state = context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>();
-    if (state == null || state is! AdaptiveThemeManager<CupertinoThemeData>) return null;
+    final state =
+        context.findAncestorStateOfType<State<CupertinoAdaptiveTheme>>();
+    if (state == null || state is! AdaptiveThemeManager<CupertinoThemeData>)
+      return null;
     return state as AdaptiveThemeManager<CupertinoThemeData>;
   }
 
@@ -143,7 +151,8 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   @override
   void didUpdateWidget(covariant CupertinoAdaptiveTheme oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.debugShowFloatingThemeButton != oldWidget.debugShowFloatingThemeButton &&
+    if (widget.debugShowFloatingThemeButton !=
+            oldWidget.debugShowFloatingThemeButton &&
         _debugShowFloatingThemeButton != widget.debugShowFloatingThemeButton) {
       _debugShowFloatingThemeButton = widget.debugShowFloatingThemeButton;
     }
@@ -155,7 +164,8 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
   }
 
   @override
-  bool get isDefault => theme == widget.light && darkTheme == widget.dark && mode == defaultMode;
+  bool get isDefault =>
+      theme == widget.light && darkTheme == widget.dark && mode == defaultMode;
 
   @override
   Brightness? get brightness => theme.brightness;
@@ -180,8 +190,10 @@ class _CupertinoAdaptiveThemeState extends State<CupertinoAdaptiveTheme>
           // This ensures that when device theme mode is changed, this also reacts
           // to it and applies required changes.
           if (mode.isSystem) {
-            final brightness = View.of(context).platformDispatcher.platformBrightness;
-            child = widget.builder(brightness == Brightness.light ? theme : darkTheme);
+            final brightness =
+                View.of(context).platformDispatcher.platformBrightness;
+            child = widget
+                .builder(brightness == Brightness.light ? theme : darkTheme);
           } else {
             child = widget.builder(mode.isLight ? theme : darkTheme);
           }
