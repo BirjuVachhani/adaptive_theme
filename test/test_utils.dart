@@ -6,12 +6,13 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
 
 /// clears saved theme mode from shared preferences.
-Future<void> clearPref() async {
-  final pref = await SharedPreferences.getInstance();
-  await pref.clear();
+void clearPref() {
+  SharedPreferencesAsyncPlatform.instance =
+      InMemorySharedPreferencesAsync.empty();
 }
 
 /// pumps [AdaptiveTheme] and [MaterialApp] with given [light], [dark] and [mode].

@@ -9,12 +9,15 @@ import 'package:adaptive_theme/src/adaptive_theme_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
 
 import 'test_utils.dart';
 
 void main() {
   setUp(() {
-    SharedPreferences.setMockInitialValues({});
+    SharedPreferencesAsyncPlatform.instance =
+        InMemorySharedPreferencesAsync.empty();
   });
 
   testWidgets('AdaptiveTheme initial light theme test', (tester) async {
@@ -50,9 +53,8 @@ void main() {
       'theme_mode': AdaptiveThemeMode.dark.index,
       'default_theme_mode': AdaptiveThemeMode.light.index,
     };
-    SharedPreferences.setMockInitialValues({
-      AdaptiveTheme.prefKey: json.encode(initialData),
-    });
+    final prefs = SharedPreferencesAsync();
+    await prefs.setString(AdaptiveTheme.prefKey, json.encode(initialData));
 
     await pumpMaterialApp(
       tester,
@@ -366,7 +368,7 @@ void main() {
     final BuildContext context = tester.element(find.byType(Scaffold));
     final manager = AdaptiveTheme.of(context);
 
-    await clearPref();
+    clearPref();
     await manager.persist();
 
     expect(ThemePreferences.fromPrefs(), completion(isNotNull),
@@ -411,9 +413,5 @@ void main() {
             'when platform brightness is changed to light, theme should be changed to light as well but it did not.');
     expect(manager.brightness, equals(Brightness.light),
         reason: 'manager.brightness should be light but it is not.');
-  });
-
-  tearDown(() async {
-    await clearPref();
   });
 }

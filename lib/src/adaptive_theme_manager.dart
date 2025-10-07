@@ -23,7 +23,8 @@ mixin AdaptiveThemeManager<T extends Object> {
   /// provides current theme
   T get theme {
     if (_preferences.mode.isSystem) {
-      final brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+      final brightness =
+          WidgetsBinding.instance.platformDispatcher.platformBrightness;
       return brightness == Brightness.light ? _theme : _darkTheme;
     }
     return _preferences.mode.isDark ? _darkTheme : _theme;
@@ -42,7 +43,8 @@ mixin AdaptiveThemeManager<T extends Object> {
   AdaptiveThemeMode get defaultMode => _preferences.defaultMode;
 
   /// Allows to listen to changes in them mode.
-  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier => _modeChangeNotifier;
+  ValueNotifier<AdaptiveThemeMode> get modeChangeNotifier =>
+      _modeChangeNotifier;
 
   /// checks whether current theme is default theme or not. Default theme
   /// refers to he themes provided at the time of initialization
