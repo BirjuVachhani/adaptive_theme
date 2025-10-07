@@ -89,6 +89,20 @@ class AdaptiveTheme extends StatefulWidget {
     return state as AdaptiveThemeManager<ThemeData>;
   }
 
+  /// Returns reference of the [AdaptiveThemeManager] which allows access of
+  /// the state object of [AdaptiveTheme] in a restrictive way.
+  ///
+  /// This does NOT establish a dependency on the [InheritedWidget], and will
+  /// not cause the widget to rebuild when the theme changes.
+  ///
+  /// This is safe to call inside initState or other places where you
+  /// cannot call [BuildContext.dependOnInheritedWidgetOfExactType].
+  static AdaptiveThemeManager<ThemeData>? read(BuildContext context) {
+    final state = context.findAncestorStateOfType<State<AdaptiveTheme>>();
+    if (state == null) return null;
+    return state as AdaptiveThemeManager<ThemeData>;
+  }
+
   /// returns most recent theme mode. This can be used to eagerly get previous
   /// theme mode inside main method before calling [runApp].
   static Future<AdaptiveThemeMode?> getThemeMode() async {
