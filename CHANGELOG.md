@@ -1,3 +1,8 @@
+# 3.7.2
+
+- Migrate Shared Preferences usage to new Async API.
+- Add `AdaptiveTheme.read(context)` method to read current theme without creating a dependency on it.
+
 # 3.7.1+2
 
 - Re-generate `example/web` directory with latest Flutter version.
