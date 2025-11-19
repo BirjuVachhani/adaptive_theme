@@ -305,7 +305,6 @@ class MyApp extends StatelessWidget {
       builder: (theme) => CupertinoApp(
         title: 'Adaptive Theme Demo',
         theme: theme,
-        darkTheme: darkTheme,
         home: MyHomePage(),
       ),
     );
