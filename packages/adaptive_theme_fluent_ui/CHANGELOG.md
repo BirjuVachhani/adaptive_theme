@@ -1,3 +1,11 @@
+# 1.4.0
+
+- Add support for `overrideMode` property in `FluentAdaptiveTheme` to allow overriding the current theme mode.
+- [Breaking] 'reset' method in `FluentAdaptiveTheme` now returns `Future<void>` instead of `Future<bool>`.
+- [Breaking] Bump up minimum `adaptive_theme` version to `3.8.0`.
+- [Breaking] Bump up minimum sdk version to `3.11.0`.
+- [Breaking] Bump up minimum flutter version to `3.35.0`.
+
 # 1.3.0
 
 - Add support for dynamically changing debugShowFloatingThemeButton state using AdaptiveTheme.of(context).setDebugShowFloatingThemeButton(bool) method.

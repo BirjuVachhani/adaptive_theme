@@ -1,3 +1,10 @@
+# 3.8.0
+
+- [Breaking] Migrate to `material_ui` and `cupertino_ui` packages for Material and Cupertino theme data respectively.
+- [Breaking] Bump up minimum sdk version to `3.11.0`.
+- [Breaking] Bump up minimum flutter version to `3.35.0`.
+- [Breaking] Bump up minimum shared_preferences version to `2.5.0`.
+
 # 3.7.2
 
 - Migrate Shared Preferences usage to new Async API.
