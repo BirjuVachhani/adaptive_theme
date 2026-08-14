@@ -31,10 +31,10 @@ class InheritedAdaptiveTheme<T extends Object> extends InheritedWidget {
     super.key,
     required AdaptiveThemeManager<T> manager,
     required super.child,
-  })  : mode = manager.mode,
-        theme = manager.theme,
-        darkTheme = manager.darkTheme,
-        brightness = manager.brightness;
+  }) : mode = manager.mode,
+       theme = manager.theme,
+       darkTheme = manager.darkTheme,
+       brightness = manager.brightness;
 
   @override
   bool updateShouldNotify(covariant InheritedAdaptiveTheme<T> oldWidget) {

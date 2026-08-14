@@ -25,20 +25,29 @@ void main() {
     });
 
     test('theme preferences fromPref tests when not set', () async {
-      expect(ThemePreferences.fromPrefs(), completion(isNull),
-          reason: 'should be null initially!');
-      expect(ThemePreferences.fromPrefs(), completes,
-          reason:
-              'fromPrefs() should complete without any exceptions when no data is set to preferences.');
+      expect(
+        ThemePreferences.fromPrefs(),
+        completion(isNull),
+        reason: 'should be null initially!',
+      );
+      expect(
+        ThemePreferences.fromPrefs(),
+        completes,
+        reason:
+            'fromPrefs() should complete without any exceptions when no data is set to preferences.',
+      );
     });
 
     test('theme preferences fromPref tests when invalid data is set', () async {
       final prefs = SharedPreferencesAsync();
       await prefs.setString(AdaptiveTheme.prefKey, 'text');
 
-      expect(ThemePreferences.fromPrefs(), completes,
-          reason:
-              'fromPrefs() should complete without any exceptions when invalid data is set to preferences.');
+      expect(
+        ThemePreferences.fromPrefs(),
+        completes,
+        reason:
+            'fromPrefs() should complete without any exceptions when invalid data is set to preferences.',
+      );
     });
 
     test('theme preferences fromPref tests when set', () async {
@@ -48,63 +57,97 @@ void main() {
       };
       final prefs = SharedPreferencesAsync();
       await prefs.setString(AdaptiveTheme.prefKey, json.encode(initialData));
-      expect(ThemePreferences.fromPrefs(), completion(isNotNull),
-          reason:
-              'fromPrefs() must not return null when there is data in shared preferences');
-      expect(ThemePreferences.fromPrefs(), completes,
-          reason:
-              'fromPrefs() should complete without any exceptions when data is set to preferences.');
+      expect(
+        ThemePreferences.fromPrefs(),
+        completion(isNotNull),
+        reason:
+            'fromPrefs() must not return null when there is data in shared preferences',
+      );
+      expect(
+        ThemePreferences.fromPrefs(),
+        completes,
+        reason:
+            'fromPrefs() should complete without any exceptions when data is set to preferences.',
+      );
 
       final retrieved = await ThemePreferences.fromPrefs();
-      expect(retrieved!.mode, equals(AdaptiveThemeMode.dark),
-          reason:
-              'Saved theme mode was dark but fromPrefs() loaded something else.');
-      expect(retrieved.defaultMode, equals(AdaptiveThemeMode.light),
-          reason:
-              'Saved default theme mode was light but fromPrefs() loaded something else.');
+      expect(
+        retrieved!.mode,
+        equals(AdaptiveThemeMode.dark),
+        reason:
+            'Saved theme mode was dark but fromPrefs() loaded something else.',
+      );
+      expect(
+        retrieved.defaultMode,
+        equals(AdaptiveThemeMode.light),
+        reason:
+            'Saved default theme mode was light but fromPrefs() loaded something else.',
+      );
     });
 
-    test('theme preferences fromPref tests when default mode is not set',
-        () async {
-      final initialData = {
-        'theme_mode': AdaptiveThemeMode.dark.index,
-      };
-      final prefs = SharedPreferencesAsync();
-      await prefs.setString(AdaptiveTheme.prefKey, json.encode(initialData));
+    test(
+      'theme preferences fromPref tests when default mode is not set',
+      () async {
+        final initialData = {'theme_mode': AdaptiveThemeMode.dark.index};
+        final prefs = SharedPreferencesAsync();
+        await prefs.setString(AdaptiveTheme.prefKey, json.encode(initialData));
 
-      final retrieved = await ThemePreferences.fromPrefs();
-      expect(retrieved!.mode, equals(AdaptiveThemeMode.dark),
-          reason:
-              'Saved theme mode was dark but fromPrefs() loaded something else.');
-      expect(retrieved.defaultMode, equals(AdaptiveThemeMode.dark),
-          reason:
-              'When no default mode is saved, it should same as current mode.');
-    });
-
-    test('ThemePreferences.initial tests', () async {
-      expect(ThemePreferences.initial(mode: AdaptiveThemeMode.dark).defaultMode,
+        final retrieved = await ThemePreferences.fromPrefs();
+        expect(
+          retrieved!.mode,
           equals(AdaptiveThemeMode.dark),
           reason:
-              'ThemePreferences.initial also initialize default mode to be same as current mode.');
+              'Saved theme mode was dark but fromPrefs() loaded something else.',
+        );
+        expect(
+          retrieved.defaultMode,
+          equals(AdaptiveThemeMode.dark),
+          reason:
+              'When no default mode is saved, it should same as current mode.',
+        );
+      },
+    );
+
+    test('ThemePreferences.initial tests', () async {
+      expect(
+        ThemePreferences.initial(mode: AdaptiveThemeMode.dark).defaultMode,
+        equals(AdaptiveThemeMode.dark),
+        reason:
+            'ThemePreferences.initial also initialize default mode to be same as current mode.',
+      );
     });
 
     test('ThemePreferences save() tests', () async {
-      expect(ThemePreferences.fromPrefs(), completion(isNull),
-          reason: 'ThemePreferences should be null initially.');
+      expect(
+        ThemePreferences.fromPrefs(),
+        completion(isNull),
+        reason: 'ThemePreferences should be null initially.',
+      );
 
-      expect(ThemePreferences.initial().save(), completes,
-          reason: 'save() should complete without throwing.');
+      expect(
+        ThemePreferences.initial().save(),
+        completes,
+        reason: 'save() should complete without throwing.',
+      );
 
-      expect(ThemePreferences.fromPrefs(), completion(isNotNull),
-          reason:
-              'once preferences are saved, fromPrefs() should not return null.');
+      expect(
+        ThemePreferences.fromPrefs(),
+        completion(isNotNull),
+        reason:
+            'once preferences are saved, fromPrefs() should not return null.',
+      );
 
       final retrieved = await ThemePreferences.fromPrefs();
-      expect(retrieved!.mode, equals(AdaptiveThemeMode.light),
-          reason: 'saved mode was light but retrieved one is different.');
-      expect(retrieved.defaultMode, equals(AdaptiveThemeMode.light),
-          reason:
-              'saved default mode was light but retrieved one is different.');
+      expect(
+        retrieved!.mode,
+        equals(AdaptiveThemeMode.light),
+        reason: 'saved mode was light but retrieved one is different.',
+      );
+      expect(
+        retrieved.defaultMode,
+        equals(AdaptiveThemeMode.light),
+        reason: 'saved default mode was light but retrieved one is different.',
+      );
     });
 
     test('ThemePreferences reset() tests', () async {
@@ -116,19 +159,30 @@ void main() {
       await prefs.setString(AdaptiveTheme.prefKey, json.encode(initialData));
 
       final retrieved = await ThemePreferences.fromPrefs();
-      expect(retrieved, isNotNull,
-          reason:
-              'fromPrefs() should not return null when some data is already saved.');
-      expect(retrieved!.mode, equals(AdaptiveThemeMode.dark),
-          reason: 'dark mode was saved but retrieved one is different.');
-      expect(retrieved.defaultMode, equals(AdaptiveThemeMode.system),
-          reason:
-              'default system mode was saved but retrieved one is different.');
+      expect(
+        retrieved,
+        isNotNull,
+        reason:
+            'fromPrefs() should not return null when some data is already saved.',
+      );
+      expect(
+        retrieved!.mode,
+        equals(AdaptiveThemeMode.dark),
+        reason: 'dark mode was saved but retrieved one is different.',
+      );
+      expect(
+        retrieved.defaultMode,
+        equals(AdaptiveThemeMode.system),
+        reason: 'default system mode was saved but retrieved one is different.',
+      );
 
       retrieved.reset();
-      expect(retrieved.mode, equals(AdaptiveThemeMode.system),
-          reason:
-              'reset() should have reset mode to default mode but it did not.');
+      expect(
+        retrieved.mode,
+        equals(AdaptiveThemeMode.system),
+        reason:
+            'reset() should have reset mode to default mode but it did not.',
+      );
     });
   });
 }

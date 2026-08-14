@@ -99,8 +99,10 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
     super.didChangeDependencies();
     if (hidden) {
       final left = MediaQuery.of(context).size.width - kHandleWidth;
-      position =
-          Offset(left, position.dy == 0 ? kThemeButtonHeight : position.dy);
+      position = Offset(
+        left,
+        position.dy == 0 ? kThemeButtonHeight : position.dy,
+      );
     }
   }
 
@@ -140,18 +142,16 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
                           color: Theme.of(context).colorScheme.surface,
                           borderRadius: BorderRadius.circular(6),
                           border: Border.all(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withValues(alpha: 0.1),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withValues(alpha: 0.1),
                             width: 1,
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurface
-                                  .withValues(alpha: 0.1),
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurface.withValues(alpha: 0.1),
                               blurRadius: 4,
                               offset: const Offset(0, 2),
                             ),
@@ -163,19 +163,22 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
                           children: [
                             GestureDetector(
                               onPanUpdate: (details) {
-                                final delta = details.localPosition -
+                                final delta =
+                                    details.localPosition -
                                     initialLocalPosition;
                                 setState(() {
                                   hidden = false;
                                   position = Offset(
                                     (initialPosition.dx + delta.dx).clamp(
-                                        0,
-                                        MediaQuery.of(context).size.width -
-                                            kHandleWidth),
+                                      0,
+                                      MediaQuery.of(context).size.width -
+                                          kHandleWidth,
+                                    ),
                                     (initialPosition.dy + delta.dy).clamp(
-                                        0,
-                                        MediaQuery.of(context).size.height -
-                                            kThemeButtonHeight),
+                                      0,
+                                      MediaQuery.of(context).size.height -
+                                          kThemeButtonHeight,
+                                    ),
                                   );
                                 });
                               },
@@ -194,9 +197,7 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
                                 child: Icon(
                                   Icons.drag_indicator_rounded,
                                   size: 20,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
+                                  color: Theme.of(context).colorScheme.onSurface
                                       .withValues(alpha: 0.6),
                                 ),
                               ),
@@ -225,7 +226,7 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
     animate = true;
     final buttonBarWidth =
         _buttonBarKey.currentContext?.findRenderObject()?.paintBounds.width ??
-            210;
+        210;
     final width = MediaQuery.of(context).size.width;
     final left = !hidden ? width - kHandleWidth : width - (buttonBarWidth + 8);
     hidden = !hidden;
@@ -233,8 +234,8 @@ class _DebugFloatingThemeButtonState extends State<DebugFloatingThemeButton> {
   }
 }
 
-typedef _ThemeModeChangedCallback = void Function(
-    AdaptiveThemeMode newThemeModeSet);
+typedef _ThemeModeChangedCallback =
+    void Function(AdaptiveThemeMode newThemeModeSet);
 
 class _ThemeModeSelector extends StatelessWidget {
   const _ThemeModeSelector({

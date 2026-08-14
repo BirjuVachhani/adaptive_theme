@@ -75,8 +75,10 @@ class AdaptiveTheme extends StatefulWidget {
   /// Returns reference of the [AdaptiveThemeManager] which allows access of
   /// the state object of [AdaptiveTheme] in a restrictive way.
   static AdaptiveThemeManager<ThemeData> of(BuildContext context) {
-    context.dependOnInheritedWidgetOfExactType<
-        InheritedAdaptiveTheme<ThemeData>>()!;
+    context
+        .dependOnInheritedWidgetOfExactType<
+          InheritedAdaptiveTheme<ThemeData>
+        >()!;
     return context.findAncestorStateOfType<State<AdaptiveTheme>>()!
         as AdaptiveThemeManager<ThemeData>;
   }
@@ -85,8 +87,10 @@ class AdaptiveTheme extends StatefulWidget {
   /// the state object of [AdaptiveTheme] in a restrictive way.
   /// This returns null if the state instance of [AdaptiveTheme] is not found.
   static AdaptiveThemeManager<ThemeData>? maybeOf(BuildContext context) {
-    context.dependOnInheritedWidgetOfExactType<
-        InheritedAdaptiveTheme<ThemeData>>();
+    context
+        .dependOnInheritedWidgetOfExactType<
+          InheritedAdaptiveTheme<ThemeData>
+        >();
     final state = context.findAncestorStateOfType<State<AdaptiveTheme>>();
     if (state == null) return null;
     return state as AdaptiveThemeManager<ThemeData>;
@@ -169,11 +173,7 @@ class _AdaptiveThemeState extends State<AdaptiveTheme>
 
   @override
   Future<void> reset() async {
-    setTheme(
-      light: widget.light,
-      dark: widget.dark,
-      notify: false,
-    );
+    setTheme(light: widget.light, dark: widget.dark, notify: false);
     return super.reset();
   }
 

@@ -24,24 +24,22 @@ Future<void> pumpMaterialApp(
   bool? debugShowFloatingThemeButton,
   Duration? maxDuration,
 }) async {
-  await tester.pumpWidget(AdaptiveTheme(
-    light: light,
-    dark: dark,
-    initial: mode,
-    debugShowFloatingThemeButton: debugShowFloatingThemeButton ?? false,
-    builder: (light, dark) => MaterialApp(
-      theme: light,
-      darkTheme: dark,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('AdaptiveTheme Test'),
-        ),
-        body: const Center(
-          child: Text('Hello'),
+  await tester.pumpWidget(
+    AdaptiveTheme(
+      light: light,
+      dark: dark,
+      initial: mode,
+      debugShowFloatingThemeButton: debugShowFloatingThemeButton ?? false,
+      builder: (light, dark) => MaterialApp(
+        theme: light,
+        darkTheme: dark,
+        home: Scaffold(
+          appBar: AppBar(title: const Text('AdaptiveTheme Test')),
+          body: const Center(child: Text('Hello')),
         ),
       ),
     ),
-  ));
+  );
 }
 
 /// pumps [CupertinoAdaptiveTheme] and [CupertinoApp] with given [light], [dark] and [mode].
@@ -52,21 +50,21 @@ Future<void> pumpCupertinoApp(
   required AdaptiveThemeMode mode,
   bool debugShowFloatingThemeButton = false,
 }) async {
-  await tester.pumpWidget(CupertinoAdaptiveTheme(
-    light: light,
-    dark: dark,
-    initial: mode,
-    debugShowFloatingThemeButton: debugShowFloatingThemeButton,
-    builder: (theme) => CupertinoApp(
-      theme: theme,
-      home: const CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: Text('Cupertino Example'),
-        ),
-        child: Center(
-          child: Text('Hello'),
+  await tester.pumpWidget(
+    CupertinoAdaptiveTheme(
+      light: light,
+      dark: dark,
+      initial: mode,
+      debugShowFloatingThemeButton: debugShowFloatingThemeButton,
+      builder: (theme) => CupertinoApp(
+        theme: theme,
+        home: const CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            middle: Text('Cupertino Example'),
+          ),
+          child: Center(child: Text('Hello')),
         ),
       ),
     ),
-  ));
+  );
 }

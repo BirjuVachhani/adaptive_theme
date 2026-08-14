@@ -112,11 +112,7 @@ mixin AdaptiveThemeManager<T extends Object> {
 
   /// Allows to set/change the entire theme.
   /// [notify] when set to true, will update the UI to use the new theme..
-  void setTheme({
-    required T light,
-    T? dark,
-    bool notify = true,
-  }) {
+  void setTheme({required T light, T? dark, bool notify = true}) {
     _theme = light;
     if (dark != null) _darkTheme = dark;
     if (notify) updateState();

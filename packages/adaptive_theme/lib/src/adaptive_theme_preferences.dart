@@ -22,7 +22,7 @@ class ThemePreferences {
 
   /// Creates a new instance of ThemePreferences with the given [mode].
   ThemePreferences.initial({AdaptiveThemeMode mode = AdaptiveThemeMode.light})
-      : this._(mode, mode);
+    : this._(mode, mode);
 
   /// Resets the saved preferences to the default values.
   void reset() => mode = defaultMode;
@@ -42,8 +42,10 @@ class ThemePreferences {
   }
 
   /// Converts the current instance to a json object.
-  Map<String, dynamic> toJson() =>
-      {'theme_mode': mode.index, 'default_theme_mode': defaultMode.index};
+  Map<String, dynamic> toJson() => {
+    'theme_mode': mode.index,
+    'default_theme_mode': defaultMode.index,
+  };
 
   /// saves the current theme preferences to the shared-preferences
   Future<void> save() {
