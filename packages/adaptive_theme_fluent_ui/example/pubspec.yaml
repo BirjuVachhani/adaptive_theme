@@ -1,0 +1,25 @@
+name: example
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.11.3 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  adaptive_theme: '>=3.7.2 <4.0.0'
+  adaptive_theme_fluent_ui:
+    path: ../
+  fluent_ui: '>=4.3.0 <5.0.0'
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+
+flutter:
+  uses-material-design: true

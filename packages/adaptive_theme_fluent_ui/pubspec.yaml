@@ -1,0 +1,27 @@
+name: adaptive_theme_fluent_ui
+description: An extension package of adaptive_theme library that supports dynamic theming for fluent_ui package.
+
+version: 1.3.0
+
+repository: https://github.com/birjuvachhani/adaptive_theme
+homepage: https://github.com/birjuvachhani/adaptive_theme
+
+resolution: workspace
+
+environment:
+  sdk: ">=3.11.0 <4.0.0"
+  flutter: ">=3.35.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  adaptive_theme: '>=3.7.2 <4.0.0'
+  fluent_ui: '>=4.3.0 <5.0.0'
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
