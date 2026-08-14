@@ -5,8 +5,8 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:example/cupertino_example.dart';
 import 'package:example/material_example.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/widgets.dart';
 
 void main() async {

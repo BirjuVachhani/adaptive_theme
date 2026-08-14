@@ -6,7 +6,7 @@
 // Created Date: April 16, 2021
 
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 class CupertinoExample extends StatelessWidget {
   final AdaptiveThemeMode? savedThemeMode;

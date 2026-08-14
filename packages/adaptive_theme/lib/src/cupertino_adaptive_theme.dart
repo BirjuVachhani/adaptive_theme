@@ -2,7 +2,7 @@
 // Use of this source code is governed by an Apache license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter/foundation.dart';
 
 import 'adaptive_theme_manager.dart';

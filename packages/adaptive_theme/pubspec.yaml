@@ -16,7 +16,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  shared_preferences: '>=2.4.0 <3.0.0'
+  shared_preferences: '>=2.5.0 <3.0.0'
+  material_ui: '>=1.0.0 <2.0.0'
+  cupertino_ui: '>=1.0.0 <2.0.0'
 
 dev_dependencies:
   flutter_test:

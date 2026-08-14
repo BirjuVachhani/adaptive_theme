@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   adaptive_theme:
     path: ../
+  material_ui: '>=1.0.0 <2.0.0'
+  cupertino_ui: '>=1.0.0 <2.0.0'
 
 dev_dependencies:
   flutter_test:

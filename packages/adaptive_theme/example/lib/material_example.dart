@@ -6,7 +6,7 @@
 // Created Date: April 16, 2021
 
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class MaterialExample extends StatelessWidget {
   final AdaptiveThemeMode? savedThemeMode;
