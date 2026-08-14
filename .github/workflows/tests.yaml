@@ -26,7 +26,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
       - name: Run tests
+        working-directory: packages/adaptive_theme
         run: flutter test --coverage .
       - uses: codecov/codecov-action@v3
         with:
-          file: coverage/lcov.info
+          file: packages/adaptive_theme/coverage/lcov.info

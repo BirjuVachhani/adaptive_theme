@@ -28,10 +28,14 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
       - name: Format code
+        working-directory: packages/adaptive_theme
         run: dart format .
       - name: Tests
+        working-directory: packages/adaptive_theme
         run: flutter test .
       - name: Dry Run
+        working-directory: packages/adaptive_theme
         run: flutter pub publish --dry-run
       - name: Publish
+        working-directory: packages/adaptive_theme
         run: dart pub publish --force

@@ -26,4 +26,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
       - name: Check Publish Warnings
+        working-directory: packages/adaptive_theme
+        run: flutter pub publish --dry-run
+      - name: Check Publish Warnings for adaptive_theme_fluent_ui
+        working-directory: packages/adaptive_theme_fluent_ui
         run: flutter pub publish --dry-run
