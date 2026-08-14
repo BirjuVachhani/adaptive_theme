@@ -8,10 +8,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 class FluentExample extends StatelessWidget {
   final AdaptiveThemeMode? savedThemeMode;
 
-  const FluentExample({
-    super.key,
-    this.savedThemeMode,
-  });
+  const FluentExample({super.key, this.savedThemeMode});
 
   @override
   Widget build(BuildContext context) {
@@ -93,10 +90,7 @@ class Body extends StatelessWidget {
             const Spacer(),
             const Text(
               'Current Theme Mode',
-              style: TextStyle(
-                fontSize: 20,
-                letterSpacing: 0.8,
-              ),
+              style: TextStyle(fontSize: 20, letterSpacing: 0.8),
             ),
             Text(
               FluentAdaptiveTheme.of(context).mode.modeName.toUpperCase(),

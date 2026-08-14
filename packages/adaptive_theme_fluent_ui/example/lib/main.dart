@@ -22,9 +22,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
       duration: const Duration(seconds: 1),
-      child: FluentExample(
-        savedThemeMode: widget.savedThemeMode,
-      ),
+      child: FluentExample(savedThemeMode: widget.savedThemeMode),
     );
   }
 }
