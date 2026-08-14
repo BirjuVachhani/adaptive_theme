@@ -1,4 +1,4 @@
-format: dart format --fix .
+format: dart format .
 cov:
   - flutter test --coverage
   - genhtml coverage/lcov.info -o coverage/html
